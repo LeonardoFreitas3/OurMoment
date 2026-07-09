@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="om-about-text om-fade">
-    <h2 class="om-section-title" style="text-align:left;">Shop</h2>
+    <h2 class="om-section-title" style="text-align:left;">Our Story</h2>
     <p>At OurMoment, we believe in the power of meaningful, personalized gifts that celebrate love and connection.</p>
     <p>Founded with the goal of creating timeless keepsakes for couples, we fill each piece we create with thoughtfulness and care. Our mission is to help you capture your special moments and turn them into beautiful, lasting memories.</p>
     <a href="#shop" class="btn" style="margin-top:1.2rem;">Shop Now</a>

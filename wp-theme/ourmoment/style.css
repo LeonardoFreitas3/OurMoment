@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.0.1
+Version: 1.1.0
 Text Domain: ourmoment
 */
 
@@ -449,6 +449,224 @@ button[type="submit"]:hover,
 .woocommerce form .form-row textarea:focus {
   border-color: var(--accent) !important;
   box-shadow: none !important;
+}
+
+/* ── Layout helpers ── */
+.om-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+}
+/* fixed nav clearance on inner pages (front page hero handles its own) */
+body:not(.home) #page,
+body:not(.home) .hfeed.site {
+  padding-top: 56px;
+}
+
+/* ── Nav cart ── */
+.om-nav-cart {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  color: var(--text-soft);
+  transition: color .2s;
+}
+.om-nav-cart:hover { color: var(--text); }
+.om-cart-count {
+  font-size: .6rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+.om-cart-count.has-items {
+  background: var(--accent);
+  color: #fff;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+.om-nav-inner { position: relative; }
+@media (max-width: 640px) {
+  .om-nav-cart { right: calc(clamp(1.25rem, 4vw, 2.5rem) + 2.2rem); }
+}
+
+/* ── Categories ── */
+.om-categories { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.om-categories-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.2rem, 3vw, 2.5rem);
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media (max-width: 640px) {
+  .om-categories-grid { grid-template-columns: 1fr; max-width: 360px; }
+}
+.om-category-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  transition: transform .3s, box-shadow .3s;
+  display: block;
+}
+.om-category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.om-category-visual {
+  width: 130px;
+  height: 130px;
+  margin: 0 auto 1.2rem;
+}
+.om-category-card h3 {
+  font-family: var(--font-display) !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  letter-spacing: .04em;
+  margin-bottom: .5rem;
+}
+.om-category-card p {
+  font-size: .75rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  max-width: 30ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.om-category-link {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-weight: 500;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+}
+
+/* ── How It Works ── */
+.om-how {
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
+  background: var(--bg-warm);
+}
+.om-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+@media (max-width: 680px) {
+  .om-steps { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+}
+.om-step {
+  text-align: center;
+  position: relative;
+}
+.om-step-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+.om-step-icon svg { width: 100%; height: 100%; }
+.om-step-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: .75rem;
+  color: var(--accent);
+  letter-spacing: .2em;
+  margin-bottom: .4rem;
+}
+.om-step h3 {
+  font-family: var(--font-display) !important;
+  font-size: .95rem !important;
+  font-weight: 400 !important;
+  margin-bottom: .5rem;
+}
+.om-step p {
+  font-size: .75rem;
+  color: var(--text-soft);
+  line-height: 1.7;
+  max-width: 28ch;
+  margin: 0 auto;
+}
+
+/* ── Shop section ── */
+.om-shop { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+
+/* ── Testimonials ── */
+.om-testimonials {
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
+  background: var(--bg-warm);
+}
+.om-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+}
+@media (max-width: 680px) {
+  .om-testimonials-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+}
+.om-testimonial {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 1.6rem 1.4rem;
+  text-align: center;
+}
+.om-testimonial-hearts {
+  color: var(--accent);
+  font-size: .7rem;
+  letter-spacing: .3em;
+  margin-bottom: .8rem;
+}
+.om-testimonial p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: .85rem;
+  line-height: 1.7;
+  margin-bottom: .8rem;
+}
+.om-testimonial span {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--text-soft);
+}
+
+/* ── Footer links ── */
+.om-footer-links {
+  display: flex;
+  gap: 1.2rem;
+}
+.om-footer-links a {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  color: var(--text-soft);
+  transition: color .2s;
+}
+.om-footer-links a:hover { color: var(--accent); }
+
+/* ── Customily personalizer area ── */
+.customily-personalizer,
+#customily-container,
+.cly-container {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-family: var(--font-body) !important;
 }
 
 /* ── Fade animation ── */

@@ -11,8 +11,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.0.1');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.0.1', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.1.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.1.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -22,6 +22,32 @@ add_action('after_setup_theme', function () {
     add_theme_support('wc-product-gallery-slider');
 });
 
+/**
+ * Replace Astra's header/footer with the brand nav/footer on ALL pages
+ * (front page renders its own inside front-page.php).
+ */
+add_action('wp', function () {
+    if (is_front_page()) {
+        return;
+    }
+    remove_action('astra_header', 'astra_header_markup');
+    remove_action('astra_footer', 'astra_footer_markup');
+    add_action('astra_header', function () {
+        get_template_part('template-parts/nav');
+    });
+    add_action('astra_footer', function () {
+        get_template_part('template-parts/site-footer');
+    });
+});
+
+// Refresh the nav cart count when products are added via AJAX
+add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+    $count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
+    $fragments['.om-cart-count'] = '<span class="om-cart-count' . ($count ? ' has-items' : '') . '">' . esc_html($count) . '</span>';
+    return $fragments;
+});
+
+// Brand logo SVG symbol, available on every page
 add_action('wp_head', function () {
     ?>
     <svg xmlns="http://www.w3.org/2000/svg" style="display:none">

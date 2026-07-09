@@ -182,7 +182,7 @@
 <p class="subtitle">Guia de Setup Completo</p>
 
 <div class="counter" id="counter">
-  <strong>0</strong> de <strong>22</strong> passos completos
+  <strong>0</strong> de <strong>23</strong> passos completos
 </div>
 
 <!-- PHASE 1 -->
@@ -204,8 +204,11 @@
   <div class="step" data-step="2">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
-      <div class="step-title">Escolher produtos</div>
-      <div class="step-desc">Catalog → pesquisa "poster", "canvas", "mug", "book". Adiciona os que queres vender. Para começar recomendo: 1 poster + 1 caneca + 1 canvas.</div>
+      <div class="step-title">Escolher produtos — canecas e quadros</div>
+      <div class="step-desc">Catalog → adiciona:
+        <br>• <strong>Caneca:</strong> "Ceramic Mug 11oz" (a mais vendida; o 15oz é opcional)
+        <br>• <strong>Quadros:</strong> "Framed Vertical Poster" (moldura de madeira, igual ao design do site) e/ou "Matte Vertical Poster" + "Stretched Canvas"
+      </div>
     </div>
   </div>
 
@@ -221,7 +224,7 @@
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Escolher fornecedor</div>
-      <div class="step-desc">Para cada produto, o Printify mostra vários fornecedores (Print Providers). Escolhe pelo melhor equilíbrio preço/qualidade/shipping para Portugal/Europa.</div>
+      <div class="step-desc">Para cada produto, o Printify mostra vários fornecedores (Print Providers). Para Portugal/Europa escolhe fornecedores com produção na Europa (ex.: Print Logistic, Printify Choice EU) — shipping mais rápido e sem alfândega.</div>
     </div>
   </div>
 
@@ -313,11 +316,10 @@
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Criar templates no Customily</div>
-      <div class="step-desc">Para cada produto: Customily → Templates → New Template. Seleciona o produto do Printify. Define as zonas editáveis:
-        <br>• Zona de imagem (onde o cliente faz upload da foto)
-        <br>• Campo de texto (nome do casal)
-        <br>• Campo de texto (data)
-        <br>• Selector de fonte
+      <div class="step-desc">Para cada produto: Customily → Templates → New Template. Seleciona o produto do Printify e define as zonas editáveis:
+        <br>• <strong>Caneca 11oz:</strong> zona de foto ao centro + nome do casal por baixo + data. Atenção à área de impressão wrap-around (a zona útil visível é frente/verso).
+        <br>• <strong>Quadro/Poster:</strong> zona de foto grande + nomes em Playfair Display + data em Montserrat, centrados em baixo (igual ao mockup do site).
+        <br>• Fontes a disponibilizar: Playfair Display, Montserrat + 2-3 opções de script (ex.: Great Vibes).
       </div>
     </div>
   </div>
@@ -327,6 +329,14 @@
     <div class="step-text">
       <div class="step-title">Associar templates aos produtos</div>
       <div class="step-desc">No Customily, liga cada template ao produto WooCommerce correspondente. Quando o cliente abre o produto na loja, o personalizador aparece automaticamente.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="15">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Testar o personalizador</div>
+      <div class="step-desc">Abre cada produto na loja como cliente: faz upload de uma foto, escreve nomes e data, confirma que o preview ao vivo mostra tudo na posição certa dentro da zona de impressão. Testa também no telemóvel.</div>
     </div>
   </div>
 
