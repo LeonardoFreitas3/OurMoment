@@ -1,0 +1,463 @@
+<title>OurMoment — Guia de Setup Completo</title>
+<style>
+  :root {
+    --bg: #F7F3EF;
+    --bg-card: #FFFFFF;
+    --text: #3A2F2A;
+    --text-soft: #8A7E74;
+    --accent: #C9A98B;
+    --border: #E4D9CE;
+    --green: #7A9E7E;
+    --green-bg: #EDF5EE;
+    --font-display: Georgia, 'Times New Roman', serif;
+    --font-body: 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1.5rem 4rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: .3rem;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    color: var(--text-soft);
+    margin-bottom: 2.5rem;
+  }
+
+  .phase {
+    margin-bottom: 2.5rem;
+  }
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-number {
+    width: 32px; height: 32px;
+    background: var(--accent);
+    color: var(--bg-card);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .phase-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  .phase-time {
+    margin-left: auto;
+    font-size: .6rem;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    color: var(--text-soft);
+    white-space: nowrap;
+  }
+
+  .step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 1rem 1.2rem;
+    margin-bottom: .6rem;
+    position: relative;
+    display: flex;
+    gap: .8rem;
+  }
+  .step-check {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+  }
+  .step-check.done {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .step-check.done::after {
+    content: '✓';
+    color: white;
+    font-size: .7rem;
+    font-weight: 700;
+  }
+  .step.completed .step-text { opacity: .5; text-decoration: line-through; }
+
+  .step-text { flex: 1; }
+  .step-title {
+    font-size: .82rem;
+    font-weight: 600;
+    margin-bottom: .2rem;
+  }
+  .step-desc {
+    font-size: .75rem;
+    color: var(--text-soft);
+    line-height: 1.6;
+  }
+  .step-desc code {
+    background: var(--bg);
+    padding: .1rem .35rem;
+    font-size: .7rem;
+    border: 1px solid var(--border);
+  }
+
+  .tip {
+    background: var(--green-bg);
+    border-left: 3px solid var(--green);
+    padding: .7rem 1rem;
+    margin: .6rem 0;
+    font-size: .72rem;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .tip strong { color: var(--green); }
+
+  .warn {
+    background: #FDF6EE;
+    border-left: 3px solid var(--accent);
+    padding: .7rem 1rem;
+    margin: .6rem 0;
+    font-size: .72rem;
+    line-height: 1.6;
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--border);
+    z-index: 100;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width .3s;
+  }
+
+  .counter {
+    text-align: center;
+    font-size: .7rem;
+    color: var(--text-soft);
+    letter-spacing: .1em;
+    margin-bottom: 2rem;
+    padding: .6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+  }
+  .counter strong { color: var(--text); }
+</style>
+
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<h1>OurMoment</h1>
+<p class="subtitle">Guia de Setup Completo</p>
+
+<div class="counter" id="counter">
+  <strong>0</strong> de <strong>22</strong> passos completos
+</div>
+
+<!-- PHASE 1 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">1</div>
+    <div class="phase-title">Printify — Criar Produtos</div>
+    <span class="phase-time">~30 min</span>
+  </div>
+
+  <div class="step" data-step="1">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar conta no Printify</div>
+      <div class="step-desc">Vai a <code>printify.com</code> → Sign Up (grátis). Usa o email da marca.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="2">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Escolher produtos</div>
+      <div class="step-desc">Catalog → pesquisa "poster", "canvas", "mug", "book". Adiciona os que queres vender. Para começar recomendo: 1 poster + 1 caneca + 1 canvas.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="3">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar designs base</div>
+      <div class="step-desc">Para cada produto, cria um design no editor do Printify. Usa o teu logo e um layout exemplo (nomes + data). Isto serve de template — o Customily vai personalizar depois.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="4">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Escolher fornecedor</div>
+      <div class="step-desc">Para cada produto, o Printify mostra vários fornecedores (Print Providers). Escolhe pelo melhor equilíbrio preço/qualidade/shipping para Portugal/Europa.</div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Dica:</strong> Encomenda uma amostra de cada produto para ti antes de vender. Custa pouco e garantes que a qualidade é boa.</div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">2</div>
+    <div class="phase-title">Printify → WooCommerce</div>
+    <span class="phase-time">~10 min</span>
+  </div>
+
+  <div class="step" data-step="5">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Ligar Printify ao WooCommerce</div>
+      <div class="step-desc">No Printify: Manage Stores → Add New Store → WooCommerce. Insere o URL do teu site: <code>ourmoment-1-1347022.ingress-erytho.ewp.live</code></div>
+    </div>
+  </div>
+
+  <div class="step" data-step="6">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Instalar plugin Printify no WordPress</div>
+      <div class="step-desc">WordPress Admin → Plugins → Adicionar Novo → pesquisa "Printify" → Instalar → Ativar. Autoriza a ligação quando pedido.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="7">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Publicar produtos</div>
+      <div class="step-desc">No Printify, para cada produto criado: clica "Publish" → seleciona a tua loja WooCommerce. Os produtos aparecem automaticamente no WooCommerce.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="8">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Verificar produtos no WordPress</div>
+      <div class="step-desc">WordPress Admin → WooCommerce → Produtos. Confirma que os produtos do Printify apareceram com imagens e preços.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">3</div>
+    <div class="phase-title">Customily — Personalizador</div>
+    <span class="phase-time">~45 min</span>
+  </div>
+
+  <div class="step" data-step="9">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar conta no Customily</div>
+      <div class="step-desc">Vai a <code>customily.com</code> → Start Free Trial ou escolhe o plano de $19/mês. Regista com o email da marca.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="10">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Instalar plugin Customily no WordPress</div>
+      <div class="step-desc">WordPress Admin → Plugins → Adicionar Novo → pesquisa "Customily" → Instalar → Ativar. Ou faz download do plugin no site do Customily e faz upload manual.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="11">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Ligar Customily ao WooCommerce</div>
+      <div class="step-desc">No painel do Customily: Settings → Integrations → WooCommerce. Insere o URL do site + API Key do WooCommerce (WooCommerce → Settings → Advanced → REST API → Add Key).</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="12">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Ligar Customily ao Printify</div>
+      <div class="step-desc">No Customily: Settings → Integrations → Printify. Autoriza com a tua conta Printify. Isto permite que o Customily envie os designs finalizados directamente.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="13">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar templates no Customily</div>
+      <div class="step-desc">Para cada produto: Customily → Templates → New Template. Seleciona o produto do Printify. Define as zonas editáveis:
+        <br>• Zona de imagem (onde o cliente faz upload da foto)
+        <br>• Campo de texto (nome do casal)
+        <br>• Campo de texto (data)
+        <br>• Selector de fonte
+      </div>
+    </div>
+  </div>
+
+  <div class="step" data-step="14">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Associar templates aos produtos</div>
+      <div class="step-desc">No Customily, liga cada template ao produto WooCommerce correspondente. Quando o cliente abre o produto na loja, o personalizador aparece automaticamente.</div>
+    </div>
+  </div>
+
+  <div class="warn"><strong>Nota:</strong> O editor de templates do Customily é drag-and-drop. Demora ~15 min por produto. Eles têm tutoriais em vídeo no site.</div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">4</div>
+    <div class="phase-title">Pagamentos + Shipping</div>
+    <span class="phase-time">~15 min</span>
+  </div>
+
+  <div class="step" data-step="15">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Configurar Stripe</div>
+      <div class="step-desc">WooCommerce → Settings → Payments → Stripe. Cria conta em <code>stripe.com</code> se não tens. Liga ao WooCommerce. Aceita Visa, Mastercard, Apple Pay, Google Pay.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="16">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Configurar shipping</div>
+      <div class="step-desc">WooCommerce → Settings → Shipping. O Printify calcula o shipping automaticamente, mas tens de definir zonas (Portugal, Europa, Mundial) e se ofereces portes grátis acima de X€.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="17">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Definir moeda e impostos</div>
+      <div class="step-desc">WooCommerce → Settings → General → moeda (EUR €). Settings → Tax → configura IVA se aplicável.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">5</div>
+    <div class="phase-title">Páginas Legais + Extras</div>
+    <span class="phase-time">~20 min</span>
+  </div>
+
+  <div class="step" data-step="18">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar páginas legais</div>
+      <div class="step-desc">WordPress → Páginas → Adicionar Nova. Cria: "Termos e Condições", "Política de Privacidade", "Política de Devoluções". O WooCommerce tem templates base em Settings → Advanced.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="19">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Configurar email</div>
+      <div class="step-desc">WooCommerce → Settings → Emails. Personaliza os emails de confirmação de encomenda, shipping, etc. Muda o "From" para contact@ourmoment.com.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="20">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Instalar Yoast SEO</div>
+      <div class="step-desc">Plugins → Adicionar Novo → "Yoast SEO" → Instalar → Ativar. Segue o wizard de configuração. Ajuda o site a aparecer no Google.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-number">6</div>
+    <div class="phase-title">Lançamento</div>
+    <span class="phase-time">~10 min</span>
+  </div>
+
+  <div class="step" data-step="21">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Testar encomenda completa</div>
+      <div class="step-desc">Faz uma encomenda de teste: personaliza um produto → adiciona ao carrinho → checkout com Stripe test mode → confirma que o Printify recebe a encomenda com o design correcto.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="22">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Domínio + SSL + Go Live</div>
+      <div class="step-desc">Compra domínio (ourmoment.com ou .pt). No painel do hosting, aponta o domínio para o site. Ativa SSL (HTTPS). Tira o Stripe do test mode. Publica nas redes sociais.</div>
+    </div>
+  </div>
+
+  <div class="tip"><strong>Pronto!</strong> Quando este último passo estiver feito, a loja está live e a receber encomendas. Volta aqui quando quiseres — posso ajudar com qualquer passo.</div>
+</div>
+
+<script>
+function toggle(el) {
+  el.classList.toggle('done');
+  el.closest('.step').classList.toggle('completed');
+  updateProgress();
+  save();
+}
+
+function updateProgress() {
+  const total = document.querySelectorAll('.step').length;
+  const done = document.querySelectorAll('.step-check.done').length;
+  document.getElementById('progress').style.width = (done / total * 100) + '%';
+  document.getElementById('counter').innerHTML =
+    '<strong>' + done + '</strong> de <strong>' + total + '</strong> passos completos';
+}
+
+function save() {
+  const state = [...document.querySelectorAll('.step-check')].map(el => el.classList.contains('done'));
+  try { localStorage.setItem('om-setup', JSON.stringify(state)); } catch(e) {}
+}
+
+function load() {
+  try {
+    const state = JSON.parse(localStorage.getItem('om-setup'));
+    if (state) {
+      document.querySelectorAll('.step-check').forEach((el, i) => {
+        if (state[i]) { el.classList.add('done'); el.closest('.step').classList.add('completed'); }
+      });
+    }
+  } catch(e) {}
+  updateProgress();
+}
+
+load();
+</script>

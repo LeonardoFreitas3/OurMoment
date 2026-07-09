@@ -1,0 +1,602 @@
+<title>OurMoment — Meaningful Gifts for Couples</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root {
+    --bg:         #F7F3EF;
+    --bg-warm:    #F0EAE3;
+    --bg-card:    #FFFFFF;
+    --text:       #3A2F2A;
+    --text-soft:  #8A7E74;
+    --btn-bg:     #E4D9CE;
+    --btn-hover:  #D6C8BA;
+    --accent:     #C9A98B;
+    --border:     #E4D9CE;
+    --frame-wood: #C4A882;
+    --shadow:     0 2px 16px rgba(58,47,42,.06);
+    --shadow-lg:  0 8px 32px rgba(58,47,42,.09);
+
+    --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-body:    'Montserrat', 'Segoe UI', system-ui, sans-serif;
+
+    --max-w: 1100px;
+    --gap: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; }
+
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--gap); }
+
+  /* Logo SVG sizing */
+  .logo { display: inline-block; }
+  .logo-hero { width: 90px; height: auto; margin: 0 auto 1.5rem; display: block; }
+  .logo-nav { width: 28px; height: auto; }
+  .logo-small-frame { width: 70%; height: auto; }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--bg);
+    transition: box-shadow .3s;
+  }
+  .nav.scrolled { box-shadow: 0 1px 8px rgba(58,47,42,.04); }
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gap);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; padding: 0; }
+  .nav-links a {
+    font-family: var(--font-body);
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-weight: 500;
+    color: var(--text-soft);
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-mobile-toggle {
+    display: none;
+    position: absolute;
+    right: var(--gap);
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+  .nav-mobile-toggle span {
+    display: block; width: 20px; height: 1.5px;
+    background: var(--text);
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--bg); padding: 1.5rem var(--gap); gap: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+    .nav-mobile-toggle { display: flex; }
+    .nav-inner { justify-content: flex-start; }
+  }
+
+  /* ── Btn ── */
+  .btn {
+    display: inline-block;
+    padding: .6rem 1.8rem;
+    font-family: var(--font-body);
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-weight: 500;
+    background: var(--btn-bg);
+    color: var(--text);
+    border: none;
+    transition: background .25s;
+  }
+  .btn:hover { background: var(--btn-hover); }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem var(--gap) 3rem;
+  }
+  .hero-content { max-width: 600px; }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 8vw, 4.8rem);
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: .01em;
+    line-height: 1.05;
+    margin-bottom: .6rem;
+  }
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-size: .65rem;
+    text-transform: uppercase;
+    letter-spacing: .35em;
+    color: var(--text-soft);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  .hero-frames {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(.8rem, 2vw, 1.5rem);
+    margin-top: 3rem;
+  }
+  .frame {
+    background: var(--bg-card);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    border: 6px solid var(--frame-wood);
+  }
+  .frame-inner {
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    background: var(--bg-card);
+  }
+  .frame-large {
+    width: clamp(220px, 28vw, 320px);
+    aspect-ratio: 3/4;
+  }
+  .frame-small {
+    width: clamp(110px, 14vw, 160px);
+    aspect-ratio: 3/4;
+  }
+  .frame-inner svg { width: 70%; height: auto; flex-shrink: 0; }
+  .frame-label {
+    margin-top: auto;
+    text-align: center;
+    padding-bottom: .5rem;
+  }
+  .frame-label span {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(.65rem, 1.1vw, .85rem);
+    letter-spacing: .1em;
+  }
+  .frame-label small {
+    font-family: var(--font-body);
+    font-size: .55rem;
+    letter-spacing: .18em;
+    color: var(--text-soft);
+    display: block; margin-top: .15rem;
+  }
+
+  .hero-dots {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; margin-top: 1.8rem;
+  }
+  .hero-dots .dot {
+    width: 7px; height: 7px;
+    border: 1px solid var(--text-soft);
+    background: none; padding: 0;
+    transition: background .2s;
+  }
+  .hero-dots .dot:hover { background: var(--text-soft); }
+  .hero-dots .heart {
+    border: none; font-size: .65rem; color: var(--text);
+    width: auto; height: auto;
+  }
+
+  @media (max-width: 480px) {
+    .frame-small { display: none; }
+  }
+
+  /* ── Products ── */
+  .products { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.8rem);
+  }
+  @media (max-width: 680px) {
+    .products-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+  }
+  .product-card { text-align: center; }
+  .product-img {
+    aspect-ratio: 4/5;
+    border: 5px solid var(--frame-wood);
+    background: var(--bg-card);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    margin-bottom: .8rem;
+    box-shadow: var(--shadow);
+  }
+  .product-img svg { width: 55%; height: auto; }
+  .product-info h3 {
+    font-family: var(--font-display);
+    font-size: .78rem;
+    font-weight: 400;
+    letter-spacing: .02em;
+    margin-bottom: .2rem;
+  }
+  .product-info .price {
+    font-family: var(--font-body);
+    font-size: .58rem;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--text-soft);
+  }
+  .products-cta { text-align: center; margin-top: 2rem; }
+
+  /* ── About ── */
+  .about { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .about-inner {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .about-inner { grid-template-columns: 1fr; }
+  }
+  .about-frame {
+    aspect-ratio: 3/4;
+    border: 6px solid var(--frame-wood);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+  .about-frame svg { width: 60%; height: auto; flex-shrink: 0; }
+  .about-frame .frame-label { margin-top: auto; padding-bottom: .5rem; }
+  .about-text h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 400;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .about-text p {
+    font-family: var(--font-body);
+    color: var(--text-soft);
+    font-size: .82rem;
+    line-height: 1.9;
+    margin-bottom: .7rem;
+    max-width: 42ch;
+  }
+  .about-text .btn { margin-top: 1.2rem; }
+
+  /* ── Contact ── */
+  .contact { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+  }
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+  .contact-left .section-title { text-align: center; }
+  .contact-frame {
+    aspect-ratio: 4/3;
+    border: 5px solid var(--frame-wood);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  .contact-frame svg { width: 45%; height: auto; }
+  .contact-right .section-title { text-align: left; margin-bottom: 1rem; }
+  .contact-right p {
+    font-family: var(--font-body);
+    color: var(--text-soft);
+    font-size: .8rem;
+    line-height: 1.8;
+    max-width: 40ch;
+    margin-bottom: 1.5rem;
+  }
+  .contact-right a { color: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: .8rem; }
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: .75rem .9rem;
+    font-family: var(--font-body);
+    font-size: .78rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text);
+    outline: none;
+    transition: border-color .2s;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--accent); }
+  .contact-form textarea { resize: vertical; min-height: 100px; }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: var(--text-soft); opacity: .55; font-size: .75rem; }
+  .contact-form .btn { align-self: flex-start; }
+
+  .footer { padding: 1.5rem 0; border-top: 1px solid var(--border); }
+  .footer-inner {
+    display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer p { font-size: .65rem; color: var(--text-soft); letter-spacing: .08em; }
+  .footer-social { display: flex; gap: 1rem; }
+  .footer-social a {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-soft);
+    transition: border-color .2s, color .2s;
+  }
+  .footer-social a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .fade-in {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<!-- OurMoment Logo SVG (defined once, reused everywhere) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <defs>
+    <symbol id="ourmoment-logo" viewBox="0 0 200 260">
+      <!-- Left person: leaf/hair accent -->
+      <path d="M62 52 C56 42 50 38 48 30 C46 24 50 18 56 16 C60 14 64 18 66 24 C68 30 66 38 65 42" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Left person: head -->
+      <path d="M65 42 C70 36 76 32 80 38 C84 44 82 52 78 58 C74 64 68 68 64 74" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Right person: head -->
+      <path d="M108 30 C114 24 122 22 128 28 C134 34 134 44 130 52 C126 60 120 66 118 72" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Left body → outer heart left side → bottom -->
+      <path d="M64 74 C56 82 36 96 28 118 C20 140 28 168 48 188 C62 202 80 216 96 230" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Right body → outer heart right side → bottom -->
+      <path d="M118 72 C128 80 150 94 160 118 C170 142 162 168 142 188 C128 202 110 216 96 230" stroke="currentColor" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Bottom teardrop/drop -->
+      <path d="M96 230 C94 238 90 246 92 252 C94 258 100 258 102 252 C104 246 100 238 96 230Z" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Inner heart (left half) -->
+      <path d="M78 120 C72 108 80 96 90 102 C96 106 96 114 92 122 C88 130 80 136 78 120Z" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Inner heart (right half) -->
+      <path d="M112 120 C118 108 110 96 100 102 C94 106 94 114 98 122 C102 130 110 136 112 120Z" stroke="currentColor" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <button class="nav-mobile-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <svg class="logo-hero" style="color: var(--accent)"><use href="#ourmoment-logo"/></svg>
+
+    <h1>OurMoment</h1>
+    <p class="hero-tagline">Meaningful Gifts for Couples</p>
+    <a href="#shop" class="btn">Shop Now</a>
+
+    <div class="hero-frames fade-in">
+      <div class="frame frame-large">
+        <div class="frame-inner">
+          <svg viewBox="0 0 200 240" fill="none">
+            <path d="M100 40 C85 25 62 22 52 38 C38 62 52 90 75 108 L100 130 L125 108 C148 90 162 62 148 38 C138 22 115 25 100 40Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <path d="M80 115 C74 148 72 185 88 215 C94 226 100 230 100 230 C100 230 106 226 112 215 C128 185 126 148 120 115" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
+            <circle cx="88" cy="72" r="1.2" fill="var(--text-soft)" opacity=".35"/>
+            <circle cx="112" cy="72" r="1.2" fill="var(--text-soft)" opacity=".35"/>
+            <path d="M94 82 Q100 88 106 82" stroke="var(--text-soft)" stroke-width=".7" fill="none" stroke-linecap="round"/>
+          </svg>
+          <div class="frame-label">
+            <span>Emily & Jack</span>
+            <small>07.08.2024</small>
+          </div>
+        </div>
+      </div>
+      <div class="frame frame-small">
+        <div class="frame-inner">
+          <svg class="logo-small-frame" style="color: var(--accent)"><use href="#ourmoment-logo"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dots">
+      <button class="dot" aria-label="Prev"></button>
+      <button class="heart" aria-label="Current">&#9829;</button>
+      <button class="dot" aria-label="Next"></button>
+    </div>
+  </div>
+</section>
+
+<!-- Shop -->
+<section class="products" id="shop">
+  <div class="container">
+    <h2 class="section-title fade-in">Shop</h2>
+    <div class="products-grid">
+
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <svg viewBox="0 0 200 260" fill="none">
+            <path d="M100 45 C85 30 62 27 52 43 C38 65 52 92 75 110 L100 132 L125 110 C148 92 162 65 148 43 C138 27 115 30 100 45Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <path d="M82 118 C76 150 74 185 88 212 C94 224 100 228 100 228 C100 228 106 224 112 212 C126 185 124 150 118 118" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
+            <text x="100" y="242" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="var(--text-soft)" letter-spacing="1.5" opacity=".45">EMILY &amp; JACK</text>
+            <text x="100" y="252" text-anchor="middle" font-family="sans-serif" font-size="5" fill="var(--text-soft)" letter-spacing="1" opacity=".35">7.10.2024</text>
+          </svg>
+        </div>
+        <div class="product-info">
+          <h3>Personalized Couple<br>Line Art</h3>
+          <p class="price">From $49</p>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <svg viewBox="0 0 200 260" fill="none">
+            <rect x="35" y="25" width="130" height="175" rx="1" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <rect x="48" y="38" width="104" height="135" stroke="var(--text-soft)" stroke-width=".6" fill="none" opacity=".25"/>
+            <circle cx="100" cy="100" r="28" stroke="var(--text-soft)" stroke-width=".7" fill="none" opacity=".2"/>
+            <path d="M82 112 Q100 90 118 112" stroke="var(--text-soft)" stroke-width=".7" fill="none" opacity=".3"/>
+            <text x="100" y="215" text-anchor="middle" font-family="Georgia,serif" font-size="7" fill="var(--text-soft)" letter-spacing="1.5" opacity=".45">LAUREN &amp; DAVID</text>
+            <text x="100" y="226" text-anchor="middle" font-family="sans-serif" font-size="5" fill="var(--text-soft)" letter-spacing="1" opacity=".35">17.11.2024</text>
+          </svg>
+        </div>
+        <div class="product-info">
+          <h3>Custom Photo<br>Print</h3>
+          <p class="price">From $39</p>
+        </div>
+      </div>
+
+      <div class="product-card fade-in">
+        <div class="product-img">
+          <svg viewBox="0 0 200 260" fill="none">
+            <rect x="32" y="28" width="136" height="180" rx="3" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <rect x="37" y="33" width="126" height="170" rx="2" stroke="var(--text-soft)" stroke-width=".6" fill="none" opacity=".2"/>
+            <path d="M100 78 C92 64 78 64 74 76 C68 90 80 102 100 118 C120 102 132 90 126 76 C122 64 108 64 100 78Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <line x1="68" y1="142" x2="132" y2="142" stroke="var(--text-soft)" stroke-width=".6" opacity=".2"/>
+            <line x1="74" y1="154" x2="126" y2="154" stroke="var(--text-soft)" stroke-width=".6" opacity=".2"/>
+            <line x1="80" y1="166" x2="120" y2="166" stroke="var(--text-soft)" stroke-width=".6" opacity=".2"/>
+          </svg>
+        </div>
+        <div class="product-info">
+          <h3>Love Coupon Book</h3>
+          <p class="price">From $29</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="products-cta fade-in">
+      <a href="#" class="btn">Shop Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-frame fade-in">
+        <svg viewBox="0 0 200 240" fill="none">
+          <path d="M100 40 C85 25 62 22 52 38 C38 62 52 90 75 108 L100 130 L125 108 C148 90 162 62 148 38 C138 22 115 25 100 40Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+          <path d="M80 115 C74 148 72 185 88 215 C94 226 100 230 100 230 C100 230 106 226 112 215 C128 185 126 148 120 115" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="frame-label">
+          <span>Emily & Jack</span>
+          <small>07.08.2024</small>
+        </div>
+      </div>
+      <div class="about-text fade-in">
+        <h2>Shop</h2>
+        <p>At OurMoment, we believe in the power of meaningful, personalized gifts that celebrate love and connection.</p>
+        <p>Founded with the goal of creating timeless keepsakes for couples, we fill each piece we create with thoughtfulness and care. Our mission is to help you capture your special moments and turn them into beautiful, lasting memories.</p>
+        <a href="#shop" class="btn">Shop Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left fade-in">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-frame">
+          <svg viewBox="0 0 200 240" fill="none">
+            <path d="M100 40 C85 25 62 22 52 38 C38 62 52 90 75 108 L100 130 L125 108 C148 90 162 62 148 38 C138 22 115 25 100 40Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
+            <path d="M80 115 C74 148 72 185 88 215 C94 226 100 230 100 230 C100 230 106 226 112 215 C128 185 126 148 120 115" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="contact-right fade-in">
+        <h2 class="section-title">Contact</h2>
+        <p>We would love to hear from you. Please fill out the form below or reach out to us at <a href="mailto:contact@ourmoment.com">contact@ourmoment.com</a> and we will respond as soon as possible.</p>
+        <form class="contact-form" onsubmit="event.preventDefault();this.querySelector('.btn').textContent='Message Sent!';setTimeout(()=>this.querySelector('.btn').textContent='Send Message',2000);">
+          <input type="text" placeholder="Your Name" required>
+          <input type="email" placeholder="Your Email Address" required>
+          <textarea placeholder="Your Message" required></textarea>
+          <button type="submit" class="btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p>&copy; 2024 OurMoment. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="Pinterest">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/><path d="M8 21 C9 16 10 13 11 10 C11 8 12 7 14 7 C16 7 17 9 16 12 C15 15 13 15 12 14"/>
+          </svg>
+        </a>
+        <a href="#" aria-label="TikTok">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 12 L9 19 C9 21 11 22 13 21 C15 20 15 18 15 17 L15 3 C16 5 18 7 21 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
