@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.8.0
+Version: 1.9.0
 Text Domain: ourmoment
 */
 
@@ -67,10 +67,10 @@ body.admin-bar .om-nav { top: 32px; }
 }
 
 .om-nav-inner {
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 2.5rem);
-  height: 56px;
+  height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,11 +81,11 @@ body.admin-bar .om-nav { top: 32px; }
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  min-width: 44px; /* balances .om-nav-actions so the links stay centred */
+  min-width: 56px; /* balances .om-nav-actions so the links stay centred */
 }
 .om-nav-brand img {
-  width: 30px;
-  height: 30px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
   display: block;
   transition: opacity .2s;
@@ -94,16 +94,16 @@ body.admin-bar .om-nav { top: 32px; }
 
 .om-nav-links {
   display: flex;
-  gap: clamp(1.1rem, 2.4vw, 2.2rem);
+  gap: clamp(1.4rem, 2.8vw, 2.6rem);
   list-style: none;
   padding: 0;
   margin: 0;
 }
 .om-nav-links a {
   font-family: var(--font-body) !important;
-  font-size: .66rem;
+  font-size: .8rem;
   text-transform: uppercase;
-  letter-spacing: .2em;
+  letter-spacing: .18em;
   font-weight: 500;
   color: var(--text-soft);
   text-decoration: none;
@@ -116,8 +116,8 @@ body.admin-bar .om-nav { top: 32px; }
 .om-nav-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
-  padding: 6px 4px;
+  gap: 6px;
+  padding: 8px 4px;
   border: none;
   background: none;
   cursor: pointer;
@@ -125,13 +125,13 @@ body.admin-bar .om-nav { top: 32px; }
 }
 .om-nav-toggle span {
   display: block;
-  width: 20px;
-  height: 1.5px;
+  width: 26px;
+  height: 2px;
   background: var(--text);
 }
 
 /* Tablet and below: collapse links behind the hamburger */
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .om-nav-toggle { display: flex; order: -1; }
   .om-nav-links {
     display: none;
@@ -142,12 +142,12 @@ body.admin-bar .om-nav { top: 32px; }
     align-items: center;
     background: var(--bg);
     border-top: 1px solid var(--border);
-    padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem);
-    gap: 1.2rem;
+    padding: 1.8rem clamp(1.25rem, 4vw, 2.5rem);
+    gap: 1.5rem;
     box-shadow: var(--shadow);
   }
   .om-nav-links.open { display: flex; }
-  .om-nav-links a { font-size: .72rem; }
+  .om-nav-links a { font-size: .88rem; }
 }
 
 /* ── Buttons ── */
@@ -195,12 +195,16 @@ button[type="submit"]:hover,
    frames on wide screens, more of the frames as the viewport narrows. */
 .om-hero {
   position: relative;
+  /* A portrait photo at full width is cropped by however much the hero is
+     shorter than the scaled image. Growing the hero with the viewport width
+     claws back a third of the frame that a flat 100vh would cut off. */
   min-height: 100svh;
+  height: clamp(660px, 58vw, 1120px);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   text-align: center;
-  padding: clamp(6rem, 14vh, 9rem) 1.5rem 3rem;
+  padding: clamp(6rem, 13vh, 8rem) 1.5rem 3rem;
   background: var(--bg);
   overflow: hidden;
   isolation: isolate;
@@ -215,7 +219,8 @@ button[type="submit"]:hover,
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 38%;
+  /* 44% keeps the wall behind the headline and the frames in the lower half */
+  object-position: center 44%;
   display: block;
 }
 .om-hero-scrim {
@@ -224,10 +229,10 @@ button[type="submit"]:hover,
   z-index: -1;
   background: linear-gradient(
     180deg,
-    rgba(247, 243, 239, .95) 0%,
-    rgba(247, 243, 239, .88) 22%,
-    rgba(247, 243, 239, .55) 42%,
-    rgba(247, 243, 239, 0)   62%
+    rgba(247, 243, 239, .94) 0%,
+    rgba(247, 243, 239, .82) 20%,
+    rgba(247, 243, 239, .40) 38%,
+    rgba(247, 243, 239, 0)   56%
   );
 }
 .om-hero-content {
@@ -257,16 +262,18 @@ button[type="submit"]:hover,
   display: block;
 }
 
-/* Taller, narrower viewports crop less if we favour the frames */
+/* A phone is already close to the photo's own aspect ratio, so it barely
+   crops. Let it fill the screen and lean the scrim harder for legibility. */
 @media (max-width: 700px) {
-  .om-hero-photo img { object-position: center 45%; }
+  .om-hero { height: auto; min-height: 100svh; }
+  .om-hero-photo img { object-position: center 50%; }
   .om-hero-scrim {
     background: linear-gradient(
       180deg,
       rgba(247, 243, 239, .96) 0%,
-      rgba(247, 243, 239, .90) 30%,
-      rgba(247, 243, 239, .60) 50%,
-      rgba(247, 243, 239, 0)   72%
+      rgba(247, 243, 239, .90) 28%,
+      rgba(247, 243, 239, .55) 48%,
+      rgba(247, 243, 239, 0)   70%
     );
   }
 }
@@ -721,10 +728,10 @@ button[type="submit"]:hover,
 /* fixed nav clearance on inner pages (front page hero handles its own) */
 body:not(.home) #page,
 body:not(.home) .hfeed.site {
-  padding-top: 56px;
+  padding-top: 76px;
 }
 /* anchor targets clear the fixed nav */
-[id] { scroll-margin-top: 72px; }
+[id] { scroll-margin-top: 92px; }
 html { scroll-behavior: smooth; }
 
 /* ── Inner pages ──
@@ -801,19 +808,20 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
 .om-nav-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.3rem;
   flex-shrink: 0;
-  min-width: 44px; /* balances the brand so the links stay centred */
+  min-width: 56px; /* balances the brand so the links stay centred */
   justify-content: flex-end;
 }
 .om-nav-icon {
   position: relative;
   display: flex;
   align-items: center;
-  gap: .3rem;
+  gap: .35rem;
   color: var(--text-soft);
   transition: color .2s;
 }
+.om-nav-icon svg { width: 21px; height: 21px; }
 .om-nav-icon:hover,
 .om-nav-icon:focus-visible { color: var(--text); }
 
@@ -829,24 +837,24 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
 }
 
 .om-cart-count {
-  font-size: .6rem;
+  font-size: .68rem;
   font-weight: 600;
   color: var(--text-soft);
 }
 .om-cart-count.has-items {
   background: var(--accent);
   color: #fff;
-  min-width: 15px;
-  height: 15px;
+  min-width: 18px;
+  height: 18px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0 3px;
+  padding: 0 4px;
 }
 
 @media (max-width: 380px) {
-  .om-nav-actions { gap: .75rem; }
+  .om-nav-actions { gap: 1rem; }
 }
 
 /* ── Categories ── */

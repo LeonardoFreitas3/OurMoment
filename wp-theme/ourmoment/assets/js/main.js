@@ -21,7 +21,8 @@ if (toggle && links) {
   links.addEventListener('click', (e) => {
     if (e.target.closest('a')) setOpen(false);
   });
-  window.matchMedia('(min-width: 861px)').addEventListener('change', (e) => {
+  // Keep in sync with the nav breakpoint in style.css
+  window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
     if (e.matches) setOpen(false);
   });
   document.addEventListener('keydown', (e) => {
