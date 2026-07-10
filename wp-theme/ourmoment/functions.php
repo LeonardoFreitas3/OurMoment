@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.9.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.9.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.10.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.10.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -27,13 +27,18 @@ add_action('after_setup_theme', function () {
 /**
  * Replace Astra's header/footer with the brand nav/footer on ALL pages
  * (front page renders its own inside front-page.php).
+ *
+ * remove_action() on the named callbacks is not enough: with Astra's Header
+ * Footer Builder active the copyright bar is hooked by a different callback,
+ * so it survived and rendered a second footer under ours. Clear the hooks
+ * outright, then attach ours.
  */
 add_action('wp', function () {
     if (is_front_page()) {
         return;
     }
-    remove_action('astra_header', 'astra_header_markup');
-    remove_action('astra_footer', 'astra_footer_markup');
+    remove_all_actions('astra_header');
+    remove_all_actions('astra_footer');
     add_action('astra_header', function () {
         get_template_part('template-parts/nav');
     });

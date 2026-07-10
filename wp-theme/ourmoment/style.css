@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.9.0
+Version: 1.10.0
 Text Domain: ourmoment
 */
 
@@ -741,7 +741,13 @@ body.om-fullwidth #content .ast-container {
   max-width: none;
   padding-left: 0;
   padding-right: 0;
+  /* Astra lays the container out with flex for the content/sidebar pair.
+     Our <main> then behaves as a flex item and shrinks to its content,
+     hugging the left edge. Block layout lets it span the full width so the
+     inner .om-container can centre itself. */
+  display: block;
 }
+body.om-fullwidth .om-page { width: 100%; }
 body.om-fullwidth #content,
 body.om-fullwidth #primary,
 body.om-fullwidth .site-main,
@@ -750,6 +756,8 @@ body.om-fullwidth .ast-article-single {
   padding: 0;
   background: none;
   border: 0;
+  width: 100%;
+  max-width: none;
 }
 body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 7vw, 6rem); }
 
@@ -1024,35 +1032,178 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   font-family: var(--font-body) !important;
 }
 
-/* ── My Account / login ── */
+/* ── My Account: signed out ── */
+.woocommerce-account:not(.logged-in) .entry-title { margin-bottom: 2.5rem; }
+
+.woocommerce-account #customer_login.col2-set,
+.woocommerce-account .u-columns#customer_login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.2rem, 3vw, 2.2rem);
+  max-width: 880px;
+  margin: 0 auto;
+  width: 100%;
+}
+.woocommerce-account #customer_login .col-1,
+.woocommerce-account #customer_login .col-2 {
+  width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+}
+@media (max-width: 720px) {
+  .woocommerce-account #customer_login.col2-set,
+  .woocommerce-account .u-columns#customer_login { grid-template-columns: 1fr; max-width: 440px; }
+}
+
+/* When registration is off, Woo renders a lone login form */
+.woocommerce-account .woocommerce > .woocommerce-form-login {
+  max-width: 440px;
+  margin-inline: auto;
+}
+
+.woocommerce-account #customer_login h2,
+.woocommerce-account .woocommerce-form-login h2 {
+  font-family: var(--font-display) !important;
+  font-size: 1.15rem !important;
+  font-weight: 400 !important;
+  text-align: center;
+  letter-spacing: .06em;
+  margin: 0 0 1.4rem;
+}
+
 .woocommerce-account .woocommerce-form-login,
 .woocommerce-account .woocommerce-form-register {
   border: 1px solid var(--border) !important;
   border-radius: 0 !important;
   background: var(--bg-card);
-  padding: 2rem !important;
+  box-shadow: var(--shadow);
+  padding: clamp(1.6rem, 3vw, 2.4rem) !important;
+  margin: 0 !important;
+  height: 100%;
+}
+.woocommerce-account .woocommerce-form-row { margin-bottom: 1rem; }
+.woocommerce-account .woocommerce-form-row label {
+  display: block;
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: var(--text-soft);
+  margin-bottom: .4rem;
+}
+.woocommerce-account .woocommerce-form-row input.input-text,
+.woocommerce-account .woocommerce-form-row input.woocommerce-Input {
+  width: 100%;
+  padding: .8rem .9rem !important;
+  font-family: var(--font-body) !important;
+  font-size: .85rem !important;
+  border: 1px solid var(--border) !important;
+  background: var(--bg) !important;
+  border-radius: 0 !important;
+  color: var(--text);
+}
+.woocommerce-account .woocommerce-form-row input:focus {
+  border-color: var(--accent) !important;
+  outline: none;
+  box-shadow: none !important;
+}
+.woocommerce-account .woocommerce-form-login__rememberme {
+  display: block;
+  font-size: .74rem;
+  color: var(--text-soft);
+  margin: .2rem 0 1.1rem;
+}
+.woocommerce-account .woocommerce-form-login__submit,
+.woocommerce-account .woocommerce-form-register__submit {
+  width: 100%;
+  margin: 0 0 1rem !important;
+}
+.woocommerce-account .woocommerce-LostPassword {
+  text-align: center;
+  margin: 0;
+}
+.woocommerce-account .woocommerce-LostPassword a {
+  font-size: .72rem;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1px;
+  transition: color .2s, border-color .2s;
+}
+.woocommerce-account .woocommerce-LostPassword a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.woocommerce-account .woocommerce-privacy-policy-text p {
+  font-size: .72rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+/* ── My Account: signed in ── */
+.woocommerce-account.logged-in .woocommerce {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  max-width: 980px;
+  margin-inline: auto;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .woocommerce-account.logged-in .woocommerce { grid-template-columns: 1fr; }
+}
+.woocommerce-account .woocommerce-MyAccount-navigation,
+.woocommerce-account .woocommerce-MyAccount-content {
+  width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
 }
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
 }
-.woocommerce-account .woocommerce-MyAccount-navigation li {
-  border-bottom: 1px solid var(--border);
+.woocommerce-account .woocommerce-MyAccount-navigation li + li {
+  border-top: 1px solid var(--border);
 }
 .woocommerce-account .woocommerce-MyAccount-navigation li a {
   display: block;
-  padding: .7rem 0;
-  font-size: .68rem;
+  padding: .85rem 1rem;
+  font-size: .66rem;
   text-transform: uppercase;
-  letter-spacing: .18em;
+  letter-spacing: .16em;
+  font-weight: 500;
   color: var(--text-soft);
-  transition: color .2s;
+  transition: color .2s, background .2s;
 }
-.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
 .woocommerce-account .woocommerce-MyAccount-navigation li a:hover {
-  color: var(--accent);
+  background: var(--bg-warm);
+  color: var(--text);
 }
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a {
+  color: var(--accent);
+  background: var(--bg-warm);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+.woocommerce-account .woocommerce-MyAccount-content {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  font-size: .88rem;
+}
+.woocommerce-account .woocommerce-MyAccount-content p { color: var(--text-soft); }
+.woocommerce-account .woocommerce-MyAccount-content a { color: var(--accent); }
+
+/* Woo notices, used across account, cart and checkout */
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error {
+  border-top: 2px solid var(--accent) !important;
+  background: var(--bg-card) !important;
+  border-radius: 0 !important;
+  font-size: .82rem;
+}
+.woocommerce-error { border-top-color: #A85A4A !important; }
 
 /* ── Cookie banner (Complianz / CookieYes) ── */
 .cmplz-cookiebanner,
