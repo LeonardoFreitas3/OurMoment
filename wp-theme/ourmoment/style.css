@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.6.0
+Version: 1.7.0
 Text Domain: ourmoment
 */
 
@@ -83,13 +83,14 @@ body.admin-bar .om-nav { top: 32px; }
   flex-shrink: 0;
   min-width: 44px; /* balances .om-nav-actions so the links stay centred */
 }
-.om-nav-brand svg {
-  width: 24px;
-  height: 31px;
-  color: var(--accent);
+.om-nav-brand img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
   transition: opacity .2s;
 }
-.om-nav-brand:hover svg { opacity: .75; }
+.om-nav-brand:hover img { opacity: .75; }
 
 .om-nav-links {
   display: flex;
@@ -188,15 +189,46 @@ button[type="submit"]:hover,
   color: var(--text) !important;
 }
 
-/* ── Hero ── */
+/* ── Hero ──
+   Portrait photo behind a cream scrim. The photo is cropped by object-fit,
+   so object-position picks which slice shows: the wall and the top of the
+   frames on wide screens, more of the frames as the viewport narrows. */
 .om-hero {
-  min-height: 100vh;
+  position: relative;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   text-align: center;
-  padding: 5rem 1.5rem 3rem;
+  padding: clamp(6rem, 14vh, 9rem) 1.5rem 3rem;
   background: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+.om-hero-photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+}
+.om-hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+.om-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(247, 243, 239, .95) 0%,
+    rgba(247, 243, 239, .88) 22%,
+    rgba(247, 243, 239, .55) 42%,
+    rgba(247, 243, 239, 0)   62%
+  );
 }
 .om-hero-content {
   max-width: 600px;
@@ -219,21 +251,27 @@ button[type="submit"]:hover,
   margin-bottom: 2rem;
 }
 .om-hero-logo {
-  width: 90px;
+  width: 78px;
   height: auto;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 1.2rem;
   display: block;
-  color: var(--accent);
 }
 
-/* ── Frames ── */
-.om-frames {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: clamp(.8rem, 2vw, 1.5rem);
-  margin-top: 3rem;
+/* Taller, narrower viewports crop less if we favour the frames */
+@media (max-width: 700px) {
+  .om-hero-photo img { object-position: center 45%; }
+  .om-hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(247, 243, 239, .96) 0%,
+      rgba(247, 243, 239, .90) 30%,
+      rgba(247, 243, 239, .60) 50%,
+      rgba(247, 243, 239, 0)   72%
+    );
+  }
 }
+
+/* ── Framed artwork (About section) ── */
 .om-frame {
   background: var(--bg-card);
   box-shadow: var(--shadow-lg);
@@ -243,14 +281,6 @@ button[type="submit"]:hover,
   justify-content: center;
   flex-direction: column;
   padding: 1rem;
-}
-.om-frame-large {
-  width: clamp(220px, 28vw, 320px);
-  aspect-ratio: 3/4;
-}
-.om-frame-small {
-  width: clamp(110px, 14vw, 160px);
-  aspect-ratio: 3/4;
 }
 .om-frame svg { flex-shrink: 0; }
 .om-frame-label {
@@ -270,25 +300,6 @@ button[type="submit"]:hover,
   color: var(--text-soft);
   display: block;
   margin-top: .15rem;
-}
-
-.om-dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 1.8rem;
-}
-.om-dot {
-  width: 7px; height: 7px;
-  border: 1px solid var(--text-soft);
-  background: none;
-  display: inline-block;
-}
-.om-heart { font-size: .65rem; color: var(--text); }
-
-@media (max-width: 480px) {
-  .om-frame-small { display: none; }
 }
 
 /* ── Section title ── */
@@ -617,9 +628,9 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   background: var(--bg);
 }
 .om-page-banner-logo {
-  width: 46px;
-  height: 60px;
-  color: var(--accent);
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
   margin: 0 auto 1.2rem;
   display: block;
 }

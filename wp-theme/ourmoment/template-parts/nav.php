@@ -19,8 +19,8 @@ $om_items = [
       <span></span><span></span><span></span>
     </button>
 
-    <a class="om-nav-brand" href="<?php echo esc_url(home_url('/')); ?>" aria-label="OurMoment — Home">
-      <svg viewBox="0 0 200 260" aria-hidden="true"><use href="#ourmoment-logo"/></svg>
+    <a class="om-nav-brand" href="<?php echo esc_url(home_url('/')); ?>">
+      <?php ourmoment_logo('', 'OurMoment — Home'); ?>
     </a>
 
     <ul class="om-nav-links" id="om-nav-links">

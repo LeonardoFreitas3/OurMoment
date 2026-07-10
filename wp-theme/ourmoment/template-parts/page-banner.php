@@ -8,7 +8,7 @@ $om_subtitle = $args['subtitle'] ?? '';
 ?>
 <header class="om-page-banner">
   <div class="om-container">
-    <svg class="om-page-banner-logo" viewBox="0 0 200 260" aria-hidden="true"><use href="#ourmoment-logo"/></svg>
+    <?php ourmoment_logo('om-page-banner-logo'); ?>
     <h1><?php echo esc_html($om_title); ?></h1>
     <?php if ($om_subtitle) : ?>
       <p><?php echo esc_html($om_subtitle); ?></p>
