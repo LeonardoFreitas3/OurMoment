@@ -34,18 +34,32 @@ $om_items = [
       <?php endforeach; ?>
     </ul>
 
-    <?php if (function_exists('wc_get_cart_url')) : ?>
-      <a class="om-nav-cart" href="<?php echo esc_url(wc_get_cart_url()); ?>" aria-label="Cart">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <path d="M6 8 L6 6 C6 3.8 8 2 12 2 C16 2 18 3.8 18 6 L18 8"/>
-          <rect x="3" y="8" width="18" height="13" rx="1"/>
-        </svg>
-        <?php $om_count = (function_exists('WC') && WC()->cart) ? WC()->cart->get_cart_contents_count() : 0; ?>
-        <span class="om-cart-count<?php echo $om_count ? ' has-items' : ''; ?>"><?php echo esc_html($om_count); ?></span>
-      </a>
-    <?php else : ?>
-      <span class="om-nav-cart" aria-hidden="true"></span>
-    <?php endif; ?>
+    <div class="om-nav-actions">
+      <?php if (function_exists('wc_get_page_permalink')) : ?>
+        <?php
+        $om_logged_in  = is_user_logged_in();
+        $om_account_url = wc_get_page_permalink('myaccount');
+        ?>
+        <a class="om-nav-icon" href="<?php echo esc_url($om_account_url); ?>"
+           aria-label="<?php echo $om_logged_in ? esc_attr__('My Account', 'ourmoment') : esc_attr__('Log in', 'ourmoment'); ?>"
+           title="<?php echo $om_logged_in ? esc_attr__('My Account', 'ourmoment') : esc_attr__('Log in', 'ourmoment'); ?>">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21 C4 16.5 7.5 14 12 14 C16.5 14 20 16.5 20 21"/>
+          </svg>
+          <?php if ($om_logged_in) : ?><span class="om-nav-dot" aria-hidden="true"></span><?php endif; ?>
+        </a>
+
+        <a class="om-nav-icon om-nav-cart" href="<?php echo esc_url(wc_get_cart_url()); ?>" aria-label="<?php esc_attr_e('Cart', 'ourmoment'); ?>" title="<?php esc_attr_e('Cart', 'ourmoment'); ?>">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M6 8 L6 6 C6 3.8 8 2 12 2 C16 2 18 3.8 18 6 L18 8"/>
+            <rect x="3" y="8" width="18" height="13" rx="1"/>
+          </svg>
+          <?php $om_count = (function_exists('WC') && WC()->cart) ? WC()->cart->get_cart_contents_count() : 0; ?>
+          <span class="om-cart-count<?php echo $om_count ? ' has-items' : ''; ?>"><?php echo esc_html($om_count); ?></span>
+        </a>
+      <?php endif; ?>
+    </div>
 
   </div>
 </nav>

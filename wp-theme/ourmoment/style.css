@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.4.0
+Version: 1.5.0
 Text Domain: ourmoment
 */
 
@@ -666,16 +666,37 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   padding-bottom: 3px;
 }
 
-/* ── Nav cart ── */
-.om-nav-cart {
+/* ── Nav actions: account + cart ── */
+.om-nav-actions {
   display: flex;
   align-items: center;
-  gap: .35rem;
-  color: var(--text-soft);
+  gap: 1rem;
   flex-shrink: 0;
+  min-width: 44px; /* balances the brand so the links stay centred */
+  justify-content: flex-end;
+}
+.om-nav-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  color: var(--text-soft);
   transition: color .2s;
 }
-.om-nav-cart:hover { color: var(--text); }
+.om-nav-icon:hover,
+.om-nav-icon:focus-visible { color: var(--text); }
+
+/* Small dot marks a signed-in account */
+.om-nav-dot {
+  position: absolute;
+  top: -1px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
 .om-cart-count {
   font-size: .6rem;
   font-weight: 600;
@@ -691,6 +712,10 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   align-items: center;
   justify-content: center;
   padding: 0 3px;
+}
+
+@media (max-width: 380px) {
+  .om-nav-actions { gap: .75rem; }
 }
 
 /* ── Categories ── */
