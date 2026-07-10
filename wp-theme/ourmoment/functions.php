@@ -3,6 +3,8 @@
  * OurMoment Child Theme
  */
 
+require_once get_stylesheet_directory() . '/inc/legal-pages.php';
+
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('astra-parent', get_template_directory_uri() . '/style.css');
     wp_enqueue_style(
@@ -11,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.5.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.5.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.6.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.6.0', true);
 });
 
 add_action('after_setup_theme', function () {
