@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.3.0
+Version: 1.4.0
 Text Domain: ourmoment
 */
 
@@ -871,6 +871,52 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   border: 1px solid var(--border);
   background: var(--bg-card);
   font-family: var(--font-body) !important;
+}
+
+/* ── My Account / login ── */
+.woocommerce-account .woocommerce-form-login,
+.woocommerce-account .woocommerce-form-register {
+  border: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  background: var(--bg-card);
+  padding: 2rem !important;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li {
+  border-bottom: 1px solid var(--border);
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li a {
+  display: block;
+  padding: .7rem 0;
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--text-soft);
+  transition: color .2s;
+}
+.woocommerce-account .woocommerce-MyAccount-navigation li.is-active a,
+.woocommerce-account .woocommerce-MyAccount-navigation li a:hover {
+  color: var(--accent);
+}
+
+/* ── Cookie banner (Complianz / CookieYes) ── */
+.cmplz-cookiebanner,
+.cky-consent-container .cky-consent-bar {
+  font-family: var(--font-body) !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--border) !important;
+  background: var(--bg-card) !important;
+}
+.cmplz-cookiebanner .cmplz-btn.cmplz-accept,
+.cky-btn-accept {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+  border-radius: 0 !important;
 }
 
 /* ── Fade animation ── */

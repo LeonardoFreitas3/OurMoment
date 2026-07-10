@@ -182,7 +182,7 @@
 <p class="subtitle">Guia de Setup Completo</p>
 
 <div class="counter" id="counter">
-  <strong>0</strong> de <strong>23</strong> passos completos
+  <strong>0</strong> de <strong>25</strong> passos completos
 </div>
 
 <!-- PHASE 1 -->
@@ -351,7 +351,7 @@
     <span class="phase-time">~15 min</span>
   </div>
 
-  <div class="step" data-step="15">
+  <div class="step" data-step="16">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Configurar Stripe</div>
@@ -359,7 +359,7 @@
     </div>
   </div>
 
-  <div class="step" data-step="16">
+  <div class="step" data-step="17">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Configurar shipping</div>
@@ -367,7 +367,7 @@
     </div>
   </div>
 
-  <div class="step" data-step="17">
+  <div class="step" data-step="18">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Definir moeda e impostos</div>
@@ -381,18 +381,42 @@
   <div class="phase-header">
     <div class="phase-number">5</div>
     <div class="phase-title">Páginas Legais + Extras</div>
-    <span class="phase-time">~20 min</span>
-  </div>
-
-  <div class="step" data-step="18">
-    <div class="step-check" onclick="toggle(this)"></div>
-    <div class="step-text">
-      <div class="step-title">Criar páginas legais</div>
-      <div class="step-desc">WordPress → Páginas → Adicionar Nova. Cria: "Termos e Condições", "Política de Privacidade", "Política de Devoluções". O WooCommerce tem templates base em Settings → Advanced.</div>
-    </div>
+    <span class="phase-time">~40 min</span>
   </div>
 
   <div class="step" data-step="19">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar as páginas do menu</div>
+      <div class="step-desc">Páginas → Adicionar Nova. Cria três páginas com estes <strong>slugs exactos</strong> e deixa o conteúdo vazio (o tema trata do resto):
+        <br>• <code>how-it-works</code> &nbsp;• <code>about</code> &nbsp;• <code>contact</code>
+        <br>Apaga também a página <code>sample-page</code> que veio com o WordPress.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" data-step="20">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Criar páginas legais</div>
+      <div class="step-desc">Os textos base estão no repositório, em <code>legal/</code>. Cria uma página por ficheiro, com o slug indicado:
+        <br>• <code>terms</code> — Terms &amp; Conditions
+        <br>• <code>privacy</code> — Privacy Policy
+        <br>• <code>returns</code> — Returns &amp; Refunds
+        <br>Substitui todos os campos entre [colchetes] pelos teus dados. Assim que existirem, aparecem sozinhas no footer.
+      </div>
+    </div>
+  </div>
+
+  <div class="step" data-step="21">
+    <div class="step-check" onclick="toggle(this)"></div>
+    <div class="step-text">
+      <div class="step-title">Banner de cookies (RGPD)</div>
+      <div class="step-desc">Plugins → Adicionar Novo → <strong>Complianz</strong> (gratuito) → Instalar → Ativar → corre o wizard. Faz o scan dos cookies reais (Stripe, Analytics), gera o banner e a política de cookies, e guarda os consentimentos. O tema já estiliza o banner com as cores da marca.</div>
+    </div>
+  </div>
+
+  <div class="step" data-step="22">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Configurar email</div>
@@ -400,13 +424,15 @@
     </div>
   </div>
 
-  <div class="step" data-step="20">
+  <div class="step" data-step="23">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Instalar Yoast SEO</div>
       <div class="step-desc">Plugins → Adicionar Novo → "Yoast SEO" → Instalar → Ativar. Segue o wizard de configuração. Ajuda o site a aparecer no Google.</div>
     </div>
   </div>
+
+  <div class="warn"><strong>Atenção:</strong> os textos legais em <code>legal/</code> são um ponto de partida, não aconselhamento jurídico. A excepção ao direito de livre resolução em produtos personalizados é a parte mais sensível deste modelo — vale a pena confirmar com um advogado ou contabilista antes de lançar.</div>
 </div>
 
 <!-- PHASE 6 -->
@@ -417,7 +443,7 @@
     <span class="phase-time">~10 min</span>
   </div>
 
-  <div class="step" data-step="21">
+  <div class="step" data-step="24">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Testar encomenda completa</div>
@@ -425,7 +451,7 @@
     </div>
   </div>
 
-  <div class="step" data-step="22">
+  <div class="step" data-step="25">
     <div class="step-check" onclick="toggle(this)"></div>
     <div class="step-text">
       <div class="step-title">Domínio + SSL + Go Live</div>
