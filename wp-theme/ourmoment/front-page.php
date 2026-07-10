@@ -18,9 +18,7 @@
 
 <?php get_template_part('template-parts/categories'); ?>
 
-<?php get_template_part('template-parts/how-it-works'); ?>
-
-<!-- Shop Section -->
+<!-- New Arrivals -->
 <section id="shop" class="om-shop">
   <div class="om-container">
     <h2 class="om-section-title om-fade">New Arrivals</h2>
@@ -41,11 +39,17 @@
   </div>
 </section>
 
-<?php get_template_part('template-parts/about'); ?>
+<?php get_template_part('template-parts/how-it-works'); ?>
 
 <?php get_template_part('template-parts/testimonials'); ?>
 
-<?php get_template_part('template-parts/contact'); ?>
+<!-- Closing CTA -->
+<section class="om-page-cta om-fade">
+  <div class="om-container">
+    <h2>Every great gift starts with a moment.</h2>
+    <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn">Our Story</a>
+  </div>
+</section>
 
 <?php get_template_part('template-parts/site-footer'); ?>
 

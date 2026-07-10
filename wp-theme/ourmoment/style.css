@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.2.0
+Version: 1.3.0
 Text Domain: ourmoment
 */
 
@@ -595,6 +595,76 @@ body:not(.home) .hfeed.site {
 /* anchor targets clear the fixed nav */
 [id] { scroll-margin-top: 72px; }
 html { scroll-behavior: smooth; }
+
+/* ── Inner pages ──
+   Astra wraps content in a fixed-width .ast-container; our page templates
+   manage their own containers and need full-bleed section backgrounds. */
+body.om-fullwidth #content .ast-container {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+body.om-fullwidth #content,
+body.om-fullwidth #primary,
+body.om-fullwidth .site-main,
+body.om-fullwidth .ast-article-single {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+
+/* Page banner */
+.om-page-banner {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--bg);
+}
+.om-page-banner-logo {
+  width: 46px;
+  height: 60px;
+  color: var(--accent);
+  margin: 0 auto 1.2rem;
+  display: block;
+}
+.om-page-banner h1 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.7rem, 4vw, 2.6rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0 0 .6rem;
+}
+.om-page-banner p {
+  font-size: .78rem;
+  color: var(--text-soft);
+  letter-spacing: .04em;
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+/* Closing CTA band */
+.om-page-cta {
+  text-align: center;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--bg);
+}
+.om-page-cta h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(1.2rem, 2.6vw, 1.7rem) !important;
+  font-weight: 400 !important;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+/* Current page gets a subtle underline in the nav */
+.om-nav-links a[aria-current="page"] {
+  color: var(--text);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 3px;
+}
 
 /* ── Nav cart ── */
 .om-nav-cart {

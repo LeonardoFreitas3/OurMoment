@@ -11,8 +11,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.2.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.2.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.3.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.3.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -38,6 +38,17 @@ add_action('wp', function () {
     add_action('astra_footer', function () {
         get_template_part('template-parts/site-footer');
     });
+});
+
+/**
+ * Our page templates lay out their own full-bleed sections, so mark them
+ * and let the CSS unwrap Astra's fixed-width content container.
+ */
+add_filter('body_class', function ($classes) {
+    if (is_page(['about', 'contact', 'how-it-works'])) {
+        $classes[] = 'om-fullwidth';
+    }
+    return $classes;
 });
 
 // Refresh the nav cart count when products are added via AJAX

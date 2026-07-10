@@ -1,3 +1,7 @@
+<?php
+$om_show_title = $args['show_title'] ?? true;
+$om_show_cta   = $args['show_cta']   ?? true;
+?>
 <section id="about" class="om-about">
   <div class="om-frame om-fade" style="aspect-ratio:3/4;">
     <svg viewBox="0 0 200 240" fill="none" style="width:60%;height:auto;flex-shrink:0;">
@@ -10,9 +14,13 @@
     </div>
   </div>
   <div class="om-about-text om-fade">
-    <h2 class="om-section-title" style="text-align:left;">Our Story</h2>
+    <?php if ($om_show_title) : ?>
+      <h2 class="om-section-title" style="text-align:left;">Our Story</h2>
+    <?php endif; ?>
     <p>At OurMoment, we believe in the power of meaningful, personalized gifts that celebrate love and connection.</p>
     <p>Founded with the goal of creating timeless keepsakes for couples, we fill each piece we create with thoughtfulness and care. Our mission is to help you capture your special moments and turn them into beautiful, lasting memories.</p>
-    <a href="#shop" class="btn" style="margin-top:1.2rem;">Shop Now</a>
+    <?php if ($om_show_cta && function_exists('wc_get_page_permalink')) : ?>
+      <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn" style="margin-top:1.2rem;">Shop Now</a>
+    <?php endif; ?>
   </div>
 </section>

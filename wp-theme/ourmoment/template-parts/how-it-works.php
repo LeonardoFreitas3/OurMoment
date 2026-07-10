@@ -1,6 +1,9 @@
+<?php $om_show_title = $args['show_title'] ?? true; ?>
 <section id="how-it-works" class="om-how">
   <div class="om-container">
-    <h2 class="om-section-title om-fade">How It Works</h2>
+    <?php if ($om_show_title) : ?>
+      <h2 class="om-section-title om-fade">How It Works</h2>
+    <?php endif; ?>
     <div class="om-steps">
 
       <div class="om-step om-fade">
