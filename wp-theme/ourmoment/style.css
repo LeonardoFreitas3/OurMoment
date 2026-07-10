@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.1.0
+Version: 1.2.0
 Text Domain: ourmoment
 */
 
@@ -53,13 +53,19 @@ h1, h2, h3, h4, h5, h6,
 .om-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 9999;
+  z-index: 999;
   background: var(--bg);
   transition: box-shadow .3s;
 }
 .om-nav.scrolled {
-  box-shadow: 0 1px 8px rgba(58,47,42,.04);
+  box-shadow: 0 1px 8px rgba(58,47,42,.06);
 }
+/* WP admin bar pushes the fixed nav down so it stays visible */
+body.admin-bar .om-nav { top: 32px; }
+@media screen and (max-width: 782px) {
+  body.admin-bar .om-nav { top: 46px; }
+}
+
 .om-nav-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -67,37 +73,56 @@ h1, h2, h3, h4, h5, h6,
   height: 56px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
+
+.om-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-shrink: 0;
+  color: var(--text);
+}
+.om-nav-brand svg { width: 20px; height: 26px; color: var(--accent); }
+.om-nav-brand span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+
 .om-nav-links {
   display: flex;
-  gap: 2.5rem;
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
   list-style: none;
   padding: 0;
   margin: 0;
 }
 .om-nav-links a {
   font-family: var(--font-body) !important;
-  font-size: .68rem;
+  font-size: .66rem;
   text-transform: uppercase;
-  letter-spacing: .22em;
+  letter-spacing: .2em;
   font-weight: 500;
   color: var(--text-soft);
   text-decoration: none;
+  white-space: nowrap;
   transition: color .2s;
 }
-.om-nav-links a:hover { color: var(--text); }
+.om-nav-links a:hover,
+.om-nav-links a:focus-visible { color: var(--text); }
 
 .om-nav-toggle {
   display: none;
-  position: absolute;
-  right: clamp(1.25rem, 4vw, 2.5rem);
   flex-direction: column;
   gap: 5px;
-  padding: 4px;
+  padding: 6px 4px;
   border: none;
   background: none;
   cursor: pointer;
+  flex-shrink: 0;
 }
 .om-nav-toggle span {
   display: block;
@@ -105,21 +130,28 @@ h1, h2, h3, h4, h5, h6,
   height: 1.5px;
   background: var(--text);
 }
-@media (max-width: 640px) {
-  .om-nav-links { display: none; }
-  .om-nav-links.open {
-    display: flex;
-    flex-direction: column;
+
+/* Tablet and below: collapse links behind the hamburger */
+@media (max-width: 860px) {
+  .om-nav-toggle { display: flex; order: -1; }
+  .om-nav-links {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0; right: 0;
+    flex-direction: column;
+    align-items: center;
     background: var(--bg);
+    border-top: 1px solid var(--border);
     padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem);
     gap: 1.2rem;
     box-shadow: var(--shadow);
   }
-  .om-nav-toggle { display: flex; }
-  .om-nav-inner { justify-content: flex-start; }
+  .om-nav-links.open { display: flex; }
+  .om-nav-links a { font-size: .72rem; }
+}
+@media (max-width: 380px) {
+  .om-nav-brand span { display: none; }
 }
 
 /* ── Buttons ── */
@@ -386,32 +418,130 @@ button[type="submit"]:hover,
   color: var(--accent);
 }
 
-/* ── WooCommerce Shop ── */
+/* ── WooCommerce product grid ──
+   Override Woo's float/percentage-width columns with a responsive grid. */
+.woocommerce ul.products,
+.woocommerce-page ul.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.woocommerce ul.products::before,
+.woocommerce ul.products::after { content: none; }
+
 .woocommerce ul.products li.product,
 .woocommerce-page ul.products li.product {
+  width: 100% !important;
+  margin: 0 !important;
+  float: none !important;
+  clear: none !important;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
+/* Woo adds .first/.last for its float layout — neutralise them */
+.woocommerce ul.products li.product.first,
+.woocommerce ul.products li.product.last { clear: none !important; }
+
+/* Product image sits in a wooden frame with a fixed aspect ratio,
+   so mixed-ratio Printify mockups still line up in the grid. */
 .woocommerce ul.products li.product a img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border: 5px solid var(--frame-wood);
   box-shadow: var(--shadow);
   border-radius: 0;
+  margin: 0 0 .9rem;
+  transition: transform .35s ease, box-shadow .35s ease;
 }
+.woocommerce ul.products li.product:hover a img {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
 .woocommerce ul.products li.product .woocommerce-loop-product__title {
+  font-family: var(--font-display) !important;
   font-size: .85rem !important;
+  font-weight: 400 !important;
   letter-spacing: .02em;
-  padding: .5em 0 .2em;
+  line-height: 1.4;
+  padding: 0 0 .35rem !important;
+  margin: 0;
 }
 .woocommerce ul.products li.product .price {
   font-family: var(--font-body) !important;
-  font-size: .6rem !important;
+  font-size: .62rem !important;
   text-transform: uppercase;
   letter-spacing: .18em;
   color: var(--text-soft) !important;
+  margin: 0 0 .9rem;
 }
+.woocommerce ul.products li.product .price del { opacity: .5; margin-right: .4rem; }
+.woocommerce ul.products li.product .price ins { text-decoration: none; color: var(--text) !important; }
+
+/* Push the button to the bottom so cards with 1- and 2-line titles align */
+.woocommerce ul.products li.product .button {
+  margin-top: auto !important;
+  align-self: center;
+}
+
+.woocommerce ul.products li.product .onsale,
 .woocommerce span.onsale {
   background: var(--accent) !important;
-  color: var(--bg-card) !important;
+  color: #fff !important;
   border-radius: 0 !important;
+  font-family: var(--font-body) !important;
+  font-size: .55rem !important;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  padding: .3em .8em !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  line-height: 1.6 !important;
+  top: .6rem !important;
+  left: .6rem !important;
+  right: auto !important;
+  margin: 0 !important;
+}
+
+/* Woo's own result count / sorting bar on the shop archive */
+.woocommerce .woocommerce-result-count,
+.woocommerce .woocommerce-ordering select {
+  font-family: var(--font-body) !important;
+  font-size: .68rem;
+  color: var(--text-soft);
+}
+.woocommerce .woocommerce-ordering select {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: .5rem .7rem;
+  border-radius: 0;
+}
+
+/* Shop archive needs the same container as the rest of the site */
+.woocommerce.archive .site-content,
+.woocommerce-page .ast-container {
+  max-width: 1140px;
+}
+
+@media (max-width: 520px) {
+  .woocommerce ul.products,
+  .woocommerce-page ul.products {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: .75rem !important;
+  }
+  .woocommerce ul.products li.product .button {
+    font-size: .55rem !important;
+    padding: .55rem 1rem !important;
+    letter-spacing: .15em;
+  }
 }
 
 /* ── Single Product ── */
@@ -462,15 +592,17 @@ body:not(.home) #page,
 body:not(.home) .hfeed.site {
   padding-top: 56px;
 }
+/* anchor targets clear the fixed nav */
+[id] { scroll-margin-top: 72px; }
+html { scroll-behavior: smooth; }
 
 /* ── Nav cart ── */
 .om-nav-cart {
-  position: absolute;
-  right: clamp(1.25rem, 4vw, 2.5rem);
   display: flex;
   align-items: center;
   gap: .35rem;
   color: var(--text-soft);
+  flex-shrink: 0;
   transition: color .2s;
 }
 .om-nav-cart:hover { color: var(--text); }
@@ -489,10 +621,6 @@ body:not(.home) .hfeed.site {
   align-items: center;
   justify-content: center;
   padding: 0 3px;
-}
-.om-nav-inner { position: relative; }
-@media (max-width: 640px) {
-  .om-nav-cart { right: calc(clamp(1.25rem, 4vw, 2.5rem) + 2.2rem); }
 }
 
 /* ── Categories ── */
@@ -606,6 +734,12 @@ body:not(.home) .hfeed.site {
 
 /* ── Shop section ── */
 .om-shop { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.om-shop-cta { text-align: center; margin-top: 2.5rem; }
+.om-shop-empty {
+  text-align: center;
+  color: var(--text-soft);
+  font-size: .85rem;
+}
 
 /* ── Testimonials ── */
 .om-testimonials {

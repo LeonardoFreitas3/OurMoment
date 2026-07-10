@@ -23,19 +23,21 @@
 <!-- Shop Section -->
 <section id="shop" class="om-shop">
   <div class="om-container">
-    <h2 class="om-section-title om-fade">Bestsellers</h2>
-    <?php
-    if (class_exists('WooCommerce')) {
-        echo do_shortcode('[products limit="3" columns="3" orderby="popularity"]');
-    } else {
-        echo '<p style="text-align:center;color:var(--text-soft);font-size:.85rem;">Products coming soon.</p>';
-    }
-    ?>
-    <div style="text-align:center;margin-top:2rem;" class="om-fade">
-      <?php if (class_exists('WooCommerce')) : ?>
-        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Shop All</a>
-      <?php endif; ?>
+    <h2 class="om-section-title om-fade">New Arrivals</h2>
+    <div class="om-fade">
+      <?php
+      if (class_exists('WooCommerce')) {
+          echo do_shortcode('[products limit="4" columns="4" orderby="date" order="DESC" visibility="visible"]');
+      } else {
+          echo '<p class="om-shop-empty">Products coming soon.</p>';
+      }
+      ?>
     </div>
+    <?php if (class_exists('WooCommerce')) : ?>
+      <div class="om-shop-cta om-fade">
+        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Shop All</a>
+      </div>
+    <?php endif; ?>
   </div>
 </section>
 
