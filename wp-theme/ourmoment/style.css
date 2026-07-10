@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.7.0
+Version: 1.8.0
 Text Domain: ourmoment
 */
 
@@ -313,37 +313,29 @@ button[type="submit"]:hover,
   margin-bottom: 2.5rem;
 }
 
-/* ── About ── */
-.om-about {
-  display: grid;
-  grid-template-columns: .9fr 1.1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: center;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: clamp(3.5rem, 7vw, 6rem) 1.5rem;
+/* ── About ── single centred column */
+.om-about { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.om-about .om-container { text-align: center; }
+.om-about-frame {
+  width: min(300px, 78vw);
+  aspect-ratio: 3/4;
+  margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
 }
+.om-about-frame svg { width: 60%; height: auto; }
 .om-about-text p {
   color: var(--text-soft);
-  font-size: .82rem;
-  line-height: 1.9;
-  margin-bottom: .7rem;
-  max-width: 42ch;
+  font-size: .85rem;
+  line-height: 1.95;
+  margin: 0 auto .9rem;
+  max-width: 56ch;
 }
-@media (max-width: 768px) {
-  .om-about { grid-template-columns: 1fr; }
-}
+.om-about-text .btn { margin-top: 1.4rem; }
 
-/* ── Contact ── */
-.om-contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: clamp(3.5rem, 7vw, 6rem) 1.5rem;
-}
+/* ── Contact ── single centred column */
+.om-contact { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+.om-contact .om-container { text-align: center; }
 .om-contact-frame {
+  width: min(340px, 80vw);
   aspect-ratio: 4/3;
   border: 5px solid var(--frame-wood);
   background: var(--bg-card);
@@ -352,19 +344,25 @@ button[type="submit"]:hover,
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  margin-top: 1rem;
+  margin: 0 auto clamp(1.8rem, 4vw, 2.4rem);
 }
-.om-contact p {
+.om-contact-frame svg { width: 45%; height: auto; }
+.om-contact-intro {
   color: var(--text-soft);
-  font-size: .8rem;
-  line-height: 1.8;
-  max-width: 40ch;
-  margin-bottom: 1.5rem;
+  font-size: .84rem;
+  line-height: 1.85;
+  max-width: 52ch;
+  margin: 0 auto 2.2rem;
 }
-.om-contact a { color: var(--accent); }
+.om-contact-intro a { color: var(--accent); }
 
-.om-contact input,
-.om-contact textarea {
+.om-contact-form {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: left;
+}
+.om-contact-form input,
+.om-contact-form textarea {
   width: 100%;
   padding: .75rem .9rem;
   font-family: var(--font-body);
@@ -377,51 +375,146 @@ button[type="submit"]:hover,
   transition: border-color .2s;
   box-sizing: border-box;
 }
-.om-contact input:focus,
-.om-contact textarea:focus { border-color: var(--accent); }
-.om-contact textarea { resize: vertical; min-height: 100px; }
-.om-contact input::placeholder,
-.om-contact textarea::placeholder { color: var(--text-soft); opacity: .55; }
-
-@media (max-width: 768px) {
-  .om-contact { grid-template-columns: 1fr; }
-}
+.om-contact-form input:focus,
+.om-contact-form textarea:focus { border-color: var(--accent); }
+.om-contact-form textarea { resize: vertical; min-height: 110px; }
+.om-contact-form input::placeholder,
+.om-contact-form textarea::placeholder { color: var(--text-soft); opacity: .55; }
+.om-contact-form .btn { display: block; margin: .4rem auto 0; }
 
 /* ── Footer ── */
 .om-footer {
-  padding: 1.5rem 0;
   border-top: 1px solid var(--border);
-  background: var(--bg);
+  background: var(--bg-warm);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 1.5rem;
 }
-.om-footer-inner {
+
+.om-footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(1.8rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+@media (max-width: 860px) {
+  .om-footer-grid { grid-template-columns: 1fr 1fr; }
+  .om-footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 460px) {
+  .om-footer-grid { grid-template-columns: 1fr; text-align: center; }
+}
+
+/* Brand column */
+.om-footer-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  margin-bottom: .9rem;
+}
+.om-footer-tagline {
+  font-family: var(--font-display);
+  font-size: .88rem;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0 0 1.3rem;
+  max-width: 30ch;
+}
+
+.om-footer-social { display: flex; gap: .7rem; }
+.om-footer-social a {
+  width: 30px; height: 30px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  transition: border-color .2s, color .2s, background .2s;
+}
+.om-footer-social a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-card);
+}
+@media (max-width: 460px) {
+  .om-footer-logo,
+  .om-footer-tagline { margin-inline: auto; }
+  .om-footer-social { justify-content: center; }
+}
+
+/* Link columns */
+.om-footer-col h3 {
+  font-family: var(--font-body) !important;
+  font-size: .6rem !important;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  margin: .3rem 0 1rem;
+}
+.om-footer-col ul { list-style: none; margin: 0; padding: 0; }
+.om-footer-col li { margin-bottom: .55rem; }
+.om-footer-col a {
+  font-size: .78rem;
+  color: var(--text-soft);
+  transition: color .2s;
+}
+.om-footer-col a:hover { color: var(--accent); }
+
+/* Newsletter */
+.om-footer-newsletter {
+  border-top: 1px solid var(--border);
+  padding: clamp(1.8rem, 3vw, 2.4rem) 0;
+  text-align: center;
+}
+.om-footer-newsletter h3 {
+  font-family: var(--font-display) !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  margin: 0 0 .3rem;
+}
+.om-footer-newsletter p {
+  font-size: .78rem;
+  color: var(--text-soft);
+  margin: 0 auto 1.2rem;
+  max-width: 40ch;
+}
+
+/* Bottom bar */
+.om-footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 1.3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
 }
-.om-footer p {
-  font-size: .65rem;
+.om-footer-bottom p {
+  font-size: .68rem;
   color: var(--text-soft);
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   margin: 0;
 }
-.om-footer-social {
+.om-footer-pay {
   display: flex;
-  gap: 1rem;
+  gap: .5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
 }
-.om-footer-social a {
-  width: 28px; height: 28px;
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.om-footer-pay li {
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: .1em;
   color: var(--text-soft);
-  transition: border-color .2s, color .2s;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: .3rem .6rem;
 }
-.om-footer-social a:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+@media (max-width: 560px) {
+  .om-footer-bottom { justify-content: center; text-align: center; }
+  .om-footer-pay { justify-content: center; }
 }
 
 /* ── WooCommerce product grid ──
@@ -528,11 +621,43 @@ button[type="submit"]:hover,
   border-radius: 0;
 }
 
-/* Shop archive needs the same container as the rest of the site */
-.woocommerce.archive .site-content,
-.woocommerce-page .ast-container {
+/* ── Centring every inner page ──
+   Shop, cart, checkout, account and the legal pages all run through
+   Astra's default templates. Give them one centred column. */
+.woocommerce-page .ast-container,
+.woocommerce.archive .site-content {
   max-width: 1140px;
+  margin-inline: auto;
 }
+
+.woocommerce .woocommerce-products-header,
+.woocommerce-page .woocommerce-products-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.woocommerce-products-header__title,
+.woocommerce-page .entry-title,
+.woocommerce div.product .product_title {
+  text-align: center;
+}
+.woocommerce .woocommerce-result-count { float: none; text-align: center; }
+.woocommerce .woocommerce-ordering { float: none; display: flex; justify-content: center; margin-bottom: 1.6rem; }
+
+/* Generic pages (Terms, Privacy, Returns, and anything you add later).
+   The column is centred; running text stays left-aligned, because
+   centred paragraphs are markedly harder to read at this length. */
+.page .entry-title,
+.page .ast-article-single .entry-title {
+  text-align: center;
+}
+.page .entry-content,
+.page .ast-article-single .entry-content {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+.page .entry-content > h2,
+.page .entry-content > h3 { text-align: left; }
+.page .entry-content table { font-size: .85rem; }
 
 @media (max-width: 520px) {
   .woocommerce ul.products,
@@ -881,19 +1006,6 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   color: var(--text-soft);
 }
 
-/* ── Footer links ── */
-.om-footer-links {
-  display: flex;
-  gap: 1.2rem;
-}
-.om-footer-links a {
-  font-size: .62rem;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  color: var(--text-soft);
-  transition: color .2s;
-}
-.om-footer-links a:hover { color: var(--accent); }
 
 /* ── Customily personalizer area ── */
 .customily-personalizer,
