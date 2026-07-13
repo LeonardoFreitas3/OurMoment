@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.10.0
+Version: 1.11.0
 Text Domain: ourmoment
 */
 
@@ -38,6 +38,23 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* Accessibility text must stay off-screen, not render inline. Without this,
+   WooCommerce's "Price range: X through Y" a11y span shows next to variable
+   product prices. Canonical WordPress screen-reader-text rule. */
+.screen-reader-text {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  clip-path: inset(50%) !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  word-wrap: normal !important;
+  white-space: nowrap !important;
+}
 
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6,

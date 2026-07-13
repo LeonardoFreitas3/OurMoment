@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.10.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.10.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.11.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.11.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -64,6 +64,27 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     $fragments['.om-cart-count'] = '<span class="om-cart-count' . ($count ? ' has-items' : '') . '">' . esc_html($count) . '</span>';
     return $fragments;
 });
+
+/**
+ * Trim Printify's keyword-stuffed product titles for display.
+ *
+ * Printify imports titles like "Romantic Heart Outline Mug — Couple Silhouette
+ * Coffee Cup"; everything after the em/en dash is SEO filler. Show only the
+ * part before it on the storefront (shop loop, single product, cart,
+ * breadcrumb) while leaving the stored post_title — and therefore the slug,
+ * the admin list, and Yoast's SEO title — untouched, so the search keywords
+ * are kept where they belong.
+ *
+ * ponytail: display-only, so it never touches the DB and is fully reversible.
+ */
+add_filter('the_title', function ($title, $post_id = 0) {
+    if (is_admin() || !$post_id || get_post_type($post_id) !== 'product') {
+        return $title;
+    }
+    // Split on an em or en dash padded by spaces — Printify's separator.
+    $clean = preg_split('/\s+[—–]\s+/u', $title, 2)[0];
+    return trim($clean) !== '' ? trim($clean) : $title;
+}, 10, 2);
 
 /**
  * Print the brand logo. Decorative by default — pass an $alt only where the
