@@ -34,6 +34,10 @@ $om_items = [
     </ul>
 
     <div class="om-nav-actions">
+      <?php if (shortcode_exists('language-switcher')) : ?>
+        <span class="om-nav-lang"><?php echo do_shortcode('[language-switcher]'); ?></span>
+      <?php endif; ?>
+
       <?php if (function_exists('wc_get_page_permalink')) : ?>
         <?php
         $om_logged_in  = is_user_logged_in();
