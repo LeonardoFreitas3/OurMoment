@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.12.0
+Version: 1.13.0
 Text Domain: ourmoment
 */
 
@@ -840,24 +840,29 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
 }
 
 /* ── TranslatePress language switcher, inline in the nav ──
-   The switcher is themed through CSS custom properties set inline on its
-   element, so we override those (not child rules) to recolour it, then
-   strip the padding/border that only make sense on the floating variant. */
+   TP themes the shortcode switcher through CSS custom properties set inline
+   on .trp-shortcode-switcher__wrapper, so we override those (not child rules)
+   to recolour it. Flags are hidden — code only (EN/PT) — and the dropdown is
+   pinned to open downward, right-aligned, since it now lives at the top of
+   the page instead of floating. */
 .om-nav-lang { display: flex; align-items: center; }
-.om-nav-lang .trp-language-switcher {
+
+.om-nav-lang .trp-shortcode-switcher__wrapper {
   --bg:            transparent !important;
   --bg-hover:      var(--bg-warm) !important;
   --text:          var(--text-soft) !important;
   --text-hover:    var(--text) !important;
   --border:        1px solid var(--border) !important;
+  --border-color:  var(--border) !important;
   --border-radius: 0 !important;
-  --flag-size:     15px !important;
-  --flag-radius:   2px !important;
   --font-size:     12px !important;
   --switcher-padding: 0 !important;
-  position: static !important;
-  margin: 0 !important;
+  position: relative !important;
 }
+
+/* Code only — drop both flag images (button + dropdown) */
+.om-nav-lang .trp-flag-image { display: none !important; }
+
 .om-nav-lang .trp-language-item-name {
   font-family: var(--font-body) !important;
   text-transform: uppercase;
@@ -865,17 +870,27 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   font-weight: 500;
 }
 .om-nav-lang .trp-language-item__current {
-  padding: .35rem .1rem !important;
-  gap: .35rem;
+  padding: .35rem .3rem !important;
+  gap: 0 !important;
 }
-/* Dropdown of the other languages */
-.om-nav-lang .trp-switcher-dropdown-list {
+
+/* Dropdown: below the button, aligned to its right edge */
+.om-nav-lang .trp-shortcode-overlay {
+  position: absolute !important;
+  top: calc(100% + 4px) !important;
+  right: 0 !important;
+  left: auto !important;
+  bottom: auto !important;
+  min-width: 100% !important;
   background: var(--bg-card) !important;
   border: 1px solid var(--border) !important;
   box-shadow: var(--shadow) !important;
-  min-width: 100%;
+  z-index: 1000 !important;
 }
-.om-nav-lang .trp-switcher-dropdown-list .trp-language-item { padding: .55rem .7rem !important; }
+.om-nav-lang .trp-shortcode-overlay .trp-language-item {
+  padding: .5rem .8rem !important;
+  justify-content: flex-end;
+}
 
 .om-nav-icon {
   position: relative;
