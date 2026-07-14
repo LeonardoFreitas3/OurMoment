@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.14.0
+Version: 1.15.0
 Text Domain: ourmoment
 */
 
@@ -839,66 +839,27 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   justify-content: flex-end;
 }
 
-/* ── TranslatePress language switcher, inline in the nav ──
-   TP themes the shortcode switcher through CSS custom properties set inline
-   on .trp-shortcode-switcher__wrapper, so we override those (not child rules)
-   to recolour it. Flags are hidden — code only (EN/PT) — and the dropdown is
-   pinned to open downward, right-aligned, since it now lives at the top of
-   the page instead of floating. */
-.om-nav-lang { display: flex; align-items: center; }
-
-.om-nav-lang .trp-shortcode-switcher__wrapper {
-  --bg:            transparent !important;
-  --bg-hover:      var(--bg-warm) !important;
-  --text:          var(--text-soft) !important;
-  --text-hover:    var(--text) !important;
-  --border:        1px solid var(--border) !important;
-  --border-color:  var(--border) !important;
-  --border-radius: 0 !important;
-  --font-size:     12px !important;
-  --switcher-padding: 0 !important;
-  position: relative !important;
+/* ── Language toggle (EN | PT), inline in the nav ── */
+.om-nav-lang {
+  display: flex;
+  align-items: center;
 }
-
-/* Code only — drop both flag images (button + dropdown) */
-.om-nav-lang .trp-flag-image { display: none !important; }
-
-/* TP's --font-size var doesn't reach the label, so size it directly to
-   match the nav links (.8rem). */
-.om-nav-lang .trp-language-item,
-.om-nav-lang .trp-language-item-name {
-  font-family: var(--font-body) !important;
-  font-size: .8rem !important;
+.om-lang {
+  font-family: var(--font-body);
+  font-size: .8rem;
+  line-height: 1;
   text-transform: uppercase;
-  letter-spacing: .14em;
-  font-weight: 500 !important;
-  line-height: 1.2 !important;
-}
-.om-nav-lang .trp-language-item__current {
-  padding: .3rem .2rem !important;
-  gap: 0 !important;
-  color: var(--text-soft) !important;
+  letter-spacing: .12em;
+  font-weight: 500;
+  color: var(--text-soft);
+  padding: 0 .5rem;
   transition: color .2s;
 }
-.om-nav-lang .trp-language-item__current:hover { color: var(--text) !important; }
-
-/* Dropdown: below the button, aligned to its right edge */
-.om-nav-lang .trp-shortcode-overlay {
-  position: absolute !important;
-  top: calc(100% + 4px) !important;
-  right: 0 !important;
-  left: auto !important;
-  bottom: auto !important;
-  min-width: 100% !important;
-  background: var(--bg-card) !important;
-  border: 1px solid var(--border) !important;
-  box-shadow: var(--shadow) !important;
-  z-index: 1000 !important;
-}
-.om-nav-lang .trp-shortcode-overlay .trp-language-item {
-  padding: .5rem .8rem !important;
-  justify-content: flex-end;
-}
+.om-lang:first-child { padding-left: 0; }
+.om-lang + .om-lang { border-left: 1px solid var(--border); }
+.om-lang:hover,
+.om-lang:focus-visible { color: var(--text); }
+.om-lang.is-current { color: var(--text); cursor: default; }
 
 .om-nav-icon {
   position: relative;
