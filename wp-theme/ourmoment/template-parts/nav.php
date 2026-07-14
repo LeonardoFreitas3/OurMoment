@@ -35,7 +35,7 @@ $om_items = [
 
     <div class="om-nav-actions">
       <?php if (shortcode_exists('language-switcher')) : ?>
-        <span class="om-nav-lang"><?php echo do_shortcode('[language-switcher]'); ?></span>
+        <span class="om-nav-lang"><?php echo do_shortcode('[language-switcher full_names="false" flags="false"]'); ?></span>
       <?php endif; ?>
 
       <?php if (function_exists('wc_get_page_permalink')) : ?>
