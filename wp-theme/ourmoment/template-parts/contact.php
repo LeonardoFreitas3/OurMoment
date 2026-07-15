@@ -26,20 +26,24 @@ $om_show_title = $args['show_title'] ?? true;
     </p>
 
     <div class="om-contact-form om-fade">
-      <?php
-      if (shortcode_exists('contact-form-7')) {
-          echo do_shortcode('[contact-form-7 id="contact-form" title="Contact Form"]');
-      } else {
-          ?>
-          <form method="post" action="#">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email Address" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit" class="btn">Send Message</button>
-          </form>
-          <?php
-      }
-      ?>
+      <?php $om_sent = isset($_GET['om_sent']) ? sanitize_key($_GET['om_sent']) : ''; ?>
+
+      <?php if ($om_sent === 'ok') : ?>
+        <p class="om-form-note om-form-ok">Mensagem enviada. Respondemos assim que pudermos.</p>
+      <?php elseif ($om_sent === 'error') : ?>
+        <p class="om-form-note om-form-error">Algo correu mal. Confirma os campos e tenta de novo.</p>
+      <?php endif; ?>
+
+      <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+        <input type="hidden" name="action" value="om_contact">
+        <?php wp_nonce_field('om_contact', 'om_contact_nonce'); ?>
+        <input type="text" name="om_name" placeholder="O teu nome" required>
+        <input type="email" name="om_email" placeholder="O teu email" required>
+        <textarea name="om_message" placeholder="A tua mensagem" required></textarea>
+        <!-- honeypot: os humanos não veem este campo; os bots preenchem-no -->
+        <input type="text" name="om_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="om-hp">
+        <button type="submit" class="btn">Enviar mensagem</button>
+      </form>
     </div>
 
   </div>

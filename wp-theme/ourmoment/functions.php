@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.16.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.16.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.17.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.17.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -64,6 +64,49 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     $fragments['.om-cart-count'] = '<span class="om-cart-count' . ($count ? ' has-items' : '') . '">' . esc_html($count) . '</span>';
     return $fragments;
 });
+
+/**
+ * Native contact form handler.
+ *
+ * The form posts to admin-post.php; we validate a nonce, drop honeypot
+ * submissions, sanitise, email the site admin, and redirect back with a
+ * status flag. Removes the Contact Form 7 dependency — the themed form just
+ * works. Delivery still depends on the site being able to send mail; set up
+ * an SMTP plugin so wp_mail actually reaches the inbox.
+ */
+function om_handle_contact() {
+    $redirect = wp_get_referer() ?: home_url('/contact/');
+
+    // Honeypot — a filled hidden field means a bot; pretend success silently.
+    if (!empty($_POST['om_website'])) {
+        wp_safe_redirect(add_query_arg('om_sent', 'ok', $redirect) . '#contact');
+        exit;
+    }
+
+    $ok = isset($_POST['om_contact_nonce'])
+        && wp_verify_nonce($_POST['om_contact_nonce'], 'om_contact');
+
+    $name    = sanitize_text_field(wp_unslash($_POST['om_name'] ?? ''));
+    $email   = sanitize_email(wp_unslash($_POST['om_email'] ?? ''));
+    $message = sanitize_textarea_field(wp_unslash($_POST['om_message'] ?? ''));
+
+    if (!$ok || $name === '' || !is_email($email) || $message === '') {
+        wp_safe_redirect(add_query_arg('om_sent', 'error', $redirect) . '#contact');
+        exit;
+    }
+
+    $to      = get_option('admin_email');
+    $subject = sprintf('Novo contacto de %s — OurMoment', $name);
+    $body    = "Nome: {$name}\nEmail: {$email}\n\nMensagem:\n{$message}";
+    $headers = ['Reply-To: ' . $name . ' <' . $email . '>'];
+
+    wp_mail($to, $subject, $body, $headers);
+
+    wp_safe_redirect(add_query_arg('om_sent', 'ok', $redirect) . '#contact');
+    exit;
+}
+add_action('admin_post_om_contact', 'om_handle_contact');
+add_action('admin_post_nopriv_om_contact', 'om_handle_contact');
 
 /**
  * Trust block under the add-to-cart button on product pages.

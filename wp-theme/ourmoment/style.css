@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.16.0
+Version: 1.17.0
 Text Domain: ourmoment
 */
 
@@ -405,6 +405,33 @@ button[type="submit"]:hover,
 .om-contact-form input::placeholder,
 .om-contact-form textarea::placeholder { color: var(--text-soft); opacity: .55; }
 .om-contact-form .btn { display: block; margin: .4rem auto 0; }
+
+/* Honeypot — kept in the DOM for bots, invisible and unfocusable for people */
+.om-hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px; height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.om-form-note {
+  max-width: 480px;
+  margin: 0 auto 1.2rem;
+  padding: .8rem 1rem;
+  font-size: .8rem;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.om-form-ok {
+  background: #ECF2EC;
+  border-color: #7A9E7E;
+  color: #3F5F43;
+}
+.om-form-error {
+  background: #F7EBE7;
+  border-color: #A85A4A;
+  color: #7A3A2E;
+}
 
 /* ── Footer ── */
 .om-footer {
