@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.15.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.15.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.16.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.16.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -63,6 +63,50 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     $count = WC()->cart ? WC()->cart->get_cart_contents_count() : 0;
     $fragments['.om-cart-count'] = '<span class="om-cart-count' . ($count ? ' has-items' : '') . '">' . esc_html($count) . '</span>';
     return $fragments;
+});
+
+/**
+ * Trust block under the add-to-cart button on product pages.
+ *
+ * Honest, POD-compatible signals only: the live preview ("what you see is
+ * what you get") answers the rival's pixelated-render complaints, and none
+ * of it promises delivery speed or support the store can't control.
+ * Written in pt-PT as the source; translate to EN via TranslatePress.
+ */
+add_action('woocommerce_after_add_to_cart_form', function () {
+    ?>
+    <ul class="om-trust">
+      <li class="om-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M2 12 C4 7 8 4 12 4 C16 4 20 7 22 12 C20 17 16 20 12 20 C8 20 4 17 2 12Z"/>
+          <circle cx="12" cy="12" r="3.2"/>
+        </svg>
+        <div>
+          <strong>O que vês é o que recebes</strong>
+          <span>Personalizas e vês o resultado final antes de comprares. Sem surpresas.</span>
+        </div>
+      </li>
+      <li class="om-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M12 21 C12 21 4 15.5 4 9.5 C4 6.5 6.2 4.5 8.7 5.3 C10.2 5.8 11.4 7 12 8 C12.6 7 13.8 5.8 15.3 5.3 C17.8 4.5 20 6.5 20 9.5 C20 15.5 12 21 12 21Z"/>
+        </svg>
+        <div>
+          <strong>Feito à vossa medida</strong>
+          <span>Cada peça leva os vossos nomes, datas e fotografias.</span>
+        </div>
+      </li>
+      <li class="om-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="4" y="10" width="16" height="11" rx="1.5"/>
+          <path d="M8 10 L8 7 C8 4.8 9.8 3 12 3 C14.2 3 16 4.8 16 7 L16 10"/>
+        </svg>
+        <div>
+          <strong>Pagamento seguro</strong>
+          <span>Checkout encriptado, com os métodos em que já confias.</span>
+        </div>
+      </li>
+    </ul>
+    <?php
 });
 
 /**

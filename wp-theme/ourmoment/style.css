@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.15.0
+Version: 1.16.0
 Text Domain: ourmoment
 */
 
@@ -1259,6 +1259,43 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   border-color: var(--accent) !important;
   color: #fff !important;
   border-radius: 0 !important;
+}
+
+/* ── Product-page trust block ── */
+.om-trust {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 1.4rem 0 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.om-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: .8rem;
+}
+.om-trust-item svg {
+  width: 22px;
+  height: 22px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.om-trust-item strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: .01em;
+  margin-bottom: .1rem;
+}
+.om-trust-item span {
+  font-size: .78rem;
+  line-height: 1.55;
+  color: var(--text-soft);
 }
 
 /* ── Fade animation ── */
