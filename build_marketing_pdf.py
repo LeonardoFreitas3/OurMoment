@@ -75,6 +75,18 @@ def headline(fig, label):
     ]))
     return inner
 
+def formula_box(line, label):
+    big = ParagraphStyle("fbig", fontName=SERIF, fontSize=14, leading=19,
+                         textColor=BROWN, alignment=TA_CENTER)
+    inner = Table([[Paragraph(line, big)], [P(label, "figlabel")]], colWidths=[150*mm])
+    inner.setStyle(TableStyle([
+        ("BOX", (0,0), (-1,-1), 0.6, RULE),
+        ("BACKGROUND", (0,0), (-1,-1), SURF),
+        ("TOPPADDING", (0,0), (-1,-1), 10),
+        ("BOTTOMPADDING", (0,0), (-1,-1), 10),
+    ]))
+    return inner
+
 def note(html, kind="note"):
     bar = BROWN if kind == "note" else BAD
     bg = colors.white if kind == "note" else BADBG
@@ -121,24 +133,18 @@ def build():
     story.append(Spacer(1, 3*mm))
     story.append(HRFlowable(width="100%", thickness=0.6, color=RULE, spaceAfter=6))
 
-    # 1. O número
-    story.append(P("O número que decide tudo o resto", "h2"))
-    story.append(P("Antes de escolher canais, é preciso saber quanto podes pagar por cliente. Tudo neste plano decorre daqui.", "dek"))
-    story.append(headline("€13,32", "MARGEM DE CONTRIBUIÇÃO POR ENCOMENDA"))
-    story.append(Spacer(1, 6))
-    story.append(P("Numa encomenda média de <b>€41</b> sobram <b>€13,32</b> depois do IVA, produção, portes e comissão do Stripe. Esse é o teto do que podes gastar para conquistar um cliente. Gastar mais é pagar para vender.", "body"))
-    story.append(table(
-        ["Produto", "Venda", "S/ IVA", "Custo", "Margem", "%"],
-        [["Caneca 11oz","22,90","18,62","10,00","8,02","43%"],
-         ["Quadro c/ moldura","44,90","36,50","22,00","13,58","37%"],
-         ["Canvas 30×40","59,90","48,70","31,50","16,05","33%"]],
-        ["LEFT","RIGHT","RIGHT","RIGHT","RIGHT","RIGHT"],
-        [50,20,20,20,22,18],
-    ))
-    story.append(Spacer(1, 6))
-    story.append(note("<b>A caneca tem a melhor percentagem; o canvas dá o dobro dos euros.</b> Percentagens não pagam anúncios — euros pagam. Otimiza bundles para euros por encomenda, não para margem percentual."))
+    # 1. A regra
+    story.append(P("A regra que decide tudo o resto", "h2"))
+    story.append(P("Antes de escolher canais, é preciso saber quanto podes pagar por cliente. Ainda não fixaste preços — por isso o que importa agora não é um número, é a regra.", "dek"))
+    story.append(formula_box("MARGEM  ≥  CUSTO DE AQUISIÇÃO", "NUNCA PAGUES POR UM CLIENTE MAIS DO QUE A MARGEM QUE ELE TE DEIXA"))
+    story.append(Spacer(1, 8))
+    story.append(P("A tua <b>margem de contribuição</b> por encomenda é o teto absoluto do que podes gastar para conquistar um cliente. Assim que definires preços, calcula-a com esta conta:", "body"))
+    story.append(formula_box("Preço ÷ 1,23  −  Produção  −  Portes  −  (1,5% + €0,25)  −  ~€0,90",
+                             "IVA  ·  CUSTO POD  ·  ENVIO  ·  TAXA STRIPE  ·  CUSTOMILY  =  MARGEM"))
+    story.append(Spacer(1, 8))
+    story.append(note("<b>Fecha esta conta antes de gastar em tráfego</b> — é ela que decide se o negócio dá lucro. O Customily tira ~€0,90 por artigo à margem; inclui-o sempre. E a percentagem de margem não paga anúncios — os <b>euros por encomenda</b> pagam. Otimiza bundles para euros, não para percentagem."))
     story.append(Spacer(1, 4))
-    story.append(note("<b>Números por fechar.</b> Estes valores são de trabalho. O Customily tira ~€0,90 por artigo à margem, e os preços/custos reais dependem do fornecedor que escolheres. Fecha a economia unitária antes de gastar em tráfego — é o que decide se o negócio dá lucro."))
+    story.append(note("<b>A regra de ouro.</b> Se conquistar uma venda te custar mais do que a margem dessa venda, estás a pagar para vender. Todo este plano existe para manter o custo de aquisição abaixo da margem — seja qual for o preço que vieres a definir."))
 
     # 2. Diferenciação (NOVO)
     story.append(P("Como te diferencias — cumprir é a arma", "h2"))
@@ -153,17 +159,18 @@ def build():
 
     # 3. Porque não anunciar
     story.append(P("Porque não deves anunciar no primeiro dia", "h2"))
-    story.append(P("Com esta margem e uma loja nova (conversão ~1%), os anúncios pagos são uma forma rápida de perder dinheiro. É matemática, não falta de habilidade.", "dek"))
+    story.append(P("Uma loja nova converte perto de 1%. A esse ritmo, cada venda vinda de anúncios custa isto — custo por clique a dividir pela taxa de conversão:", "dek"))
     story.append(table(
         ["CPC", "Conversão 1%", "Conversão 2%", "Conversão 3%"],
-        [["€0,15","€15,00  Prejuízo","€7,50  Lucro","€5,00  Lucro"],
-         ["€0,25","€25,00  Prejuízo","€12,50  Lucro","€8,33  Lucro"],
-         ["€0,35","€35,00  Prejuízo","€17,50  Prejuízo","€11,67  Lucro"]],
+        [["€0,15","€15","€7,50","€5"],
+         ["€0,25","€25","€12,50","€8,33"],
+         ["€0,35","€35","€17,50","€11,67"]],
         ["LEFT","RIGHT","RIGHT","RIGHT"],
         [25,42,42,41],
     ))
     story.append(Spacer(1, 6))
-    story.append(note("Os anúncios não são a alavanca — são o <b>multiplicador</b>. Multiplicam o que já funciona, e ainda não tens nada a multiplicar. Primeiro constrói conversão e provas sociais no orgânico; só depois, com o CAC dentro dos €13, deitas gasolina na fogueira. Resiste a anunciar antes de teres 30 avaliações e conversão acima de 1,5%.", "warn"))
+    story.append(P("Compara cada valor com a tua margem. À conversão de ~1% de uma loja nova (coluna da esquerda), o custo por venda é quase de certeza maior do que a margem — dás prejuízo em cada venda. Não é falta de habilidade; é matemática.", "body"))
+    story.append(note("Os anúncios não são a alavanca — são o <b>multiplicador</b>. Multiplicam o que já funciona, e ainda não tens nada a multiplicar. Primeiro constrói conversão e provas sociais no orgânico; só depois, com o custo por venda abaixo da margem, deitas gasolina na fogueira. Resiste a anunciar antes de teres 30 avaliações e conversão acima de 1,5%.", "warn"))
 
     # 4. Fases
     story.append(P("O plano, em quatro fases", "h2"))
@@ -187,11 +194,11 @@ def build():
             "<b>Pede avaliação com foto</b> 10 dias após a entrega.",
          ]),
         ("MÊS 6–8", "Aumentar o valor por encomenda",
-         "AOV €41 → €55 · Marketing ~€120/mês", [
-            "<b>Bundles</b> \"quadro + caneca a condizer\". Sobe euros por encomenda e dilui portes.",
+         "Subir a encomenda média · Marketing ~€120/mês", [
+            "<b>Bundles</b> \"quadro + caneca a condizer\". Sobe os euros por encomenda e dilui os portes.",
             "<b>Embrulho de oferta</b> pago — margem quase pura e reforça a promessa da marca.",
             "<b>Retargeting</b> a quem visitou e não comprou — o primeiro euro de publicidade que faz sentido.",
-            "<b>Só agora testa anúncios frios</b>, e só se a conversão passou 1,5%. Mata qualquer conjunto com CAC acima de €8.",
+            "<b>Só agora testa anúncios frios</b>, e só se a conversão passou 1,5%. Mata qualquer conjunto cujo custo por venda passe a tua margem.",
          ]),
         ("MÊS 9–12", "Escalar o que funciona",
          "Rentabilidade sustentada · Marketing: 30% da margem", [
@@ -219,7 +226,7 @@ def build():
         [["TikTok / Reels","Grátis","Alto, lento","O teu produto tem um momento de reação filmável."],
          ["Pinterest","Grátis","Alto, composto","Motor de busca; as pessoas planeiam presentes lá."],
          ["Email","Grátis até 250","Muito alto","Carrinho abandonado e aniversários. A lista é tua."],
-         ["Seeding a influencers","€10–22/peça","Médio","Pagas em produto; gera conteúdo reutilizável."],
+         ["Seeding a influencers","1 produto","Médio","Pagas em produto, não em dinheiro; gera conteúdo reutilizável."],
          ["SEO","Grátis","Alto, muito lento","6 meses a dar frutos. Planta agora, colhe no Natal."],
          ["Retargeting","€3–5/dia","Alto","Público quente. O 1º euro de publicidade a gastar."],
          ["Anúncios frios","€10+/dia","Negativo no início","Só depois de conversão >1,5%."]],
@@ -252,7 +259,7 @@ def build():
         [["1–2","Nada. Só orgânico e amostras.","0","0"],
          ["3–5","Seeding: 2 produtos/mês","30","90"],
          ["6–8","Retargeting €3/dia · seeding","120","450"],
-         ["9–12","Anúncios frios, só se CAC < €8","150–250","1.050–1.450"]],
+         ["9–12","Anúncios frios, só se custo/venda < margem","150–250","1.050–1.450"]],
         ["LEFT","LEFT","RIGHT","RIGHT"],
         [18,72,30,30],
     ))
@@ -283,8 +290,8 @@ def build():
     story.append(table(
         ["Métrica", "Agora", "Meta", "Porquê importa"],
         [["Taxa de conversão","—",">1,5%","Abaixo disto, os anúncios dão prejuízo."],
-         ["Encomenda média","€41","€55","Cada euro aqui é CAC que podes pagar."],
-         ["CAC","€0","<€8","Teto absoluto: €13,32."],
+         ["Encomenda média","—","subir","Cada euro aqui é custo de aquisição que podes pagar."],
+         ["Custo por venda","€0","< margem","Nunca acima da margem de contribuição."],
          ["Avaliações","0","30+","A conversão duplica entre 0 e 30 avaliações."],
          ["Lista de email","0","500","Deve valer 25% da receita."],
          ["Compras repetidas","—",">15%","Aniversários repetem-se todos os anos."]],
@@ -305,7 +312,7 @@ def build():
 
     story.append(Spacer(1, 10))
     story.append(HRFlowable(width="100%", thickness=0.5, color=RULE, spaceAfter=6))
-    story.append(P("Números com IVA a 23% e Stripe a 1,5% + €0,25. Valores de trabalho — revê-os com os custos reais do fornecedor. Concorrência e posicionamento com base no Estudo de Mercado (julho 2026).", "foot"))
+    story.append(P("Ainda sem preços de venda definidos: o plano assenta na regra margem ≥ custo de aquisição, seja qual for o preço. IVA a 23%, Stripe a 1,5% + €0,25. Concorrência e posicionamento com base no Estudo de Mercado (julho 2026).", "foot"))
 
     # Render
     doc = BaseDocTemplate(
