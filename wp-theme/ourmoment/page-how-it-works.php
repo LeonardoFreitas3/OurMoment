@@ -8,8 +8,8 @@ get_header();
 <main class="om-page">
   <?php
   get_template_part('template-parts/page-banner', null, [
-      'title'    => 'How It Works',
-      'subtitle' => 'From your photo to their doorstep, in three steps.',
+      'title'    => 'Como Funciona',
+      'subtitle' => 'Da vossa foto até à porta, em três passos.',
   ]);
 
   get_template_part('template-parts/how-it-works', null, ['show_title' => false]);
@@ -17,9 +17,9 @@ get_header();
 
   <section class="om-page-cta om-fade">
     <div class="om-container">
-      <h2>Ready to make something they'll keep?</h2>
+      <h2>Prontos para criar algo que fica para sempre?</h2>
       <?php if (function_exists('wc_get_page_permalink')) : ?>
-        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Start Personalizing</a>
+        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Começar a Personalizar</a>
       <?php endif; ?>
     </div>
   </section>

@@ -6,7 +6,7 @@ $om_show_cta   = $args['show_cta']   ?? true;
   <div class="om-container">
 
     <?php if ($om_show_title) : ?>
-      <h2 class="om-section-title om-fade">Our Story</h2>
+      <h2 class="om-section-title om-fade">A Nossa História</h2>
     <?php endif; ?>
 
     <div class="om-frame om-about-frame om-fade">
@@ -21,10 +21,10 @@ $om_show_cta   = $args['show_cta']   ?? true;
     </div>
 
     <div class="om-about-text om-fade">
-      <p>At OurMoment, we believe in the power of meaningful, personalized gifts that celebrate love and connection.</p>
-      <p>Founded with the goal of creating timeless keepsakes for couples, we fill each piece we create with thoughtfulness and care. Our mission is to help you capture your special moments and turn them into beautiful, lasting memories.</p>
+      <p>Na OurMoment, acreditamos no poder dos presentes personalizados e cheios de significado, que celebram o amor e a ligação entre duas pessoas.</p>
+      <p>Nascemos para criar recordações intemporais para casais, e pomos em cada peça o mesmo cuidado e atenção. A nossa missão é ajudar-te a guardar os vossos momentos especiais e a transformá-los em memórias bonitas e duradouras.</p>
       <?php if ($om_show_cta && function_exists('wc_get_page_permalink')) : ?>
-        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Shop Now</a>
+        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Ver Loja</a>
       <?php endif; ?>
     </div>
 

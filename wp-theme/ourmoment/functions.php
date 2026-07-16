@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.17.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.17.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.18.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.18.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -23,6 +23,9 @@ add_action('after_setup_theme', function () {
     add_theme_support('wc-product-gallery-lightbox');
     add_theme_support('wc-product-gallery-slider');
 });
+
+// Disable Astra's "scroll to top" button.
+add_filter('astra_scroll_to_top_enable', '__return_false');
 
 /**
  * Replace Astra's header/footer with the brand nav/footer on ALL pages

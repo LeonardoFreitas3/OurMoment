@@ -1,6 +1,6 @@
 <section class="om-categories">
   <div class="om-container">
-    <h2 class="om-section-title om-fade">What We Create</h2>
+    <h2 class="om-section-title om-fade">O Que Criamos</h2>
     <div class="om-categories-grid">
 
       <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#shop'); ?>" class="om-category-card om-fade">
@@ -13,9 +13,9 @@
             <text x="90" y="140" text-anchor="middle" font-family="Georgia,serif" font-size="9" fill="var(--text-soft)" letter-spacing="1.5">YOU &amp; ME</text>
           </svg>
         </div>
-        <h3>Personalized Mugs</h3>
-        <p>Your names, your date, your photo — on the mug they reach for every morning.</p>
-        <span class="om-category-link">Shop Mugs</span>
+        <h3>Canecas Personalizadas</h3>
+        <p>Os vossos nomes, a vossa data, a vossa foto — na caneca de todas as manhãs.</p>
+        <span class="om-category-link">Ver Canecas</span>
       </a>
 
       <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#shop'); ?>" class="om-category-card om-fade">
@@ -29,9 +29,9 @@
             <text x="100" y="156" text-anchor="middle" font-family="sans-serif" font-size="5.5" fill="var(--text-soft)" letter-spacing="1" opacity=".6">07.08.2024</text>
           </svg>
         </div>
-        <h3>Personalized Wall Art</h3>
-        <p>Framed prints and canvas made from your photos and your story.</p>
-        <span class="om-category-link">Shop Wall Art</span>
+        <h3>Quadros Personalizados</h3>
+        <p>Quadros e telas emoldurados, feitos a partir das vossas fotos e da vossa história.</p>
+        <span class="om-category-link">Ver Quadros</span>
       </a>
 
     </div>

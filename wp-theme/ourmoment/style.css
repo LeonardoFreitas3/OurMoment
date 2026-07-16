@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.17.0
+Version: 1.18.0
 Text Domain: ourmoment
 */
 
@@ -35,9 +35,15 @@ body {
   color: var(--text) !important;
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  /* Kills the blue flash when tapping links/buttons on mobile */
+  -webkit-tap-highlight-color: transparent;
 }
 
-a { color: inherit; text-decoration: none; }
+a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+
+/* Belt-and-suspenders: hide Astra's scroll-to-top even if the filter misses */
+#ast-scroll-top,
+.ast-scroll-to-top-wrapper { display: none !important; }
 
 /* Accessibility text must stay off-screen, not render inline. Without this,
    WooCommerce's "Price range: X through Y" a11y span shows next to variable
@@ -140,6 +146,7 @@ body.admin-bar .om-nav { top: 32px; }
   cursor: pointer;
   flex-shrink: 0;
 }
+.om-nav-toggle { -webkit-tap-highlight-color: transparent; }
 .om-nav-toggle span {
   display: block;
   width: 26px;
@@ -157,12 +164,13 @@ body.admin-bar .om-nav { top: 32px; }
     left: 0; right: 0;
     flex-direction: column;
     align-items: center;
-    background: var(--bg);
+    background: var(--bg) !important;
     border-top: 1px solid var(--border);
     padding: 1.8rem clamp(1.25rem, 4vw, 2.5rem);
     gap: 1.5rem;
     box-shadow: var(--shadow);
   }
+  .om-nav-links a { -webkit-tap-highlight-color: transparent; }
   .om-nav-links.open { display: flex; }
   .om-nav-links a { font-size: .88rem; }
 }
@@ -1098,6 +1106,21 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   background: var(--bg-card);
   font-family: var(--font-body) !important;
 }
+
+/* ── My Account (geral) ── */
+/* Centre the page heading ("A minha conta") in the brand's display face */
+.woocommerce-account .entry-title,
+.woocommerce-account .ast-container .entry-title {
+  text-align: center !important;
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-size: clamp(1.4rem, 3vw, 2rem) !important;
+  margin-bottom: 2rem;
+}
+/* Keep the account content in a centred column */
+.woocommerce-account .woocommerce { max-width: 980px; margin-inline: auto; }
 
 /* ── My Account: signed out ── */
 .woocommerce-account:not(.logged-in) .entry-title { margin-bottom: 2.5rem; }

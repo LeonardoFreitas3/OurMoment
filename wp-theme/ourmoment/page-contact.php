@@ -8,8 +8,8 @@ get_header();
 <main class="om-page">
   <?php
   get_template_part('template-parts/page-banner', null, [
-      'title'    => 'Contact',
-      'subtitle' => 'We would love to hear from you.',
+      'title'    => 'Contacto',
+      'subtitle' => 'Adorávamos ouvir-te.',
   ]);
 
   get_template_part('template-parts/contact', null, ['show_title' => false]);

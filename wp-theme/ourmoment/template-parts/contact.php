@@ -9,7 +9,7 @@ $om_show_title = $args['show_title'] ?? true;
   <div class="om-container">
 
     <?php if ($om_show_title) : ?>
-      <h2 class="om-section-title om-fade">Contact</h2>
+      <h2 class="om-section-title om-fade">Contacto</h2>
     <?php endif; ?>
 
     <div class="om-contact-frame om-fade">
@@ -20,9 +20,9 @@ $om_show_title = $args['show_title'] ?? true;
     </div>
 
     <p class="om-contact-intro om-fade">
-      We would love to hear from you. Fill out the form below, or reach us at
-      <a href="mailto:contact@ourmoment.com">contact@ourmoment.com</a> and we will
-      respond as soon as possible.
+      Adorávamos ouvir-te. Preenche o formulário abaixo, ou escreve-nos para
+      <a href="mailto:contact@ourmoment.com">contact@ourmoment.com</a> e respondemos
+      assim que pudermos.
     </p>
 
     <div class="om-contact-form om-fade">

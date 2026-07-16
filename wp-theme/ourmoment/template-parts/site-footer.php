@@ -12,9 +12,9 @@ $om_shop_url = $om_has_woo ? wc_get_page_permalink('shop') : home_url('/shop/');
 
 // ── Legal links, only if published ────────────────────────────────
 $om_legal_slugs = [
-    'terms'   => 'Terms & Conditions',
-    'privacy' => 'Privacy Policy',
-    'returns' => 'Returns & Refunds',
+    'terms'   => 'Termos e Condições',
+    'privacy' => 'Política de Privacidade',
+    'returns' => 'Devoluções e Reembolsos',
 ];
 
 $om_legal = [];
@@ -31,7 +31,7 @@ foreach ($om_legal_slugs as $om_slug => $om_label) {
 if (!$om_has_privacy) {
     $om_privacy_id = (int) get_option('wp_page_for_privacy_policy');
     if ($om_privacy_id && get_post_status($om_privacy_id) === 'publish') {
-        $om_legal[] = ['url' => get_permalink($om_privacy_id), 'label' => 'Privacy Policy'];
+        $om_legal[] = ['url' => get_permalink($om_privacy_id), 'label' => 'Política de Privacidade'];
     }
 }
 
@@ -59,7 +59,7 @@ if ($om_has_woo) {
 
       <div class="om-footer-brand">
         <?php ourmoment_logo('om-footer-logo'); ?>
-        <p class="om-footer-tagline">Meaningful gifts for couples.<br>Made to order, made to keep.</p>
+        <p class="om-footer-tagline">Presentes com significado para casais.<br>Feitos por encomenda, feitos para durar.</p>
         <div class="om-footer-social">
           <a href="#" aria-label="Instagram">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -79,32 +79,32 @@ if ($om_has_woo) {
         </div>
       </div>
 
-      <nav class="om-footer-col" aria-label="Shop">
-        <h3>Shop</h3>
+      <nav class="om-footer-col" aria-label="Loja">
+        <h3>Loja</h3>
         <ul>
-          <li><a href="<?php echo esc_url($om_shop_url); ?>">All Products</a></li>
+          <li><a href="<?php echo esc_url($om_shop_url); ?>">Todos os Produtos</a></li>
           <?php foreach ($om_cats as $om_cat) : ?>
             <li><a href="<?php echo esc_url($om_cat['url']); ?>"><?php echo esc_html($om_cat['label']); ?></a></li>
           <?php endforeach; ?>
         </ul>
       </nav>
 
-      <nav class="om-footer-col" aria-label="Help">
-        <h3>Help</h3>
+      <nav class="om-footer-col" aria-label="Ajuda">
+        <h3>Ajuda</h3>
         <ul>
-          <li><a href="<?php echo esc_url(home_url('/how-it-works/')); ?>">How It Works</a></li>
-          <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact Us</a></li>
+          <li><a href="<?php echo esc_url(home_url('/how-it-works/')); ?>">Como Funciona</a></li>
+          <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">Contacta-nos</a></li>
           <?php if ($om_has_woo) : ?>
-            <li><a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">My Account</a></li>
-            <li><a href="<?php echo esc_url(wc_get_page_permalink('cart')); ?>">Cart</a></li>
+            <li><a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">A Minha Conta</a></li>
+            <li><a href="<?php echo esc_url(wc_get_page_permalink('cart')); ?>">Carrinho</a></li>
           <?php endif; ?>
         </ul>
       </nav>
 
-      <nav class="om-footer-col" aria-label="Company">
-        <h3>Company</h3>
+      <nav class="om-footer-col" aria-label="Empresa">
+        <h3>A Marca</h3>
         <ul>
-          <li><a href="<?php echo esc_url(home_url('/about/')); ?>">Our Story</a></li>
+          <li><a href="<?php echo esc_url(home_url('/about/')); ?>">A Nossa História</a></li>
           <?php foreach ($om_legal as $om_link) : ?>
             <li><a href="<?php echo esc_url($om_link['url']); ?>"><?php echo esc_html($om_link['label']); ?></a></li>
           <?php endforeach; ?>
@@ -125,16 +125,16 @@ if ($om_has_woo) {
     ?>
     <?php if ($om_newsletter) : ?>
       <div class="om-footer-newsletter">
-        <h3>Join the list</h3>
-        <p>Ideas, new pieces, and 10% off your first order.</p>
+        <h3>Junta-te à lista</h3>
+        <p>Ideias, novidades e 10% de desconto na primeira compra.</p>
         <?php echo $om_newsletter; // phpcs:ignore WordPress.Security.EscapeOutput ?>
       </div>
     <?php endif; ?>
 
     <div class="om-footer-bottom">
-      <p>&copy; <?php echo esc_html(date('Y')); ?> OurMoment. All rights reserved.</p>
+      <p>&copy; <?php echo esc_html(date('Y')); ?> OurMoment. Todos os direitos reservados.</p>
 
-      <ul class="om-footer-pay" aria-label="Accepted payment methods">
+      <ul class="om-footer-pay" aria-label="Métodos de pagamento aceites">
         <li>Visa</li>
         <li>Mastercard</li>
         <li>Apple&nbsp;Pay</li>

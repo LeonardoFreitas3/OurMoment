@@ -18,22 +18,22 @@
 
 <?php get_template_part('template-parts/categories'); ?>
 
-<!-- New Arrivals -->
+<!-- Novidades -->
 <section id="shop" class="om-shop">
   <div class="om-container">
-    <h2 class="om-section-title om-fade">New Arrivals</h2>
+    <h2 class="om-section-title om-fade">Novidades</h2>
     <div class="om-fade">
       <?php
       if (class_exists('WooCommerce')) {
           echo do_shortcode('[products limit="4" columns="4" orderby="date" order="DESC" visibility="visible"]');
       } else {
-          echo '<p class="om-shop-empty">Products coming soon.</p>';
+          echo '<p class="om-shop-empty">Produtos em breve.</p>';
       }
       ?>
     </div>
     <?php if (class_exists('WooCommerce')) : ?>
       <div class="om-shop-cta om-fade">
-        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Shop All</a>
+        <a href="<?php echo esc_url(wc_get_page_permalink('shop')); ?>" class="btn">Ver Tudo</a>
       </div>
     <?php endif; ?>
   </div>
@@ -43,11 +43,11 @@
 
 <?php get_template_part('template-parts/testimonials'); ?>
 
-<!-- Closing CTA -->
+<!-- CTA final -->
 <section class="om-page-cta om-fade">
   <div class="om-container">
-    <h2>Every great gift starts with a moment.</h2>
-    <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn">Our Story</a>
+    <h2>Todos os grandes presentes começam num momento.</h2>
+    <a href="<?php echo esc_url(home_url('/about/')); ?>" class="btn">A Nossa História</a>
   </div>
 </section>
 

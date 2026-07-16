@@ -267,7 +267,7 @@ def build():
         [["Alojamento","EasyWP","4"],
          ["Domínio","~€12/ano","1"],
          ["Email profissional","Zoho Mail","1"],
-         ["Customily","Personalizador ($49, dividido por 4)","≈11"],
+         ["Customily","Personalizador ($49, dividido por 3)","≈15"],
          ["Printify","Grátis — paga-se por venda","0"],
          ["WooCommerce, Yoast, Complianz","Gratuitos","0"],
          ["Stripe","1,5% + €0,25 por venda","0"]],
@@ -275,7 +275,7 @@ def build():
         [46,66,18],
     ))
     story.append(Spacer(1, 6))
-    story.append(note("O Customily custa <b>$49/mês</b> mais ~€0,90 por artigo personalizado. Dividido por 4 pessoas, a parte fixa por cabeça é ~€11/mês — e a comissão por artigo só existe quando já vendeste. <b>Investimento inicial único:</b> ~€100 em amostras (inegociável) + revisão jurídica opcional."))
+    story.append(note("O Customily custa <b>$49/mês</b> mais ~€0,90 por artigo personalizado. Dividido pelas 3 pessoas, a parte fixa por cabeça é ~€15/mês — e a comissão por artigo só existe quando já vendeste. <b>Investimento inicial único:</b> ~€100 em amostras (inegociável) + revisão jurídica opcional."))
 
     # 9. KPIs
     story.append(P("Quando é seguro acelerar", "h2"))
