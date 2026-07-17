@@ -93,6 +93,7 @@ if ($om_has_woo) {
         <h3>Help</h3>
         <ul>
           <li><a href="<?php echo esc_url(home_url('/how-it-works/')); ?>">How It Works</a></li>
+          <li><a href="<?php echo esc_url(home_url('/faq/')); ?>">FAQ</a></li>
           <li><a href="<?php echo esc_url(home_url('/contact/')); ?>">Contact Us</a></li>
           <?php if ($om_has_woo) : ?>
             <li><a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>">My Account</a></li>
@@ -134,12 +135,19 @@ if ($om_has_woo) {
     <div class="om-footer-bottom">
       <p>&copy; <?php echo esc_html(date('Y')); ?> OurMoment. All rights reserved.</p>
 
-      <ul class="om-footer-pay" aria-label="Accepted payment methods">
-        <li>Visa</li>
-        <li>Mastercard</li>
-        <li>Apple&nbsp;Pay</li>
-        <li>Google&nbsp;Pay</li>
-      </ul>
+      <div class="om-footer-pay">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <rect x="4" y="9" width="16" height="12" rx="1.5"/>
+          <path d="M8 9 L8 6.5 C8 5 9.3 4 11 4 L13 4 C14.7 4 16 5 16 6.5 L16 9"/>
+        </svg>
+        <span class="om-pay-label">Secure payments</span>
+        <ul aria-label="Accepted payment methods">
+          <li>Visa</li>
+          <li>Mastercard</li>
+          <li>Apple&nbsp;Pay</li>
+          <li>Google&nbsp;Pay</li>
+        </ul>
+      </div>
     </div>
 
   </div>

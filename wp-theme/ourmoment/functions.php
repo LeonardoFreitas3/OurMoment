@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.20.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.20.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.21.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.21.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -55,7 +55,7 @@ add_action('wp', function () {
  * and let the CSS unwrap Astra's fixed-width content container.
  */
 add_filter('body_class', function ($classes) {
-    if (is_page(['about', 'contact', 'how-it-works'])) {
+    if (is_page(['about', 'contact', 'how-it-works', 'faq'])) {
         $classes[] = 'om-fullwidth';
     }
     return $classes;
@@ -154,6 +154,37 @@ add_action('woocommerce_after_add_to_cart_form', function () {
     </ul>
     <?php
 });
+
+/**
+ * Image-quality tip on the product page, below the trust block. Personalized
+ * prints are only as sharp as the photo you upload, so tell people up front.
+ */
+add_action('woocommerce_after_add_to_cart_form', function () {
+    ?>
+    <div class="om-imgtip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="2"/>
+        <circle cx="9" cy="10" r="2"/>
+        <path d="M3 17 L9 12 L13 15 L17 11 L21 15"/>
+      </svg>
+      <div>
+        <strong>For the sharpest print</strong>
+        <span>Upload the highest-resolution photo you have — clear, well-lit, and in focus. Small, blurry, or heavily filtered images (and screenshots) may print soft. The better the photo, the closer your piece comes to perfect.</span>
+      </div>
+    </div>
+    <?php
+}, 20);
+
+/**
+ * The "Select options" loop button on personalized (variable) products reads
+ * better as "Personalize" for this store.
+ */
+add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
+    if ($product && $product->is_type('variable')) {
+        return __('Personalize', 'ourmoment');
+    }
+    return $text;
+}, 10, 2);
 
 /**
  * Trim Printify's keyword-stuffed product titles for display.

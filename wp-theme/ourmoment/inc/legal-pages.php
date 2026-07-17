@@ -38,7 +38,7 @@ function ourmoment_legal_pages() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Seller:</strong> [legal business name]<br><strong>Address:</strong> [business address]<br><strong>Email:</strong> {$email}</p>
+<p><strong>Store:</strong> OurMoment<br><strong>Contact:</strong> {$email}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -160,7 +160,7 @@ HTML;
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Business:</strong> [legal business name]<br><strong>Address:</strong> [business address]<br><strong>Email:</strong> {$email}</p>
+<p><strong>Store:</strong> OurMoment<br><strong>Contact:</strong> {$email}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -284,37 +284,50 @@ HTML;
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Personalized items are final sale</h2>
+<h2>All personalized items are final sale</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Because each item is personalized just for you, it can't be resold to anyone else. For that reason, <strong>all sales of personalized items are final</strong> and we can't accept returns or exchanges for a change of mind.</p>
+<p>Every item is made to order and personalized with your details, so it cannot be resold to anyone else. For that reason, <strong>personalized items are not returnable, exchangeable, or refundable</strong>. This includes — but is not limited to — a change of mind, a name or date you spelled or entered incorrectly, or a low-quality or incorrect photo you uploaded.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Please double-check your preview before ordering:</strong> the spelling of names, the date, and the photo you uploaded. What you see in the live preview is what we print.</p>
+<p><strong>You are responsible for reviewing your live preview before you order.</strong> What you see and approve in the preview is exactly what we print. Please check the spelling of names, the date, and the photo carefully — once you place the order, it cannot be changed after it enters production.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>When we'll replace or refund</h2>
+<h2>The only exception: a mistake on our side</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>We'll replace or fully refund your order, at no cost to you, if:</p>
+<p>We will replace the item or issue a refund, at no cost to you, only if the fault is ours:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul>
 <li>The item arrives damaged or defective;</li>
 <li>You received the wrong item;</li>
-<li>The print is misaligned, faded, or has a printing error on our side;</li>
+<li>The print has a manufacturing error on our side (misaligned, faded, or does not match the preview you approved);</li>
 <li>Your order never arrives within [X] days of the estimated delivery date.</li>
 </ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Contact us at {$email} within [30] days of delivery, and include your order number and clear photos of the problem (and of the shipping label if the packaging was damaged). We usually don't ask you to ship the item back.</p>
+<p>To claim, email us at {$email} within <strong>[14] days of delivery</strong> with your order number and clear photos of the problem (and of the shipping label if the packaging was damaged). We may ask you to keep or dispose of the faulty item rather than ship it back.</p>
 <!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>What is not covered</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul>
+<li>Typos or wrong information you entered (names, dates, text);</li>
+<li>Photos that print soft because the image you uploaded was low-resolution, blurry, or heavily filtered;</li>
+<li>Minor color differences between your screen and the printed item;</li>
+<li>Delays caused by the carrier once the item has shipped.</li>
+</ul>
+<!-- /wp:list -->
 
 <!-- wp:heading -->
 <h2>Order changes and cancellations</h2>
@@ -345,7 +358,7 @@ HTML;
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>[legal business name]<br>[business address]<br>{$email}</p>
+<p>OurMoment<br>{$email}</p>
 <!-- /wp:paragraph -->
 HTML;
 
@@ -387,6 +400,7 @@ function ourmoment_create_pages() {
         'how-it-works' => 'How It Works',
         'about'        => 'About',
         'contact'      => 'Contact',
+        'faq'          => 'FAQ',
     ];
 
     foreach ($template_pages as $slug => $title) {
