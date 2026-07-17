@@ -34,30 +34,6 @@ $om_items = [
     </ul>
 
     <div class="om-nav-actions">
-      <?php
-      // Custom switcher: TranslatePress's shortcode ignores full_names/flags
-      // on this version, so render our own from its API. Two languages, so a
-      // simple EN | PT toggle rather than a dropdown.
-      if (function_exists('trp_custom_language_switcher')) :
-          $om_langs = trp_custom_language_switcher();
-          if (!empty($om_langs) && count($om_langs) > 1) :
-              global $TRP_LANGUAGE;
-              ?>
-              <div class="om-nav-lang" data-no-translation>
-                <?php foreach ($om_langs as $om_code => $om_lang) :
-                    $om_current = ($om_code === $TRP_LANGUAGE);
-                    $om_label   = strtoupper($om_lang['short_language_name']);
-                    ?>
-                    <a class="om-lang<?php echo $om_current ? ' is-current' : ''; ?>"
-                       href="<?php echo esc_url($om_lang['current_page_url']); ?>"
-                       hreflang="<?php echo esc_attr($om_lang['short_language_name']); ?>"
-                       <?php echo $om_current ? 'aria-current="true"' : ''; ?>><?php echo esc_html($om_label); ?></a>
-                <?php endforeach; ?>
-              </div>
-          <?php endif;
-      endif;
-      ?>
-
       <?php if (function_exists('wc_get_page_permalink')) : ?>
         <?php
         $om_logged_in  = is_user_logged_in();
