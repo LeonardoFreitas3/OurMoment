@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.26.0
+Version: 1.27.0
 Text Domain: ourmoment
 */
 
@@ -1669,90 +1669,89 @@ textarea:-webkit-autofill {
   color: var(--text);
 }
 
-/* ── Product page: quantity + Preview + Add-to-Cart row ── */
-.woocommerce div.product form.cart {
+/* ── Product page: quantity + Preview + Add-to-Cart row ──
+   Customily puts these inside .woocommerce-variation-add-to-cart, not
+   form.cart directly, so lay that out as the row. */
+.woocommerce div.product form.cart,
+.woocommerce div.product .woocommerce-variation-add-to-cart {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  gap: .6rem;
-  margin-top: .5rem;
+  gap: .7rem;
+  margin-top: 1.2rem;
 }
-.woocommerce div.product form.cart .quantity {
+.woocommerce div.product form.cart .quantity,
+.woocommerce div.product .woocommerce-variation-add-to-cart .quantity {
   margin: 0;
 }
-.woocommerce div.product form.cart .quantity input.qty {
-  height: 100%;
-  min-height: 46px;
-  width: 64px;
+.woocommerce div.product .quantity input.qty {
+  min-height: 48px;
+  width: 66px;
   border: 1px solid var(--border);
   background: var(--bg-card);
   border-radius: 0;
   text-align: center;
   font-family: var(--font-body);
+  font-size: .95rem;
   color: var(--text);
 }
+
+/* Shared button sizing */
+.woocommerce div.product .single_add_to_cart_button,
+.woocommerce div.product .customily-preview-button,
+.woocommerce div.product button.customily-preview {
+  min-height: 48px;
+  padding: 0 2rem !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .68rem !important;
+  line-height: 1 !important;
+  transition: background .25s, color .25s, border-color .25s;
+}
+
+/* Preview — secondary, filled beige so it's clearly a button */
+.woocommerce div.product .customily-preview-button,
+.woocommerce div.product button.customily-preview {
+  background: var(--btn-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--btn-bg) !important;
+}
+.woocommerce div.product .customily-preview-button:hover,
+.woocommerce div.product button.customily-preview:hover {
+  background: var(--btn-hover) !important;
+  border-color: var(--btn-hover) !important;
+}
+
 /* Add to Cart — primary, accent filled */
 .woocommerce div.product .single_add_to_cart_button {
   background: var(--accent) !important;
   color: #fff !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 2.2rem !important;
-  min-height: 46px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-body) !important;
-  font-weight: 500 !important;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  font-size: .68rem !important;
-  transition: background .25s;
+  border: 1px solid var(--accent) !important;
 }
 .woocommerce div.product .single_add_to_cart_button:hover {
   background: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
 }
+/* Disabled (no option chosen yet) — defined outline, clearly inactive */
 .woocommerce div.product .single_add_to_cart_button.disabled,
 .woocommerce div.product .single_add_to_cart_button:disabled {
-  background: var(--btn-hover) !important;
+  background: var(--bg-card) !important;
   color: var(--text-soft) !important;
+  border: 1px solid var(--border) !important;
   opacity: 1 !important;
   cursor: not-allowed;
 }
-/* Customily "Preview" — secondary, bordered */
-.woocommerce div.product form.cart button:not(.single_add_to_cart_button),
-.customily-preview-button,
-button.customily-preview,
-.customily-live-preview-button,
-.cly-preview-button {
-  background: var(--bg-card) !important;
-  color: var(--text) !important;
-  border: 1px solid var(--accent) !important;
-  border-radius: 0 !important;
-  padding: 0 1.8rem !important;
-  min-height: 46px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-body) !important;
-  font-weight: 500 !important;
-  text-transform: uppercase;
-  letter-spacing: .2em;
-  font-size: .68rem !important;
-  transition: background .25s, color .25s;
-}
-.woocommerce div.product form.cart button:not(.single_add_to_cart_button):hover,
-.customily-preview-button:hover,
-button.customily-preview:hover {
-  background: var(--accent) !important;
-  color: #fff !important;
-  border-color: var(--accent) !important;
-}
-@media (max-width: 420px) {
-  .woocommerce div.product form.cart { gap: .5rem; }
-  .woocommerce div.product form.cart .quantity input.qty { width: 100%; }
+
+@media (max-width: 460px) {
+  .woocommerce div.product .quantity input.qty { width: 100%; }
   .woocommerce div.product .single_add_to_cart_button,
-  .woocommerce div.product form.cart button:not(.single_add_to_cart_button) { flex: 1; }
+  .woocommerce div.product .customily-preview-button { flex: 1; }
 }
 
 /* ── Kill Astra's blue accent inside WooCommerce content ──
