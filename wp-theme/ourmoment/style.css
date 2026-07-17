@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.22.0
+Version: 1.23.0
 Text Domain: ourmoment
 */
 
@@ -1415,13 +1415,15 @@ textarea:-webkit-autofill {
   color: var(--text-soft);
 }
 
-/* ── Kill Astra's blue accent across WooCommerce ── */
-.woocommerce a:not(.button):not(.wp-block-button__link):not(.om-nav-brand):not(.om-nav-icon),
-.woocommerce-page a:not(.button):not(.wp-block-button__link) {
+/* ── Kill Astra's blue accent inside WooCommerce content ──
+   Scoped to .site-main only, so the brand nav and footer links (which live
+   in the header/footer, outside .site-main) keep their own colors. */
+.woocommerce-page .site-main a:not(.button):not(.wp-block-button__link),
+.woocommerce .site-main a:not(.button):not(.wp-block-button__link) {
   color: var(--accent);
 }
-.woocommerce a:not(.button):hover,
-.woocommerce-page a:not(.button):hover { color: var(--accent-hover); }
+.woocommerce-page .site-main a:not(.button):hover,
+.woocommerce .site-main a:not(.button):hover { color: var(--accent-hover); }
 
 /* Checkout: place-order and proceed buttons in the brand accent, not blue */
 #place_order,
