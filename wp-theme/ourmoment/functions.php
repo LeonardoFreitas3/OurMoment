@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.25.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.25.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.26.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.26.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -189,6 +189,16 @@ add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
 // Hide the SKU / category / tags meta block on the product page.
 add_action('init', function () {
     remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+    // Ordering is rendered in the shop sidebar instead of the top bar.
+    remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+});
+
+// The price-range filter needs WooCommerce's slider script; enqueue it on
+// product archives, where our sidebar renders the price widget.
+add_action('wp_enqueue_scripts', function () {
+    if (function_exists('is_shop') && (is_shop() || is_product_category() || is_product_tag())) {
+        wp_enqueue_script('wc-price-slider');
+    }
 });
 
 /**
