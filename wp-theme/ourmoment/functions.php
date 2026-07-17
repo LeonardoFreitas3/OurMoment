@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.24.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.24.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.25.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.25.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -201,6 +201,24 @@ add_filter('woocommerce_product_single_add_to_cart_text', function () {
 add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
     $args['show_option_none'] = 'Choose an option';
     return $args;
+});
+
+// Force the My Account navigation labels to English.
+add_filter('woocommerce_account_menu_items', function ($items) {
+    $labels = [
+        'dashboard'       => 'Dashboard',
+        'orders'          => 'Orders',
+        'downloads'       => 'Downloads',
+        'edit-address'    => 'Addresses',
+        'edit-account'    => 'Account Details',
+        'customer-logout' => 'Log Out',
+    ];
+    foreach ($labels as $key => $label) {
+        if (isset($items[$key])) {
+            $items[$key] = $label;
+        }
+    }
+    return $items;
 });
 
 /**

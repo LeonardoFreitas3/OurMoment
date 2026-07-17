@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.24.0
+Version: 1.25.0
 Text Domain: ourmoment
 */
 
@@ -615,6 +615,7 @@ button[type="submit"]:hover,
 .woocommerce ul.products li.product,
 .woocommerce-page ul.products li.product {
   width: 100% !important;
+  height: 100%; /* fill the stretched grid cell so buttons bottom-align */
   margin: 0 !important;
   float: none !important;
   clear: none !important;
@@ -1064,6 +1065,17 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   color: var(--text-soft);
   font-size: .85rem;
 }
+/* Homepage New Arrivals: bigger 2-up layout (2x2), 1-up on phones */
+.om-shop .woocommerce ul.products,
+.om-shop ul.products {
+  grid-template-columns: repeat(2, 1fr) !important;
+  max-width: 760px;
+  margin-inline: auto;
+}
+@media (max-width: 520px) {
+  .om-shop .woocommerce ul.products,
+  .om-shop ul.products { grid-template-columns: 1fr !important; max-width: 340px; }
+}
 
 /* ── Testimonials ── */
 .om-testimonials {
@@ -1167,6 +1179,19 @@ textarea:-webkit-autofill {
 /* ── My Account: signed out ── */
 .woocommerce-account:not(.logged-in) .entry-title { margin-bottom: 2.5rem; }
 
+/* Centre everything in the logged-out account: heading + form(s) */
+.woocommerce-account:not(.logged-in) .woocommerce {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.woocommerce-account:not(.logged-in) .woocommerce > * {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Registration on: login + register side by side, centred */
 .woocommerce-account #customer_login.col2-set,
 .woocommerce-account .u-columns#customer_login {
   display: grid;
@@ -1187,7 +1212,8 @@ textarea:-webkit-autofill {
   .woocommerce-account .u-columns#customer_login { grid-template-columns: 1fr; max-width: 440px; }
 }
 
-/* When registration is off, Woo renders a lone login form */
+/* Registration off: a single login form, centred */
+.woocommerce-account:not(.logged-in) .woocommerce > form.woocommerce-form-login,
 .woocommerce-account .woocommerce > .woocommerce-form-login {
   max-width: 440px;
   margin-inline: auto;
@@ -1270,17 +1296,11 @@ textarea:-webkit-autofill {
   line-height: 1.6;
 }
 
-/* ── My Account: signed in ── */
+/* ── My Account: signed in — single centred column, nav as top tabs ── */
 .woocommerce-account.logged-in .woocommerce {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  max-width: 980px;
+  display: block;
+  max-width: 820px;
   margin-inline: auto;
-  align-items: start;
-}
-@media (max-width: 760px) {
-  .woocommerce-account.logged-in .woocommerce { grid-template-columns: 1fr; }
 }
 .woocommerce-account .woocommerce-MyAccount-navigation,
 .woocommerce-account .woocommerce-MyAccount-content {
@@ -1288,43 +1308,97 @@ textarea:-webkit-autofill {
   float: none !important;
   margin: 0 !important;
 }
+
+/* Navigation as a centred row of tabs */
+.woocommerce-account .woocommerce-MyAccount-navigation {
+  margin-bottom: 2rem !important;
+}
 .woocommerce-account .woocommerce-MyAccount-navigation ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+  border: none;
+  background: none;
 }
-.woocommerce-account .woocommerce-MyAccount-navigation li + li {
-  border-top: 1px solid var(--border);
-}
+.woocommerce-account .woocommerce-MyAccount-navigation li { border: none !important; }
 .woocommerce-account .woocommerce-MyAccount-navigation li a {
   display: block;
-  padding: .85rem 1rem;
-  font-size: .66rem;
+  padding: .55rem 1rem;
+  border: 1px solid var(--border);
+  font-size: .62rem;
   text-transform: uppercase;
   letter-spacing: .16em;
   font-weight: 500;
   color: var(--text-soft);
-  transition: color .2s, background .2s;
+  transition: color .2s, background .2s, border-color .2s;
 }
 .woocommerce-account .woocommerce-MyAccount-navigation li a:hover {
-  background: var(--bg-warm);
   color: var(--text);
+  border-color: var(--text-soft);
 }
 .woocommerce-account .woocommerce-MyAccount-navigation li.is-active a {
-  color: var(--accent);
-  background: var(--bg-warm);
-  box-shadow: inset 2px 0 0 var(--accent);
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: none;
 }
+
+/* Content panel */
 .woocommerce-account .woocommerce-MyAccount-content {
   border: 1px solid var(--border);
   background: var(--bg-card);
-  padding: clamp(1.4rem, 3vw, 2.2rem);
-  font-size: .88rem;
+  padding: clamp(1.6rem, 3.5vw, 2.6rem);
+  font-size: .9rem;
 }
-.woocommerce-account .woocommerce-MyAccount-content p { color: var(--text-soft); }
-.woocommerce-account .woocommerce-MyAccount-content a { color: var(--accent); }
+.woocommerce-account .woocommerce-MyAccount-content > p:first-child { margin-top: 0; }
+.woocommerce-account .woocommerce-MyAccount-content a:not(.button) { color: var(--accent); }
+
+/* Dashboard: welcome + tiles */
+.om-account-hi {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+  color: var(--text);
+  margin: 0 0 1.8rem !important;
+}
+.om-account-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 520px) {
+  .om-account-tiles { grid-template-columns: 1fr; }
+}
+.om-account-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: 1.4rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.om-account-tile:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+.om-account-tile svg { width: 26px; height: 26px; color: var(--accent); }
+.om-tile-label {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--text) !important;
+}
+.om-tile-desc {
+  font-size: .78rem;
+  line-height: 1.5;
+  color: var(--text-soft) !important;
+}
 
 /* Woo notices, used across account, cart and checkout */
 .woocommerce-message,
