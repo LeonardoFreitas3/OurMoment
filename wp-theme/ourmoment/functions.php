@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.23.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.23.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.24.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.24.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -185,6 +185,23 @@ add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
     }
     return $text;
 }, 10, 2);
+
+// Hide the SKU / category / tags meta block on the product page.
+add_action('init', function () {
+    remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+});
+
+/**
+ * Force key storefront strings to English regardless of the WordPress site
+ * language (belt-and-suspenders until Site Language is set to English).
+ */
+add_filter('woocommerce_product_single_add_to_cart_text', function () {
+    return __('Add to Cart', 'ourmoment');
+});
+add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
+    $args['show_option_none'] = 'Choose an option';
+    return $args;
+});
 
 /**
  * Trim Printify's keyword-stuffed product titles for display.

@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.23.0
+Version: 1.24.0
 Text Domain: ourmoment
 */
 
@@ -1413,6 +1413,116 @@ textarea:-webkit-autofill {
   font-size: .75rem;
   line-height: 1.55;
   color: var(--text-soft);
+}
+
+/* Variation dropdown ("Choose an option") — branded to match */
+.woocommerce div.product .variations select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: 1px solid var(--border) !important;
+  background: var(--bg-card)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A7E74' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")
+    no-repeat right 1rem center;
+  border-radius: 0 !important;
+  padding: .8rem 2.2rem .8rem 1rem !important;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.woocommerce div.product .variations select:focus { border-color: var(--accent) !important; outline: none; }
+.woocommerce div.product .variations th.label label {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ── Product page: quantity + Preview + Add-to-Cart row ── */
+.woocommerce div.product form.cart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: .6rem;
+  margin-top: .5rem;
+}
+.woocommerce div.product form.cart .quantity {
+  margin: 0;
+}
+.woocommerce div.product form.cart .quantity input.qty {
+  height: 100%;
+  min-height: 46px;
+  width: 64px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 0;
+  text-align: center;
+  font-family: var(--font-body);
+  color: var(--text);
+}
+/* Add to Cart — primary, accent filled */
+.woocommerce div.product .single_add_to_cart_button {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 2.2rem !important;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-size: .68rem !important;
+  transition: background .25s;
+}
+.woocommerce div.product .single_add_to_cart_button:hover {
+  background: var(--accent-hover) !important;
+}
+.woocommerce div.product .single_add_to_cart_button.disabled,
+.woocommerce div.product .single_add_to_cart_button:disabled {
+  background: var(--btn-hover) !important;
+  color: var(--text-soft) !important;
+  opacity: 1 !important;
+  cursor: not-allowed;
+}
+/* Customily "Preview" — secondary, bordered */
+.woocommerce div.product form.cart button:not(.single_add_to_cart_button),
+.customily-preview-button,
+button.customily-preview,
+.customily-live-preview-button,
+.cly-preview-button {
+  background: var(--bg-card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: 0 !important;
+  padding: 0 1.8rem !important;
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-size: .68rem !important;
+  transition: background .25s, color .25s;
+}
+.woocommerce div.product form.cart button:not(.single_add_to_cart_button):hover,
+.customily-preview-button:hover,
+button.customily-preview:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+@media (max-width: 420px) {
+  .woocommerce div.product form.cart { gap: .5rem; }
+  .woocommerce div.product form.cart .quantity input.qty { width: 100%; }
+  .woocommerce div.product .single_add_to_cart_button,
+  .woocommerce div.product form.cart button:not(.single_add_to_cart_button) { flex: 1; }
 }
 
 /* ── Kill Astra's blue accent inside WooCommerce content ──
