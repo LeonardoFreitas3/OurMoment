@@ -2,7 +2,7 @@
 <section id="how-it-works" class="om-how">
   <div class="om-container">
     <?php if ($om_show_title) : ?>
-      <h2 class="om-section-title om-fade">Como Funciona</h2>
+      <h2 class="om-section-title om-fade">How It Works</h2>
     <?php endif; ?>
     <div class="om-steps">
 
@@ -14,8 +14,8 @@
           </svg>
         </div>
         <span class="om-step-num">1</span>
-        <h3>Escolhe a Tua Peça</h3>
-        <p>Escolhe uma caneca ou um quadro da nossa coleção — cada um feito para guardar a vossa história.</p>
+        <h3>Choose Your Piece</h3>
+        <p>Pick a mug or wall art from our collection — each one made to hold your story.</p>
       </div>
 
       <div class="om-step om-fade">
@@ -27,8 +27,8 @@
           </svg>
         </div>
         <span class="om-step-num">2</span>
-        <h3>Torna-a Vossa</h3>
-        <p>Carrega a vossa foto, adiciona os nomes e a data, escolhe o estilo — e vê a pré-visualização ao vivo.</p>
+        <h3>Make It Yours</h3>
+        <p>Upload your photo, add your names and date, pick your style — and watch the live preview.</p>
       </div>
 
       <div class="om-step om-fade">
@@ -42,8 +42,8 @@
           </svg>
         </div>
         <span class="om-step-num">3</span>
-        <h3>Imprimimos e Enviamos</h3>
-        <p>A tua peça é impressa com cuidado e enviada até à porta, pronta para oferecer.</p>
+        <h3>We Print &amp; Ship</h3>
+        <p>Your piece is printed with care and shipped to your door, ready to give.</p>
       </div>
 
     </div>

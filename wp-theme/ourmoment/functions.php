@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.18.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.18.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.19.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.19.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -99,8 +99,8 @@ function om_handle_contact() {
     }
 
     $to      = get_option('admin_email');
-    $subject = sprintf('Novo contacto de %s — OurMoment', $name);
-    $body    = "Nome: {$name}\nEmail: {$email}\n\nMensagem:\n{$message}";
+    $subject = sprintf('New contact from %s — OurMoment', $name);
+    $body    = "Name: {$name}\nEmail: {$email}\n\nMessage:\n{$message}";
     $headers = ['Reply-To: ' . $name . ' <' . $email . '>'];
 
     wp_mail($to, $subject, $body, $headers);
@@ -128,8 +128,8 @@ add_action('woocommerce_after_add_to_cart_form', function () {
           <circle cx="12" cy="12" r="3.2"/>
         </svg>
         <div>
-          <strong>O que vês é o que recebes</strong>
-          <span>Personalizas e vês o resultado final antes de comprares. Sem surpresas.</span>
+          <strong>What you see is what you get</strong>
+          <span>Personalize it and see the final result before you buy. No surprises.</span>
         </div>
       </li>
       <li class="om-trust-item">
@@ -137,8 +137,8 @@ add_action('woocommerce_after_add_to_cart_form', function () {
           <path d="M12 21 C12 21 4 15.5 4 9.5 C4 6.5 6.2 4.5 8.7 5.3 C10.2 5.8 11.4 7 12 8 C12.6 7 13.8 5.8 15.3 5.3 C17.8 4.5 20 6.5 20 9.5 C20 15.5 12 21 12 21Z"/>
         </svg>
         <div>
-          <strong>Feito à vossa medida</strong>
-          <span>Cada peça leva os vossos nomes, datas e fotografias.</span>
+          <strong>Made just for you</strong>
+          <span>Every piece carries your names, dates, and photos.</span>
         </div>
       </li>
       <li class="om-trust-item">
@@ -147,8 +147,8 @@ add_action('woocommerce_after_add_to_cart_form', function () {
           <path d="M8 10 L8 7 C8 4.8 9.8 3 12 3 C14.2 3 16 4.8 16 7 L16 10"/>
         </svg>
         <div>
-          <strong>Pagamento seguro</strong>
-          <span>Checkout encriptado, com os métodos em que já confias.</span>
+          <strong>Secure checkout</strong>
+          <span>Encrypted checkout, with the payment methods you already trust.</span>
         </div>
       </li>
     </ul>

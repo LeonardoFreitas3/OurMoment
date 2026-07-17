@@ -23,7 +23,7 @@ $om_img = get_stylesheet_directory_uri() . '/assets/img';
   <div class="om-hero-content">
     <?php ourmoment_logo('om-hero-logo'); ?>
     <h1>OurMoment</h1>
-    <p class="om-hero-tagline">Presentes com Significado para Casais</p>
-    <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#shop'); ?>" class="btn">Ver Loja</a>
+    <p class="om-hero-tagline">Meaningful Gifts for Couples</p>
+    <a href="<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('shop') : '#shop'); ?>" class="btn">Shop Now</a>
   </div>
 </section>

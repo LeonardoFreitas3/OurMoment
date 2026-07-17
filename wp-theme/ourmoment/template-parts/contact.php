@@ -9,7 +9,7 @@ $om_show_title = $args['show_title'] ?? true;
   <div class="om-container">
 
     <?php if ($om_show_title) : ?>
-      <h2 class="om-section-title om-fade">Contacto</h2>
+      <h2 class="om-section-title om-fade">Contact</h2>
     <?php endif; ?>
 
     <div class="om-contact-frame om-fade">
@@ -20,29 +20,29 @@ $om_show_title = $args['show_title'] ?? true;
     </div>
 
     <p class="om-contact-intro om-fade">
-      Adorávamos ouvir-te. Preenche o formulário abaixo, ou escreve-nos para
-      <a href="mailto:contact@ourmoment.com">contact@ourmoment.com</a> e respondemos
-      assim que pudermos.
+      We'd love to hear from you. Fill out the form below, or reach us at
+      <a href="mailto:contact@ourmoment.com">contact@ourmoment.com</a> and we'll get
+      back to you as soon as we can.
     </p>
 
     <div class="om-contact-form om-fade">
       <?php $om_sent = isset($_GET['om_sent']) ? sanitize_key($_GET['om_sent']) : ''; ?>
 
       <?php if ($om_sent === 'ok') : ?>
-        <p class="om-form-note om-form-ok">Mensagem enviada. Respondemos assim que pudermos.</p>
+        <p class="om-form-note om-form-ok">Message sent. We'll get back to you soon.</p>
       <?php elseif ($om_sent === 'error') : ?>
-        <p class="om-form-note om-form-error">Algo correu mal. Confirma os campos e tenta de novo.</p>
+        <p class="om-form-note om-form-error">Something went wrong. Please check the fields and try again.</p>
       <?php endif; ?>
 
       <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
         <input type="hidden" name="action" value="om_contact">
         <?php wp_nonce_field('om_contact', 'om_contact_nonce'); ?>
-        <input type="text" name="om_name" placeholder="O teu nome" required>
-        <input type="email" name="om_email" placeholder="O teu email" required>
-        <textarea name="om_message" placeholder="A tua mensagem" required></textarea>
-        <!-- honeypot: os humanos não veem este campo; os bots preenchem-no -->
+        <input type="text" name="om_name" placeholder="Your name" required>
+        <input type="email" name="om_email" placeholder="Your email" required>
+        <textarea name="om_message" placeholder="Your message" required></textarea>
+        <!-- honeypot: people don't see this field; bots fill it in -->
         <input type="text" name="om_website" tabindex="-1" autocomplete="off" aria-hidden="true" class="om-hp">
-        <button type="submit" class="btn">Enviar mensagem</button>
+        <button type="submit" class="btn">Send message</button>
       </form>
     </div>
 

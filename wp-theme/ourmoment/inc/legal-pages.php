@@ -1,17 +1,21 @@
 <?php
 /**
- * Legal pages.
+ * Legal pages (US-oriented drafts).
  *
- * Creates Terms, Privacy and Returns as draft-quality starting points when the
- * theme is activated, and registers WordPress's privacy policy page.
+ * Creates Terms, Privacy and Returns as draft-quality starting points and
+ * registers WordPress's privacy policy page.
  *
- * These texts are a starting point, NOT legal advice. Every [bracketed] field
- * must be filled in before going live. The personalized-goods exception to the
- * 14-day EU right of withdrawal is the most sensitive clause here and is worth
- * having reviewed.
+ * These texts are a STARTING POINT, NOT legal advice. Every [bracketed] field
+ * must be filled in before going live. This store is operated from Portugal
+ * and sells into the United States — that cross-border setup (US sales-tax
+ * nexus, which entity/jurisdiction governs, CCPA and other state privacy laws,
+ * plus GDPR for any EU visitors) is exactly the kind of thing that needs a
+ * professional review. The "all sales final for personalized items" clause is
+ * the most important one to get right.
  *
  * Pages are only ever created, never overwritten — once you edit them in the
- * admin, re-activating the theme will not touch your changes.
+ * admin, re-activating the theme will not touch your changes. If the old
+ * EU-oriented pages already exist, delete them so these regenerate.
  */
 
 if (!defined('ABSPATH')) {
@@ -30,55 +34,47 @@ function ourmoment_legal_pages() {
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>These terms govern your use of the OurMoment website and any purchase you make from it. By placing an order, you accept them.</p>
+<p>These Terms of Service ("Terms") govern your use of the OurMoment website and any purchase you make from it. By placing an order, you agree to these Terms.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Seller:</strong> [legal company name]<br><strong>Address:</strong> [address]<br><strong>Email:</strong> {$email}<br><strong>VAT / NIF:</strong> [number]</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading -->
-<h2>Products</h2>
-<!-- /wp:heading -->
-
-<!-- wp:paragraph -->
-<p>We sell personalized gifts for couples — mugs, framed prints and canvas — printed to order by our production partners.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Product photographs and on-screen previews are representations. Colours may vary slightly between screens and the printed item, and between production batches. Frames and mugs may differ marginally in shade or grain.</p>
+<p><strong>Seller:</strong> [legal business name]<br><strong>Address:</strong> [business address]<br><strong>Email:</strong> {$email}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Your content</h2>
+<h2>Our products</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>When you personalize a product you upload photographs and enter text. You confirm that:</p>
+<p>We sell personalized gifts for couples — mugs, framed prints, and canvas — printed to order by our production partners. Product photos and on-screen previews are representations. Colors may vary slightly between screens and the printed item, and between production batches.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Your content and personalization</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>When you personalize a product you upload photos and enter text. You represent and warrant that:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul>
-<li>You own the rights to the content, or have permission to use it</li>
-<li>The content does not infringe anyone's copyright, trademark, or right to their own image</li>
-<li>The content is not unlawful, hateful, obscene or defamatory</li>
+<li>You own the rights to the content, or have permission to use it;</li>
+<li>The content does not infringe anyone's copyright, trademark, or right of publicity/privacy;</li>
+<li>The content is not unlawful, hateful, obscene, or defamatory.</li>
 </ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>You grant us a limited licence to reproduce your content solely to manufacture and deliver your order. We may refuse to print any design that breaches the above, and will refund you in full if we do.</p>
+<p>You grant us a limited license to reproduce your content solely to manufacture and deliver your order. We may refuse to print any design that violates the above and will refund you in full if we do. You agree to indemnify and hold us harmless from any claim arising out of content you submit.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Orders and prices</h2>
+<h2>Orders and pricing</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Your order is an offer to buy. The contract forms when we send you an order confirmation email.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>Prices are in euros and include VAT where applicable. Shipping is calculated at checkout. If a price is listed incorrectly through an obvious error, we may cancel the order and refund you rather than honour it. We may also refuse or cancel an order if the item is unavailable, if we suspect fraud, or if your content breaches these terms.</p>
+<p>Your order is an offer to buy. A contract is formed when we send you an order confirmation email. Prices are in US dollars. Applicable sales tax is calculated at checkout where required. If a price is listed incorrectly due to an obvious error, we may cancel the order and refund you rather than honor it. We may also refuse or cancel an order if the item is unavailable, if we suspect fraud, or if your content violates these Terms.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -86,15 +82,15 @@ function ourmoment_legal_pages() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Payments are handled by Stripe. We never see or store your card details.</p>
+<p>Payments are processed by Stripe. We never see or store your full card details.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Production and delivery</h2>
+<h2>Production and shipping</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Personalized items are made to order. Typical production takes [2–5] business days, and delivery within the EU takes a further [3–7] business days. These are estimates, not guarantees. Delays caused by carriers, customs or peak seasons are outside our control. Risk passes to you on delivery.</p>
+<p>Personalized items are made to order. Typical production takes [X–X] business days, and US delivery takes a further [X–X] business days. These are estimates, not guarantees; delays caused by carriers or peak seasons are outside our control. Title and risk of loss pass to you upon delivery to the carrier.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -102,15 +98,23 @@ function ourmoment_legal_pages() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Because our products are personalized, the standard 14-day right of withdrawal does not apply to them. Our full policy, including your rights when an item arrives faulty, is set out on our <a href="/returns/">Returns &amp; Refunds</a> page, which forms part of these terms.</p>
+<p>Because our products are personalized, all sales of personalized items are final. Your rights when an item arrives damaged, defective, or incorrect are set out on our <a href="/returns/">Returns &amp; Refunds</a> page, which is part of these Terms.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Our liability</h2>
+<h2>Disclaimers</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>We do not exclude liability for death or personal injury caused by our negligence, for fraud, or for anything else that cannot lawfully be excluded. Otherwise, our liability for any order is limited to the amount you paid for it, and we are not liable for indirect or consequential loss. Nothing here affects your statutory rights as a consumer.</p>
+<p>Except as expressly stated, the website and products are provided "as is" and "as available," without warranties of any kind, to the fullest extent permitted by law. Some states do not allow the exclusion of certain warranties, so some of these exclusions may not apply to you.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Limitation of liability</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>To the fullest extent permitted by law, our total liability for any order is limited to the amount you paid for it, and we are not liable for indirect, incidental, or consequential damages. Nothing here limits liability that cannot be limited under applicable law.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -118,15 +122,23 @@ function ourmoment_legal_pages() {
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>The OurMoment name, logo, site design and all original artwork remain our property. You may not reproduce them without written permission.</p>
+<p>The OurMoment name, logo, site design, and all original artwork are our property. You may not reproduce them without written permission.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Governing law</h2>
+<h2>Governing law and disputes</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>These terms are governed by Portuguese law, and disputes fall under the jurisdiction of the Portuguese courts. As a consumer in the EU you may also use the European Commission's Online Dispute Resolution platform at <a href="https://ec.europa.eu/consumers/odr" rel="nofollow">ec.europa.eu/consumers/odr</a>.</p>
+<p>These Terms are governed by the laws of [State/jurisdiction], without regard to conflict-of-law rules, except where your local consumer-protection laws provide rights that cannot be waived. Before filing any claim, you agree to first contact us at {$email} so we can try to resolve it informally.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Changes</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>We may update these Terms. The version in effect is the one published when you place your order.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -144,31 +156,31 @@ HTML;
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>This policy explains what personal data OurMoment collects, why we collect it, and what rights you have over it. We are the data controller.</p>
+<p>This Privacy Policy explains what personal information OurMoment collects, why we collect it, and the choices you have.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Controller:</strong> [legal company name]<br><strong>Address:</strong> [address]<br><strong>Email:</strong> {$email}<br><strong>VAT / NIF:</strong> [number]</p>
+<p><strong>Business:</strong> [legal business name]<br><strong>Address:</strong> [business address]<br><strong>Email:</strong> {$email}</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>What we collect</h2>
+<h2>Information we collect</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p><strong>When you place an order:</strong> your name, email address, billing address, shipping address, phone number, and the contents of your order.</p>
+<p><strong>When you place an order:</strong> your name, email, billing and shipping address, phone number, and order contents.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>When you personalize a product:</strong> the names, dates and text you enter, and any photographs you upload. These are personal data, and photographs of people may reveal information about others too. Only upload photographs you have the right to use.</p>
+<p><strong>When you personalize a product:</strong> the names, dates, and text you enter, and any photos you upload. Only upload photos you have the right to use.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>When you contact us:</strong> your name, email address and the content of your message.</p>
+<p><strong>When you contact us:</strong> your name, email, and the content of your message.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>When you browse:</strong> your IP address, browser type, pages visited and cookie data.</p>
+<p><strong>When you browse:</strong> IP address, browser type, pages visited, and cookie data.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
@@ -176,40 +188,44 @@ HTML;
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Why we collect it, and our legal basis</h2>
-<!-- /wp:heading -->
-
-<!-- wp:table -->
-<figure class="wp-block-table"><table>
-<thead><tr><th>Purpose</th><th>Legal basis</th></tr></thead>
-<tbody>
-<tr><td>Processing and delivering your order</td><td>Performance of a contract</td></tr>
-<tr><td>Sending order and shipping confirmations</td><td>Performance of a contract</td></tr>
-<tr><td>Sending your design to our print partner</td><td>Performance of a contract</td></tr>
-<tr><td>Preventing fraud and abuse</td><td>Legitimate interest</td></tr>
-<tr><td>Analytics and improving the site</td><td>Consent</td></tr>
-<tr><td>Marketing emails</td><td>Consent, withdrawable at any time</td></tr>
-<tr><td>Keeping accounting and tax records</td><td>Legal obligation</td></tr>
-</tbody>
-</table></figure>
-<!-- /wp:table -->
-
-<!-- wp:heading -->
-<h2>Who we share it with</h2>
+<h2>How we use your information</h2>
 <!-- /wp:heading -->
 
 <!-- wp:list -->
 <ul>
-<li><strong>Printify</strong> and its print providers — your name, shipping address and design files, so the item can be printed and shipped</li>
-<li><strong>Customily</strong> — your personalization data and uploaded images, to generate the print file</li>
-<li><strong>Stripe</strong> — payment processing</li>
-<li><strong>[hosting provider]</strong> — website hosting</li>
-<li><strong>[analytics provider, if used]</strong> — usage statistics, only with your consent</li>
+<li>To process, produce, and deliver your order;</li>
+<li>To send order and shipping confirmations;</li>
+<li>To provide customer support;</li>
+<li>To prevent fraud and abuse;</li>
+<li>To improve our site (analytics), and — only if you opt in — to send marketing emails;</li>
+<li>To meet legal and tax obligations.</li>
+</ul>
+<!-- /wp:list -->
+
+<!-- wp:heading -->
+<h2>How we share it</h2>
+<!-- /wp:heading -->
+
+<!-- wp:list -->
+<ul>
+<li><strong>Printify</strong> and its print providers — your name, shipping address, and design files, to print and ship your item;</li>
+<li><strong>Customily</strong> — your personalization data and uploaded images, to generate the print file;</li>
+<li><strong>Stripe</strong> — payment processing;</li>
+<li><strong>[hosting provider]</strong> — website hosting;</li>
+<li><strong>[analytics provider, if used]</strong> — usage statistics, subject to your cookie choices.</li>
 </ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Some processors may transfer data outside the EU. Where they do, the transfer is covered by Standard Contractual Clauses or an adequacy decision. We never sell your personal data.</p>
+<p><strong>We do not sell your personal information</strong>, and we do not share it for cross-context behavioral advertising as those terms are defined under California law.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2>Cookies</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>We use cookies that are necessary for the site and cart to work, and — with your consent — cookies for analytics. You can manage your choices through the cookie banner at any time.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -218,32 +234,27 @@ HTML;
 
 <!-- wp:list -->
 <ul>
-<li><strong>Order and invoice records:</strong> [10] years, as required by Portuguese tax law</li>
-<li><strong>Uploaded photographs and design files:</strong> [90] days after your order ships, so we can reprint if something goes wrong, then deleted</li>
-<li><strong>Contact form messages:</strong> [2] years</li>
-<li><strong>Marketing consent:</strong> until you withdraw it</li>
-<li><strong>Analytics data:</strong> [14] months</li>
+<li><strong>Order and invoice records:</strong> as required by applicable tax law;</li>
+<li><strong>Uploaded photos and design files:</strong> [90] days after your order ships, then deleted;</li>
+<li><strong>Contact messages:</strong> [2] years;</li>
+<li><strong>Marketing consent:</strong> until you withdraw it.</li>
 </ul>
 <!-- /wp:list -->
 
 <!-- wp:heading -->
-<h2>Your rights</h2>
+<h2>Your privacy rights</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Under the GDPR you have the right to access, rectify, erase, restrict or object to the processing of your personal data, to receive it in a portable format, and to withdraw consent where processing relies on it.</p>
+<p><strong>California residents (CCPA/CPRA).</strong> You have the right to know what personal information we collect, to request access to or deletion of it, to correct inaccurate information, and to not be discriminated against for exercising these rights. As stated above, we do not sell or share your personal information. To make a request, email {$email}; we will verify and respond as required by law.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>To exercise any of these, email {$email}. We will respond within one month. If you believe we have mishandled your data, you may complain to the Portuguese supervisory authority, the Comissão Nacional de Proteção de Dados (CNPD), at <a href="https://www.cnpd.pt" rel="nofollow">cnpd.pt</a>.</p>
+<p><strong>Other US states.</strong> Residents of states with comprehensive privacy laws (such as Virginia, Colorado, Connecticut, and others) may have similar rights to access, correct, or delete their information. Contact us at the email above to exercise them.</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:heading -->
-<h2>Cookies</h2>
-<!-- /wp:heading -->
-
 <!-- wp:paragraph -->
-<p>We use cookies that are strictly necessary for the site and cart to work, and — only with your consent — cookies for analytics. You can manage your choices at any time through the cookie banner.</p>
+<p><strong>EU/UK visitors.</strong> If you are in the EU or UK, you may have additional rights under the GDPR/UK GDPR, including access, rectification, erasure, and portability. Email us to exercise them.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -251,15 +262,15 @@ HTML;
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Our store is not directed at children under 16, and we do not knowingly collect their data.</p>
+<p>Our store is not directed to children under 13, and we do not knowingly collect their personal information.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Changes</h2>
+<h2>Security and changes</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>We may update this policy. The date at the top always tells you when it last changed.</p>
+<p>We use reasonable measures to protect your information, though no method of transmission is completely secure. We may update this policy; the "last updated" date above always tells you when it last changed.</p>
 <!-- /wp:paragraph -->
 HTML;
 
@@ -269,44 +280,40 @@ HTML;
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p>Every OurMoment piece is made to order, personalized with your names, dates and photos. Because of this, our returns policy works a little differently from a standard shop — and we want to be upfront about that before you buy.</p>
+<p>Every OurMoment piece is made to order, personalized with your names, dates, and photos. Because of that, our returns policy works a little differently from a standard shop — and we want to be upfront about it before you buy.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Personalized items</h2>
+<h2>Personalized items are final sale</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Under EU consumer law, the 14-day right of withdrawal does not apply to goods made to your specification or clearly personalized. Once you approve your design and place your order, production begins and the item cannot be resold to anyone else. This means we cannot accept returns simply because you changed your mind about a personalized item.</p>
+<p>Because each item is personalized just for you, it can't be resold to anyone else. For that reason, <strong>all sales of personalized items are final</strong> and we can't accept returns or exchanges for a change of mind.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
-<p><strong>Please double-check your preview before ordering:</strong> the spelling of names, the date, and the photo you uploaded. What you see in the preview is what we print.</p>
+<p><strong>Please double-check your preview before ordering:</strong> the spelling of names, the date, and the photo you uploaded. What you see in the live preview is what we print.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>When we will replace or refund</h2>
+<h2>When we'll replace or refund</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>We will replace or fully refund your order, at no cost to you, if:</p>
+<p>We'll replace or fully refund your order, at no cost to you, if:</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:list -->
 <ul>
-<li>The item arrives damaged or defective</li>
-<li>The item is not what you ordered</li>
-<li>The print is misaligned, faded, or contains a printing error on our side</li>
-<li>Your order never arrives within [X] days of the estimated delivery date</li>
+<li>The item arrives damaged or defective;</li>
+<li>You received the wrong item;</li>
+<li>The print is misaligned, faded, or has a printing error on our side;</li>
+<li>Your order never arrives within [X] days of the estimated delivery date.</li>
 </ul>
 <!-- /wp:list -->
 
 <!-- wp:paragraph -->
-<p>Contact us at {$email} within 14 days of delivery, including your order number, photographs clearly showing the problem, and a photograph of the shipping label if the packaging was damaged.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>We do not usually ask you to ship the item back — for print-on-demand it is cheaper for everyone if you keep or dispose of the faulty piece.</p>
+<p>Contact us at {$email} within [30] days of delivery, and include your order number and clear photos of the problem (and of the shipping label if the packaging was damaged). We usually don't ask you to ship the item back.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -314,7 +321,7 @@ HTML;
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>You can change or cancel your order within [2] hours of placing it, before it enters production. Email us immediately at {$email} with your order number. After production starts we cannot cancel, because the item is already being printed with your personalization.</p>
+<p>You can change or cancel your order within [2] hours of placing it, before it enters production. Email us right away at {$email} with your order number. Once production starts, we can't cancel, because the item is already being printed with your personalization.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
@@ -330,22 +337,22 @@ HTML;
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>If you ordered an item with no personalization, you have the standard 14-day right of withdrawal from the day you receive it. Contact us and we will provide return instructions. The item must be unused and in its original packaging. Return shipping is at your cost unless the item was faulty.</p>
+<p>If you ordered an item with no personalization, you may return it within [30] days of delivery if it is unused and in its original packaging. Contact us for instructions. Return shipping is at your cost unless the item was faulty.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:heading -->
-<h2>Your statutory rights</h2>
+<h2>Contact</h2>
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>Nothing in this policy affects your statutory rights under EU and Portuguese consumer law, including your rights regarding goods that are not as described, not fit for purpose, or not of satisfactory quality.</p>
+<p>[legal business name]<br>[business address]<br>{$email}</p>
 <!-- /wp:paragraph -->
 HTML;
 
     return [
-        'terms'   => ['title' => 'Terms & Conditions', 'content' => $terms],
-        'privacy' => ['title' => 'Privacy Policy',     'content' => $privacy],
-        'returns' => ['title' => 'Returns & Refunds',  'content' => $returns],
+        'terms'   => ['title' => 'Terms of Service', 'content' => $terms],
+        'privacy' => ['title' => 'Privacy Policy',   'content' => $privacy],
+        'returns' => ['title' => 'Returns & Refunds', 'content' => $returns],
     ];
 }
 
@@ -415,7 +422,7 @@ add_action('admin_init', function () {
 
 /**
  * The drafts ship with [bracketed] placeholders. Nag until they are gone,
- * because publishing a policy that says "[legal company name]" is worse
+ * because publishing a policy that says "[legal business name]" is worse
  * than publishing none at all.
  */
 add_action('admin_notices', function () {
@@ -443,6 +450,6 @@ add_action('admin_notices', function () {
         '<div class="notice notice-warning"><p><strong>OurMoment:</strong> %s %s</p><p>%s</p></div>',
         esc_html__('These legal pages still contain placeholders in square brackets:', 'ourmoment'),
         wp_kses_post(implode(', ', $unfinished)),
-        esc_html__('Replace them with your real company details before taking the store live. These texts are a starting point, not legal advice.', 'ourmoment')
+        esc_html__('Replace them with your real business details before taking the store live. These are starting points, not legal advice — a US/cross-border review is strongly recommended.', 'ourmoment')
     );
 });
