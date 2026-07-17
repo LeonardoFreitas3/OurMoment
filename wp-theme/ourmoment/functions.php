@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.21.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.21.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.22.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.22.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -169,7 +169,7 @@ add_action('woocommerce_after_add_to_cart_form', function () {
       </svg>
       <div>
         <strong>For the sharpest print</strong>
-        <span>Upload the highest-resolution photo you have — clear, well-lit, and in focus. Small, blurry, or heavily filtered images (and screenshots) may print soft. The better the photo, the closer your piece comes to perfect.</span>
+        <span>Upload a <strong>JPG or PNG</strong> at the highest resolution you have — ideally <strong>1500&nbsp;&times;&nbsp;1500&nbsp;px or larger</strong> (around 2&ndash;5&nbsp;MB). Make sure it's clear, well-lit, and in focus. Avoid screenshots, zoomed-in phone crops, and heavily filtered photos — they can print soft or pixelated.</span>
       </div>
     </div>
     <?php

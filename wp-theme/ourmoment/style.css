@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.21.0
+Version: 1.22.0
 Text Domain: ourmoment
 */
 
@@ -1126,8 +1126,43 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   font-size: clamp(1.4rem, 3vw, 2rem) !important;
   margin-bottom: 2rem;
 }
+/* Astra caps .entry-content at ~720px; let our own widths govern instead */
+.woocommerce-account #primary,
+.woocommerce-account .site-main,
+.woocommerce-account .ast-article-single,
+.woocommerce-account .entry-content,
+.woocommerce-account article.page {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
 /* Keep the account content in a centred column */
-.woocommerce-account .woocommerce { max-width: 980px; margin-inline: auto; }
+.woocommerce-account .woocommerce {
+  max-width: 980px;
+  margin-inline: auto;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
+}
+
+/* The login/register heading is a sibling of the form — centre it too */
+.woocommerce-account .woocommerce > h2 {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  font-size: 1.25rem !important;
+  text-align: center;
+  letter-spacing: .04em;
+  margin: 0 0 1.4rem;
+}
+
+/* Kill the browser autofill blue/lavender fill on every form field */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+  caret-color: var(--text);
+  transition: background-color 9999s ease-in-out 0s;
+}
 
 /* ── My Account: signed out ── */
 .woocommerce-account:not(.logged-in) .entry-title { margin-bottom: 2.5rem; }

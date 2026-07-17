@@ -435,6 +435,35 @@ add_action('admin_init', function () {
 });
 
 /**
+ * Force the legal pages' content to match the current drafts.
+ *
+ * ourmoment_create_pages() never overwrites existing pages, so an old
+ * (EU/VAT) version would linger forever. Bump OURMOMENT_LEGAL_VERSION to
+ * push the current Terms/Privacy/Returns content onto the existing pages on
+ * the next admin load. This OVERWRITES those three pages — if you hand-edit
+ * them, do it after the latest bump, or your edits will be replaced.
+ */
+add_action('admin_init', function () {
+    $version = '2026-07-us-2';
+    if (get_option('ourmoment_legal_version') === $version) {
+        return;
+    }
+
+    $pages = ourmoment_legal_pages();
+    foreach (['terms', 'privacy', 'returns'] as $slug) {
+        $page = get_page_by_path($slug);
+        if ($page && isset($pages[$slug])) {
+            wp_update_post([
+                'ID'           => $page->ID,
+                'post_title'   => $pages[$slug]['title'],
+                'post_content' => $pages[$slug]['content'],
+            ]);
+        }
+    }
+    update_option('ourmoment_legal_version', $version);
+});
+
+/**
  * The drafts ship with [bracketed] placeholders. Nag until they are gone,
  * because publishing a policy that says "[legal business name]" is worse
  * than publishing none at all.
