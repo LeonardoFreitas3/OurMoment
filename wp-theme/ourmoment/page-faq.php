@@ -32,6 +32,35 @@ $om_faqs = [
 ];
 ?>
 
+<?php
+/**
+ * FAQPage structured data, built from the same $om_faqs array the page
+ * renders — one source of truth, so the markup and the schema can never
+ * drift apart. Search engines use this for rich results; assistants use it
+ * because a question/answer pair is the shape they quote.
+ *
+ * Yoast emits its own graph separately; a standalone FAQPage block is valid
+ * alongside it.
+ */
+$om_faq_schema = [
+    '@context'   => 'https://schema.org',
+    '@type'      => 'FAQPage',
+    'mainEntity' => array_map(function ($om_item) {
+        return [
+            '@type'          => 'Question',
+            'name'           => wp_strip_all_tags($om_item['q']),
+            'acceptedAnswer' => [
+                '@type' => 'Answer',
+                'text'  => wp_strip_all_tags($om_item['a']),
+            ],
+        ];
+    }, $om_faqs),
+];
+?>
+<script type="application/ld+json">
+<?php echo wp_json_encode($om_faq_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE); ?>
+</script>
+
 <main class="om-page">
   <?php
   get_template_part('template-parts/page-banner', null, [

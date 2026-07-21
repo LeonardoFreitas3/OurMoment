@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.29.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.29.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.30.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.30.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -251,6 +251,69 @@ add_filter('the_title', function ($title, $post_id = 0) {
     $clean = preg_split('/\s+[—–]\s+/u', $title, 2)[0];
     return trim($clean) !== '' ? trim($clean) : $title;
 }, 10, 2);
+
+/**
+ * Point crawlers at the sitemap from robots.txt.
+ *
+ * WordPress serves a virtual robots.txt and neither core nor Yoast were
+ * advertising the sitemap on this install, so search engines and AI crawlers
+ * had to discover every URL by following links. One line fixes that.
+ *
+ * Only runs while robots.txt is virtual: dropping a real file in the web root
+ * bypasses this filter entirely, so add the line there if that ever happens.
+ */
+add_filter('robots_txt', function ($output) {
+    if (strpos($output, 'Sitemap:') !== false) {
+        return $output;
+    }
+    return rtrim($output) . "\n\nSitemap: " . esc_url(home_url('/sitemap_index.xml')) . "\n";
+});
+
+/**
+ * Serve /llms.txt — a plain-text summary of the store for AI assistants,
+ * modelled on the emerging llms.txt convention.
+ *
+ * ponytail: speculative. The convention is young and no major crawler has
+ * committed to reading it, but it is ~20 lines and costs nothing to serve.
+ * Delete this block if it is still unread a year from now. The facts here
+ * must stay true — an assistant that quotes a stale delivery estimate does
+ * more damage than one that never quotes us at all.
+ */
+add_action('template_redirect', function () {
+    if (untrailingslashit($_SERVER['REQUEST_URI'] ?? '') !== '/llms.txt') {
+        return;
+    }
+
+    $name = get_bloginfo('name');
+    $desc = get_bloginfo('description');
+
+    header('Content-Type: text/plain; charset=utf-8');
+    header('X-Robots-Tag: noindex');
+
+    echo "# {$name}\n\n";
+    echo "> {$desc}\n\n";
+    echo "{$name} sells personalized keepsakes for couples: framed prints, "
+       . "blankets, mugs and wall art customised with your names, your date "
+       . "and your own photo.\n\n";
+    echo "## How ordering works\n\n";
+    echo "- Choose a product, upload a photo, and add names and a date.\n";
+    echo "- A live preview shows the finished design before you pay.\n";
+    echo "- Every item is made to order, then shipped.\n";
+    echo "- Personalized items are final sale, except where the fault is ours.\n\n";
+    echo "## Pages\n\n";
+    foreach ([
+        '/'             => 'Home',
+        '/shop/'        => 'All products',
+        '/how-it-works/' => 'How personalization works',
+        '/faq/'         => 'Frequently asked questions',
+        '/about/'       => 'About the brand',
+        '/contact/'     => 'Contact',
+        '/returns/'     => 'Returns and refunds',
+    ] as $path => $label) {
+        echo "- [{$label}](" . home_url($path) . ")\n";
+    }
+    exit;
+});
 
 /**
  * Print the brand logo. Decorative by default — pass an $alt only where the
