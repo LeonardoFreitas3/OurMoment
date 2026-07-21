@@ -11,10 +11,10 @@ Uso:  python build_marketing_pdf_us.py
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
 from reportlab.platypus import (
     BaseDocTemplate, PageTemplate, Frame, Paragraph, Spacer, Table, TableStyle,
-    HRFlowable, ListFlowable, ListItem,
+    HRFlowable, ListFlowable, ListItem, KeepTogether,
 )
 from reportlab.lib.styles import ParagraphStyle
 
@@ -33,6 +33,10 @@ SERIF   = "Times-Roman"
 SERIF_I = "Times-Italic"
 SANS    = "Helvetica"
 SANS_B  = "Helvetica-Bold"
+
+# Largura util da pagina: A4 menos as margens esquerda/direita (22 mm cada).
+# Tabelas e caixas usam-na toda para alinharem com o corpo de texto.
+CONTENT_W = 210 - 22 - 22  # 166 mm
 
 styles = {
     "h1": ParagraphStyle("h1", fontName=SERIF_I, fontSize=24, leading=28,
@@ -57,6 +61,13 @@ styles = {
                                textColor=MUTED, alignment=TA_CENTER, spaceBefore=4),
     "th": ParagraphStyle("th", fontName=SANS_B, fontSize=7.5, leading=10, textColor=MUTED),
     "td": ParagraphStyle("td", fontName=SANS, fontSize=8.5, leading=12, textColor=TEXT),
+    # Variantes alinhadas a direita. O ALIGN do TableStyle so move a caixa da
+    # celula; o texto dentro de um Paragraph segue o alinhamento do proprio
+    # estilo, por isso as colunas numericas precisam destes.
+    "thr": ParagraphStyle("thr", fontName=SANS_B, fontSize=7.5, leading=10,
+                          textColor=MUTED, alignment=TA_RIGHT),
+    "tdr": ParagraphStyle("tdr", fontName=SANS, fontSize=8.5, leading=12,
+                          textColor=TEXT, alignment=TA_RIGHT),
     "phase": ParagraphStyle("phase", fontName=SANS_B, fontSize=7.5, leading=11,
                             textColor=BROWN, spaceAfter=2),
     "foot": ParagraphStyle("foot", fontName=SANS, fontSize=7.5, leading=11,
@@ -69,14 +80,17 @@ def P(t, s="body"):
 
 
 def bullets(items):
+    # value tem de ser o glifo do marcador. Passar um nome ("bullet") faz o
+    # reportlab desenhar a propria palavra por cima do texto.
     return ListFlowable(
-        [ListItem(P(t, "li"), leftIndent=10, value="bullet") for t in items],
+        [ListItem(P(t, "li"), leftIndent=10, value="•") for t in items],
         bulletType="bullet", start="•", leftIndent=12, bulletColor=BROWN,
     )
 
 
 def headline(fig, label):
-    t = Table([[P(fig, "figure")], [P(label, "figlabel")]], colWidths=[150 * mm])
+    t = Table([[P(fig, "figure")], [P(label, "figlabel")]],
+              colWidths=[CONTENT_W * mm], hAlign="LEFT")
     t.setStyle(TableStyle([
         ("BOX", (0, 0), (-1, -1), 0.6, RULE),
         ("BACKGROUND", (0, 0), (-1, -1), SURF),
@@ -89,7 +103,7 @@ def headline(fig, label):
 def note(html, kind="note"):
     bar = BROWN if kind == "note" else BAD
     bg = colors.white if kind == "note" else BADBG
-    t = Table([[P(html, "note")]], colWidths=[150 * mm])
+    t = Table([[P(html, "note")]], colWidths=[CONTENT_W * mm], hAlign="LEFT")
     t.setStyle(TableStyle([
         ("LINEBEFORE", (0, 0), (0, -1), 2, bar),
         ("BACKGROUND", (0, 0), (-1, -1), bg),
@@ -102,10 +116,19 @@ def note(html, kind="note"):
 
 
 def table(headers, rows, aligns, widths):
-    data = [[P(h, "th") for h in headers]]
+    """Tabela a toda a largura util. `widths` sao proporcoes, reescaladas para
+    CONTENT_W, para nunca ficarem mais estreitas do que o corpo de texto."""
+    scale = CONTENT_W / float(sum(widths))
+    widths = [w * scale for w in widths]
+
+    def cell(text, col, header=False):
+        right = aligns[col] == "RIGHT"
+        return P(text, ("thr" if right else "th") if header else ("tdr" if right else "td"))
+
+    data = [[cell(h, i, True) for i, h in enumerate(headers)]]
     for r in rows:
-        data.append([P(c, "td") for c in r])
-    t = Table(data, colWidths=[w * mm for w in widths], repeatRows=1)
+        data.append([cell(c, i) for i, c in enumerate(r)])
+    t = Table(data, colWidths=[w * mm for w in widths], repeatRows=1, hAlign="LEFT")
     ts = [
         ("LINEBELOW", (0, 0), (-1, 0), 0.8, RULE),
         ("LINEBELOW", (0, 1), (-1, -2), 0.4, RULE),
@@ -119,6 +142,12 @@ def table(headers, rows, aligns, widths):
         ts.append(("ALIGN", (col, 0), (col, -1), a))
     t.setStyle(TableStyle(ts))
     return t
+
+
+def titled(h3_text, tbl):
+    """Um h3 e a sua tabela nunca se separam: sozinho no fundo da pagina, o
+    titulo fica orfao e a tabela abre a pagina seguinte sem contexto."""
+    return KeepTogether([P(h3_text, "h3"), tbl])
 
 
 def phase(when, title, goal, items):
@@ -166,42 +195,38 @@ def build():
     story.append(P("Nove produtos, agrupados pelo papel que cada um cumpre. Sem artigos de Natal — "
                    "esses entram à parte, em setembro, como linha sazonal.", "dek"))
 
-    story.append(P("HERÓIS — SÃO ESTES QUE SUSTENTAM O TRÁFEGO PAGO", "h3"))
-    story.append(table(
+    story.append(titled("HERÓIS — SÃO ESTES QUE SUSTENTAM O TRÁFEGO PAGO", table(
         ["Produto", "Papel na loja", "Retail", "Margem"],
         [
             ["Hooded Sherpa Fleece Blanket", "O de maior margem em dólares. Já está na loja.", "$89.00", "$38.12"],
             ["Stretched Canvas 16x20", "Presente de parede de valor alto", "$59.99", "$17.95"],
             ["Framed Vertical Poster (matte)", "Produto-assinatura: combina com o design do site", "$39.99", "$14.53"],
         ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22]))
+        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
 
-    story.append(P("VOLUME — PORTA DE ENTRADA E COMPLEMENTO DE BUNDLE", "h3"))
-    story.append(table(
+    story.append(titled("VOLUME — PORTA DE ENTRADA E COMPLEMENTO DE BUNDLE", table(
         ["Produto", "Papel na loja", "Retail", "Margem"],
         [
             ["Ceramic Mug 11oz", "Entrada barata. Complemento, nunca herói.", "$22.99", "$9.02"],
             ["Matte Poster (sem moldura)", "Versão acessível do quadro", "$24.99", "$9.97"],
         ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22]))
+        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
 
-    story.append(P("PARES E UPSELL — SOBEM O AOV SEM TRÁFEGO NOVO", "h3"))
-    story.append(table(
+    story.append(titled("PARES E UPSELL — SOBEM O AOV SEM TRÁFEGO NOVO", table(
         ["Produto", "Papel na loja", "Retail", "Margem"],
         [
             ["Throw Pillow 18x18", "Clássico de aniversário de namoro", "$44.99", "$16.89"],
             ["Acrylic Photo Block", "Valor percebido alto, custo de portes baixo", "$39.99", "$16.03"],
             ["Stainless Tumbler 20oz", "Vende-se aos pares por natureza", "$34.99", "$14.18"],
         ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22]))
+        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
 
-    story.append(P("OCASIÃO — ÂNGULO DE EXPERIÊNCIA, NÃO DE DECORAÇÃO", "h3"))
-    story.append(table(
+    story.append(titled("OCASIÃO — ÂNGULO DE EXPERIÊNCIA, NÃO DE DECORAÇÃO", table(
         ["Produto", "Papel na loja", "Retail", "Margem"],
         [
             ["Photo Puzzle 500pc", "Ângulo 'date night'. Conteúdo de vídeo fácil.", "$34.99", "$12.68"],
         ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22]))
+        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
 
     story.append(note("<b>Custos a confirmar no Printify US.</b> As margens acima assumem custos de produção "
                       "e portes domésticos típicos. Antes de fixares preços, abre cada produto no Printify, "
@@ -222,12 +247,18 @@ def build():
                    "americano, isso é matemática perdedora — ainda mais dura do que na Europa.", "dek"))
     story.append(P("O CPC de retail nos EUA anda entre <b>$0.50 e $1.20+</b>. Com a margem de $14.59, "
                    "eis o lucro ou prejuízo por venda:", "body"))
+    def loss(v):
+        return f'<font color="#{BAD.hexval()[2:]}">-${v} prejuízo</font>'
+
+    def gain(v):
+        return f'<font color="#{GOOD.hexval()[2:]}">+${v} lucro</font>'
+
     story.append(table(
         ["CPC", "Conversão 2%", "Conversão 3%", "Conversão 5%"],
         [
-            ["$0.50", "-$10.41  prejuízo", "-$2.08  prejuízo", "+$4.59  lucro"],
-            ["$0.80", "-$25.41  prejuízo", "-$12.08  prejuízo", "-$1.41  prejuízo"],
-            ["$1.20", "-$45.41  prejuízo", "-$25.41  prejuízo", "-$9.41  prejuízo"],
+            ["$0.50", loss("10.41"), loss("2.08"), gain("4.59")],
+            ["$0.80", loss("25.41"), loss("12.08"), loss("1.41")],
+            ["$1.20", loss("45.41"), loss("25.41"), loss("9.41")],
         ],
         ["LEFT", "RIGHT", "RIGHT", "RIGHT"], [24, 40, 40, 42]))
     story.append(P("Uma loja nova, sem provas sociais e sem tráfego para o algoritmo otimizar, converte perto "
@@ -321,8 +352,7 @@ def build():
     # ── 7. Custos ──
     story.append(P("Quanto vais pagar", "h2"))
     story.append(P("Tudo em dólares por mês, salvo indicação.", "dek"))
-    story.append(P("CUSTOS FIXOS, A PARTIR DO PRIMEIRO DIA", "h3"))
-    story.append(table(
+    story.append(titled("CUSTOS FIXOS, A PARTIR DO PRIMEIRO DIA", table(
         ["Item", "Plano", "$/mês"],
         [
             ["Alojamento", "EasyWP", "4.00"],
@@ -333,10 +363,9 @@ def build():
             ["Stripe", "2,9% + $0.30 por venda", "0.00"],
             ["<b>Total fixo</b>", "", "<b>$6.00</b>"],
         ],
-        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30]))
+        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30])))
 
-    story.append(P("INVESTIMENTO INICIAL, UMA SÓ VEZ", "h3"))
-    story.append(table(
+    story.append(titled("INVESTIMENTO INICIAL, UMA SÓ VEZ", table(
         ["Item", "Notas", "$"],
         [
             ["Amostras dos produtos", "Uma de cada, do fornecedor US. Inegociável.", "80–120"],
@@ -344,7 +373,7 @@ def build():
             ["Fotografia", "Telemóvel e luz de janela", "0"],
             ["<b>Total de arranque</b>", "", "<b>$130–420</b>"],
         ],
-        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30]))
+        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30])))
 
     # ── 8. Orçamento ──
     story.append(P("O orçamento de marketing, mês a mês", "h2"))
