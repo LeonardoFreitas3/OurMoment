@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.30.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.30.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.30.1');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.30.1', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -286,6 +286,15 @@ add_action('template_redirect', function () {
 
     $name = get_bloginfo('name');
     $desc = get_bloginfo('description');
+
+    // WordPress has already resolved this request to a 404 by the time
+    // template_redirect fires, and serving the body without correcting the
+    // status makes crawlers discard it. Claim the request explicitly.
+    global $wp_query;
+    if ($wp_query instanceof WP_Query) {
+        $wp_query->is_404 = false;
+    }
+    status_header(200);
 
     header('Content-Type: text/plain; charset=utf-8');
     header('X-Robots-Tag: noindex');
