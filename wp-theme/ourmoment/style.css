@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.28.0
+Version: 1.29.0
 Text Domain: ourmoment
 */
 
@@ -1769,6 +1769,20 @@ textarea:-webkit-autofill {
   .woocommerce div.product .quantity input.qty { width: 100%; }
   .woocommerce div.product .single_add_to_cart_button,
   .woocommerce div.product .customily-preview-button { flex: 1; }
+}
+
+/* Customily clones the add-to-cart button and hides its copy (.hidden-cart-btn),
+   triggering it in JS once the personalized design is generated. Its own
+   `display:none !important` is only one class specific, so our
+   `.woocommerce div.product .single_add_to_cart_button` rule above out-specifies
+   it and un-hides the clone — which is why the page showed two Add to Cart
+   buttons. Re-hide the clones; the real button is the one WITHOUT these classes.
+   Do not "fix" this by hiding .single_add_to_cart_button generally: the clone is
+   the one carrying the Customily design payload. */
+.woocommerce div.product .single_add_to_cart_button.hidden-cart-btn,
+.woocommerce div.product .single_add_to_cart_button.hidden-buy-now-btn,
+.woocommerce div.product .single_add_to_cart_button.customily-modal-hidden {
+  display: none !important;
 }
 
 /* ── Kill Astra's blue accent inside WooCommerce content ──
