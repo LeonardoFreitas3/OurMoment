@@ -13,8 +13,8 @@ add_action('wp_enqueue_scripts', function () {
         [],
         null
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.30.1');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.30.1', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.31.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.31.0', true);
 });
 
 add_action('after_setup_theme', function () {
@@ -323,6 +323,48 @@ add_action('template_redirect', function () {
     }
     exit;
 });
+
+/**
+ * Fill the two Product schema gaps Search Console flags that we can answer
+ * truthfully today.
+ *
+ * WooCommerce core emits this graph, not Yoast, so this is the WooCommerce
+ * filter rather than wpseo_schema_product.
+ *
+ * - brand: satisfies the "no global identifier" warning. We have no GTIN —
+ *   print-on-demand blanks are not retail SKUs — but the brand is us.
+ * - validFrom: the date the product (and therefore its price) went live.
+ *
+ * Deliberately NOT added: shippingDetails and hasMerchantReturnPolicy. Both
+ * describe commercial facts we do not have yet — the print provider is still
+ * undecided, so shipping cost and delivery time are unknown. Google surfaces
+ * those values directly in search results, so a wrong number is a broken
+ * promise to a customer, not a markup warning. Add them once the provider is
+ * chosen and the numbers are real.
+ */
+add_filter('woocommerce_structured_data_product', function ($markup, $product) {
+    if (!is_array($markup) || !is_object($product)) {
+        return $markup;
+    }
+
+    if (empty($markup['brand'])) {
+        $markup['brand'] = [
+            '@type' => 'Brand',
+            'name'  => get_bloginfo('name'),
+        ];
+    }
+
+    $created = $product->get_date_created();
+    if ($created && !empty($markup['offers']) && is_array($markup['offers'])) {
+        foreach ($markup['offers'] as $i => $offer) {
+            if (is_array($offer) && empty($offer['validFrom'])) {
+                $markup['offers'][$i]['validFrom'] = $created->date('c');
+            }
+        }
+    }
+
+    return $markup;
+}, 10, 2);
 
 /**
  * Print the brand logo. Decorative by default — pass an $alt only where the
