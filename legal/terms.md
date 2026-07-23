@@ -42,8 +42,8 @@ you in full if we do.
 Your order is an offer to buy. The contract forms when we send you an order
 confirmation email.
 
-Prices are shown in the currency you select. Shipping is calculated at
-checkout, live, based on your delivery address. If a price is listed
+Prices are shown in the currency you select. Shipping is a flat rate based on
+your delivery region, shown at checkout before you pay. If a price is listed
 incorrectly through an obvious error, we may cancel the order and refund you
 rather than honour it.
 
@@ -70,8 +70,13 @@ Personalized items are made to order. Typical production takes **[2–5]
 business days**, plus delivery time.
 
 Your order is produced at the fulfillment facility nearest to your delivery
-address, so the shipping estimate you see at checkout is the one that applies
-to you. Estimated delivery times are shown before you pay.
+address — in Europe for European orders, in the United States for US orders —
+so it does not cross customs on the way to you.
+
+Typical total time, production plus delivery:
+
+- **United States:** [5–9] business days
+- **Europe:** [5–10] business days
 
 These are estimates, not guarantees. Delays caused by carriers, customs, or
 peak seasons are outside our control.
