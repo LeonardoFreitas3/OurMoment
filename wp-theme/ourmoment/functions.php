@@ -7,15 +7,48 @@ require_once get_stylesheet_directory() . '/inc/legal-pages.php';
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('astra-parent', get_template_directory_uri() . '/style.css');
+
+    /**
+     * Brand fonts, served from this server rather than fonts.googleapis.com.
+     *
+     * Loading them from Google sent every visitor's IP address to Google
+     * before they had consented to anything — the practice German courts
+     * have already ruled on, and this store targets Germany. Self-hosting
+     * removes the transfer entirely, so there is nothing to consent to.
+     *
+     * It is also faster: no DNS lookup, TLS handshake and connection to a
+     * third-party origin in front of the first paint.
+     *
+     * assets/css/fonts.css is generated — see the header inside it.
+     */
     wp_enqueue_style(
         'ourmoment-fonts',
-        'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap',
+        get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        null
+        '1.33.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.32.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.32.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.33.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.33.0', true);
 });
+
+/**
+ * Drop the dns-prefetch hint for fonts.googleapis.com.
+ *
+ * WordPress adds it whenever a stylesheet is registered against that host.
+ * Now that the fonts are local, the hint resolves a domain the page never
+ * contacts — dead weight, and a lingering signal that we still talk to
+ * Google when we do not.
+ */
+add_filter('wp_resource_hints', function ($urls, $relation) {
+    if ($relation !== 'dns-prefetch') {
+        return $urls;
+    }
+    return array_values(array_filter($urls, function ($url) {
+        $host = is_array($url) ? ($url['href'] ?? '') : $url;
+        return strpos($host, 'fonts.googleapis.com') === false
+            && strpos($host, 'fonts.gstatic.com') === false;
+    }));
+}, 10, 2);
 
 add_action('after_setup_theme', function () {
     add_theme_support('woocommerce');
