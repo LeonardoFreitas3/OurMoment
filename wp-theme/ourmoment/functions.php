@@ -50,10 +50,10 @@ add_action('wp_enqueue_scripts', function () {
         'ourmoment-fonts',
         get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        '1.35.0'
+        '1.36.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.35.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.35.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.36.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.36.0', true);
 });
 
 /**
@@ -258,6 +258,45 @@ add_filter('woocommerce_product_add_to_cart_text', function ($text, $product) {
     }
     return $text;
 }, 10, 2);
+
+/**
+ * Show variable products as "From <lowest price>" instead of a range.
+ *
+ * A personalized pillow spanning 16.00 to 45.00 rendered as "16,00 € – 45,00 €",
+ * which reads as two prices to compare rather than one to act on, and buries
+ * the entry point that actually gets the click. The upper bound is still
+ * visible once a size is chosen, which is the moment it means anything.
+ *
+ * wc_format_price_range() hands us $from and $to either as raw numbers or as
+ * already-formatted strings depending on the caller, so both are handled.
+ */
+add_filter('woocommerce_format_price_range', function ($price, $from, $to) {
+    $min = is_numeric($from) ? wc_price($from) : $from;
+    return sprintf(
+        '<span class="om-price-from">%s</span> %s',
+        esc_html__('From', 'ourmoment'),
+        $min
+    );
+}, 10, 3);
+
+/**
+ * Keep the price-filter slider labelled in the currency the visitor picked.
+ *
+ * WooCommerce localises these params once, and the symbol it captures is
+ * whichever currency was active at that moment — so after switching to EUR
+ * the sidebar slider kept showing $. Re-reading the symbol here runs late
+ * enough to see the switch WooPayments has already made.
+ *
+ * Only the formatting is corrected. The bounds themselves come from the
+ * _price meta in store currency, so they stay right as long as the manual
+ * rate is 1.00; revisit this if a real exchange rate is ever set.
+ */
+add_filter('woocommerce_price_slider_params', function ($params) {
+    if (function_exists('get_woocommerce_currency_symbol')) {
+        $params['currency_format_symbol'] = get_woocommerce_currency_symbol();
+    }
+    return $params;
+});
 
 // Hide the SKU / category / tags meta block on the product page.
 add_action('init', function () {

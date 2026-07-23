@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.35.0
+Version: 1.36.0
 Text Domain: ourmoment
 */
 
@@ -1850,6 +1850,62 @@ textarea:-webkit-autofill {
 }
 .woocommerce-page .site-main a:not(.button):hover,
 .woocommerce .site-main a:not(.button):hover { color: var(--accent-hover); }
+
+/* ── Pagination ──
+   Had no styling at all, so Astra painted the current page and the hover
+   state in --ast-global-color-0 (#046bd2). */
+.woocommerce nav.woocommerce-pagination ul,
+.woocommerce nav.woocommerce-pagination ul li {
+  border: none !important;
+  margin: 0;
+}
+.woocommerce nav.woocommerce-pagination {
+  margin: 3rem 0 1rem;
+}
+.woocommerce nav.woocommerce-pagination ul {
+  display: flex;
+  justify-content: center;
+  gap: .4rem;
+  padding: 0;
+}
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span {
+  min-width: 38px;
+  height: 38px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 .5rem !important;
+  font-family: var(--font-body);
+  font-size: .78rem;
+  font-weight: 500;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--text-soft) !important;
+  border: 1px solid transparent !important;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.woocommerce nav.woocommerce-pagination ul li a:hover,
+.woocommerce nav.woocommerce-pagination ul li a:focus {
+  background: transparent !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.woocommerce nav.woocommerce-pagination ul li a.current {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+
+/* "From" label on variable-product prices — quieter than the figure it
+   introduces, so the eye lands on the number. */
+.om-price-from {
+  font-size: .78em;
+  color: var(--text-soft);
+  text-transform: lowercase;
+  letter-spacing: .04em;
+}
 
 /* Checkout: place-order and proceed buttons in the brand accent, not blue */
 #place_order,
