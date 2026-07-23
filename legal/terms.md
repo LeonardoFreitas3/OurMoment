@@ -42,9 +42,20 @@ you in full if we do.
 Your order is an offer to buy. The contract forms when we send you an order
 confirmation email.
 
-Prices are in **[EUR €]** and include VAT where applicable. Shipping is
-calculated at checkout. If a price is listed incorrectly through an obvious
-error, we may cancel the order and refund you rather than honour it.
+Prices are shown in the currency you select. Shipping is calculated at
+checkout, live, based on your delivery address. If a price is listed
+incorrectly through an obvious error, we may cancel the order and refund you
+rather than honour it.
+
+> **Europe.** Prices include VAT where applicable.
+>
+> **United States.** Prices exclude sales tax, which is added at checkout where
+> we are required to collect it.
+
+Where your order ships from outside your own customs territory, import duties
+or taxes may apply on arrival and are your responsibility. We ship from
+facilities in both Europe and the United States and route each order to the
+facility nearest you, so this is uncommon.
 
 We may refuse or cancel an order if the item is unavailable, if we suspect
 fraud, or if your content breaches these terms.
@@ -56,8 +67,11 @@ Payments are handled by Stripe. We never see or store your card details.
 ## Production and delivery
 
 Personalized items are made to order. Typical production takes **[2–5]
-business days**, and delivery to Portugal and the EU takes a further
-**[3–7] business days**.
+business days**, plus delivery time.
+
+Your order is produced at the fulfillment facility nearest to your delivery
+address, so the shipping estimate you see at checkout is the one that applies
+to you. Estimated delivery times are shown before you pay.
 
 These are estimates, not guarantees. Delays caused by carriers, customs, or
 peak seasons are outside our control.
@@ -66,10 +80,11 @@ Risk passes to you on delivery.
 
 ## Cancellations and returns
 
-Because our products are personalized, the standard 14-day right of withdrawal
-does not apply to them. Our full policy, including your rights when an item
-arrives faulty, is set out in our [Returns & Refunds](/returns/) page, which
-forms part of these terms.
+Because our products are personalized, they are not covered by the standard
+right to change your mind. Our full policy — including your rights when an
+item arrives faulty, and the different rules that apply in **Europe** and the
+**United States** — is set out in our [Returns & Refunds](/returns/) page,
+which forms part of these terms.
 
 ## Our liability
 
@@ -88,11 +103,19 @@ property. You may not reproduce them without written permission.
 
 ## Governing law
 
-These terms are governed by Portuguese law. Disputes fall under the
-jurisdiction of the Portuguese courts.
+These terms are governed by the law of **[jurisdição — ver nota interna]**.
 
-As a consumer in the EU, you may also use the European Commission's Online
-Dispute Resolution platform: **ec.europa.eu/consumers/odr**
+**Whatever this section says, it cannot take away the consumer protection you
+are entitled to where you live.**
+
+> **Europe.** If you are a consumer resident in the EU, you keep the benefit of
+> the mandatory consumer protection rules of your own country, and you may
+> bring proceedings in your own country's courts. You may also use the European
+> Commission's Online Dispute Resolution platform:
+> **ec.europa.eu/consumers/odr**
+>
+> **United States.** Nothing here limits any right you have under the consumer
+> protection law of your state.
 
 ## Changes
 
@@ -102,3 +125,28 @@ time you place your order.
 ## Contact
 
 [contact@ourmoment.com]
+
+---
+
+<!--
+NOTA INTERNA — apagar antes de publicar.
+
+Ainda por preencher:
+
+  [data]                    data de publicação
+  [2-5] dias de produção    confirma com os prazos reais do Printful
+  [contact@ourmoment.com]   email de suporte real
+  Identidade do vendedor    BLOQUEADO até existir entidade registada
+  [jurisdição]              BLOQUEADO — depende de onde a entidade for
+                            registada. Se for portuguesa: lei portuguesa.
+                            Se for LLC americana: lei do estado de registo.
+                            Não escrevas nada aqui antes de decidires; uma
+                            cláusula de lei aplicável errada é pior do que
+                            nenhuma.
+
+Vender a consumidores na UE E nos EUA ao mesmo tempo significa cumprir os dois
+regimes em simultâneo. As diferenças estão marcadas com "Europe" e
+"United States" ao longo dos três documentos. Isto não é aconselhamento
+jurídico e merece revisão profissional antes do lançamento.
+-->
+
