@@ -34,6 +34,25 @@ $om_items = [
     </ul>
 
     <div class="om-nav-actions">
+      <?php
+      /**
+       * Currency switcher, from WooPayments Multi-Currency.
+       *
+       * The function only exists once multi-currency is active, so its
+       * absence is the guard — the nav simply renders without it on a
+       * single-currency store, and if WooPayments is ever removed nothing
+       * fatals. Symbols on, flags off: flags imply a country, and a euro
+       * price is not a country.
+       */
+      if (function_exists('wc_get_currency_switcher_markup')) :
+          ?>
+          <div class="om-nav-currency">
+            <?php echo wc_get_currency_switcher_markup(['symbol' => true, 'flag' => false]); ?>
+          </div>
+          <?php
+      endif;
+      ?>
+
       <?php if (function_exists('wc_get_page_permalink')) : ?>
         <?php
         $om_logged_in  = is_user_logged_in();
