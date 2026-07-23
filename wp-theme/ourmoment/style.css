@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.34.0
+Version: 1.35.0
 Text Domain: ourmoment
 */
 
@@ -143,22 +143,38 @@ body.admin-bar .om-nav { top: 32px; }
 /* Kill the blue tap/active state left on a link after tapping it on mobile */
 .om-nav-links a:focus { outline: none; color: var(--text); }
 
+/* Astra styles every bare <button> with --ast-global-color-0 (#046bd2), and
+   on WooCommerce pages that turned the hamburger into a blue square. The
+   background and border are forced rather than merely set, because Astra's
+   declarations carry !important and would otherwise win regardless of our
+   higher specificity. */
 .om-nav-toggle {
   display: none;
   flex-direction: column;
   gap: 6px;
   padding: 8px 4px;
-  border: none;
-  background: none;
+  border: none !important;
+  background: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
   cursor: pointer;
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
 }
-.om-nav-toggle { -webkit-tap-highlight-color: transparent; }
+.om-nav-toggle:hover,
+.om-nav-toggle:focus,
+.om-nav-toggle:active {
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 .om-nav-toggle span {
   display: block;
   width: 26px;
   height: 2px;
-  background: var(--text);
+  background: var(--text) !important;
+  border-radius: 0;
 }
 
 /* Tablet and below: collapse links behind the hamburger */
@@ -1852,6 +1868,41 @@ button#place_order,
 }
 #place_order:hover,
 .woocommerce .checkout-button:hover { background: var(--accent-hover) !important; }
+
+/* ── Block-based cart and checkout ──
+   The Cart and Checkout blocks render their own button classes, which the
+   shortcode selectors above never matched, so Astra's WooCommerce styles
+   kept painting them --ast-global-color-0 (#046bd2). Same brand treatment,
+   applied to the block markup. */
+.wc-block-cart__submit-button,
+.wc-block-components-checkout-place-order-button,
+.wp-block-woocommerce-cart .wc-block-components-button,
+.wp-block-woocommerce-checkout .wc-block-components-button,
+[class*="wc-block"] button.wc-block-components-button {
+  background: var(--accent) !important;
+  background-color: var(--accent) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-size: .68rem !important;
+  padding: .95rem 1.8rem !important;
+  transition: background .25s;
+}
+.wc-block-cart__submit-button:hover,
+.wc-block-components-checkout-place-order-button:hover,
+.wp-block-woocommerce-cart .wc-block-components-button:hover,
+.wp-block-woocommerce-checkout .wc-block-components-button:hover,
+[class*="wc-block"] button.wc-block-components-button:hover {
+  background: var(--accent-hover) !important;
+  background-color: var(--accent-hover) !important;
+}
+/* The block button wraps its label in a span that carries its own colour */
+.wc-block-cart__submit-button .wc-block-components-button__text,
+[class*="wc-block"] .wc-block-components-button__text { color: inherit !important; }
 
 /* Checkout/cart field focus + links, no blue */
 .woocommerce form .form-row input:focus,
