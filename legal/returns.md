@@ -41,7 +41,8 @@ you, if:
 - The item arrives **damaged or defective**
 - The item is **not what you ordered** (wrong product, wrong size)
 - The print is **misaligned, faded, or contains a printing error** on our side
-- Your order **never arrives** within [X] days of the estimated delivery date
+- Your order **never arrives** within **10 business days** of the estimated
+  delivery date
 
 Contact us at [contact@ourmoment.com] within **30 days of delivery**, and
 include:
@@ -114,9 +115,12 @@ NOTA INTERNA — apagar antes de publicar.
 Ainda por preencher, e por boas razões:
 
   [data]                  data de publicação
-  [X]                     dias após a estimativa de entrega para "nunca chegou".
-                          Define-o depois de veres os prazos reais do Printful
-                          para US e UE. Sugestão: estimativa + 10 dias úteis.
+  Prazos de entrega       6-10 dias úteis (EUA) e 6-13 (Europa) estão escritos
+                          nos Termos e na página de produto (constantes
+                          OM_DELIVERY_US / OM_DELIVERY_EU em functions.php).
+                          Derivados dos valores publicados pelo Printful, não
+                          medidos. CONFIRMA com a encomenda de amostra e
+                          corrige nos três sítios se ficar longe.
   [2] horas               janela de cancelamento. Confirma quanto tempo passa
                           entre o pagamento e a entrada em produção no Printful.
   [5-10] dias             prazo de reembolso. O Stripe costuma demorar 5-10

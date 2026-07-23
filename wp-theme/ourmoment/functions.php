@@ -5,6 +5,31 @@
 
 require_once get_stylesheet_directory() . '/inc/legal-pages.php';
 
+/**
+ * Delivery estimates, quoted to customers on product pages.
+ *
+ * Built from Printful's published figures plus the step Printful does not
+ * see: Customily takes ~30 minutes to render the print file, and the order
+ * then waits for a manual confirmation before production starts. One
+ * business day is budgeted for that.
+ *
+ *   order handling   1 business day   (Customily render + our confirmation)
+ *   production       2-5              (Printful, same in every facility)
+ *   shipping US      3-4              (Printful domestic standard)
+ *   shipping EU      3-7              (within-EU, from Barcelona or Riga)
+ *
+ * Rounded outward, never inward: a gift that arrives after the anniversary
+ * is a refund and a one-star review, so the number a buyer reads has to be
+ * one we beat, not one we hope to hit.
+ *
+ * Deliberately NOT in the Product schema yet — Google renders shippingDetails
+ * straight into search results, and these are still derived from published
+ * averages rather than measured. Move them into the schema once the sample
+ * order has been placed and timed, and correct them here if it lands wide.
+ */
+define('OM_DELIVERY_US', '6–10 business days');
+define('OM_DELIVERY_EU', '6–13 business days');
+
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('astra-parent', get_template_directory_uri() . '/style.css');
 
@@ -25,10 +50,10 @@ add_action('wp_enqueue_scripts', function () {
         'ourmoment-fonts',
         get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        '1.33.0'
+        '1.34.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.33.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.33.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.34.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.34.0', true);
 });
 
 /**
@@ -155,6 +180,21 @@ add_action('admin_post_nopriv_om_contact', 'om_handle_contact');
 add_action('woocommerce_after_add_to_cart_form', function () {
     ?>
     <ul class="om-trust">
+      <li class="om-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="1" y="6" width="14" height="11" rx="1.5"/>
+          <path d="M15 10 L19 10 L22 14 L22 17 L15 17 Z"/>
+          <circle cx="6" cy="19" r="2"/>
+          <circle cx="18" cy="19" r="2"/>
+        </svg>
+        <div>
+          <strong>Made to order &middot; arrives in <?php echo esc_html(OM_DELIVERY_US); ?></strong>
+          <span>Printed and shipped from the facility closest to you — in the
+          US for US orders, in Europe for European ones, so it never sits in
+          customs. Europe: <?php echo esc_html(OM_DELIVERY_EU); ?>. You'll see
+          your shipping cost at checkout.</span>
+        </div>
+      </li>
       <li class="om-trust-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M2 12 C4 7 8 4 12 4 C16 4 20 7 22 12 C20 17 16 20 12 20 C8 20 4 17 2 12Z"/>

@@ -73,10 +73,12 @@ Your order is produced at the fulfillment facility nearest to your delivery
 address — in Europe for European orders, in the United States for US orders —
 so it does not cross customs on the way to you.
 
-Typical total time, production plus delivery:
+Typical total time, from order to doorstep:
 
-- **United States:** [5–9] business days
-- **Europe:** [5–10] business days
+- **United States:** 6–10 business days
+- **Europe:** 6–13 business days
+
+That covers order handling, production, and delivery.
 
 These are estimates, not guarantees. Delays caused by carriers, customs, or
 peak seasons are outside our control.
