@@ -50,10 +50,10 @@ add_action('wp_enqueue_scripts', function () {
         'ourmoment-fonts',
         get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        '1.37.0'
+        '1.38.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.37.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.37.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.38.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.38.0', true);
 });
 
 /**
