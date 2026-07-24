@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.38.0
+Version: 1.39.0
 Text Domain: ourmoment
 */
 
@@ -971,37 +971,28 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   display: flex;
   align-items: center;
   position: relative;
-  border: 1px solid var(--border);
-  padding: 0 .5rem 0 1.7rem;
-  height: 34px;
-  background: transparent;
-  transition: background .25s, border-color .25s;
+  padding-left: 1.15rem;
 }
+/* A small globe carries the meaning so the label does not have to. Kept
+   faint: this sits beside the account and cart icons and should read as a
+   peer of theirs, not as a call to action. */
 .om-nav-currency::before {
   content: "";
   position: absolute;
-  left: .55rem;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 13px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A7E74' stroke-width='1.5'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12 H21 M12 3 C15 6.5 15 17.5 12 21 M12 3 C9 6.5 9 17.5 12 21'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-size: contain;
-  opacity: .85;
-  transition: opacity .25s;
+  opacity: .6;
+  transition: opacity .2s;
   pointer-events: none;
 }
-.om-nav-currency:hover {
-  background: var(--bg-card);
-  border-color: var(--btn-hover);
-}
-.om-nav-currency:hover::before { opacity: 1; }
-/* Keyboard focus lands on the select, so lift the wrapper from :focus-within */
-.om-nav-currency:focus-within {
-  border-color: var(--accent);
-  background: var(--bg-card);
-}
+.om-nav-currency:hover::before,
+.om-nav-currency:focus-within::before { opacity: 1; }
 .om-nav-currency form,
 .om-nav-currency > div { margin: 0; display: flex; align-items: center; }
 
@@ -1017,10 +1008,10 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   background-size: 12px;
   padding: 0 15px 0 0;
   font-family: var(--font-body);
-  font-size: .7rem;
-  font-weight: 600;
-  letter-spacing: .12em;
-  color: var(--text);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: var(--text-soft);
   cursor: pointer;
   outline: none;
   transition: color .2s;
@@ -1030,25 +1021,20 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   border-radius: 0;
   box-shadow: none;
 }
-/* The wrapper already carries the focus ring, so the select does not need a
-   second one nested inside it. */
+/* Darkens on hover exactly like the nav links it sits beside. */
+.om-nav-currency select:hover,
+.om-nav-currency:focus-within select { color: var(--text); }
 .om-nav-currency select:focus,
 .om-nav-currency select:focus-visible { outline: none; }
 /* The dropdown list itself is drawn by the OS, which ignores the transparent
    background above — set an explicit pair so the options stay readable. */
 .om-nav-currency select option { background: var(--bg-card); color: var(--text); }
 
-/* Below the hamburger breakpoint the nav is tight; drop the globe and the
-   border so the switcher stops competing with the cart for the same corner. */
+/* Below the hamburger breakpoint the nav is tight, and the globe is the
+   first thing that can go. */
 @media (max-width: 560px) {
-  .om-nav-currency {
-    border-color: transparent;
-    padding-left: .1rem;
-    padding-right: .2rem;
-    height: auto;
-  }
+  .om-nav-currency { padding-left: 0; }
   .om-nav-currency::before { display: none; }
-  .om-nav-currency:hover { background: transparent; }
 }
 
 @media (max-width: 380px) {
