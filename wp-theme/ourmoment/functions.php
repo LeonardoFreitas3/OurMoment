@@ -50,10 +50,10 @@ add_action('wp_enqueue_scripts', function () {
         'ourmoment-fonts',
         get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        '1.36.0'
+        '1.37.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.36.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.36.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.37.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.37.0', true);
 });
 
 /**
@@ -279,25 +279,6 @@ add_filter('woocommerce_format_price_range', function ($price, $from, $to) {
     );
 }, 10, 3);
 
-/**
- * Keep the price-filter slider labelled in the currency the visitor picked.
- *
- * WooCommerce localises these params once, and the symbol it captures is
- * whichever currency was active at that moment — so after switching to EUR
- * the sidebar slider kept showing $. Re-reading the symbol here runs late
- * enough to see the switch WooPayments has already made.
- *
- * Only the formatting is corrected. The bounds themselves come from the
- * _price meta in store currency, so they stay right as long as the manual
- * rate is 1.00; revisit this if a real exchange rate is ever set.
- */
-add_filter('woocommerce_price_slider_params', function ($params) {
-    if (function_exists('get_woocommerce_currency_symbol')) {
-        $params['currency_format_symbol'] = get_woocommerce_currency_symbol();
-    }
-    return $params;
-});
-
 // Hide the SKU / category / tags meta block on the product page.
 add_action('init', function () {
     remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
@@ -305,13 +286,59 @@ add_action('init', function () {
     remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
 });
 
-// The price-range filter needs WooCommerce's slider script; enqueue it on
-// product archives, where our sidebar renders the price widget.
+/**
+ * The price-range filter needs WooCommerce's slider script; enqueue it on
+ * product archives, where our sidebar renders the price widget.
+ *
+ * The slider also kept showing $ after a visitor switched to EUR. WooCommerce
+ * localises woocommerce_price_slider_params once, capturing whichever currency
+ * was active at that moment, and the multi-currency switch happens too late to
+ * be seen. Rather than guess at which internal filter still exists — the old
+ * woocommerce_price_slider_params filter is long gone — patch the object the
+ * script actually reads, right after it is printed.
+ *
+ * wp_add_inline_script(..., 'after') lands between the localised data and the
+ * slider's own jQuery-ready init, so the corrected symbol is in place before
+ * anything formats a label.
+ *
+ * Only the formatting is corrected. The bounds come from the _price meta in
+ * store currency, so they hold while the manual rate is 1.00; a real exchange
+ * rate would need the amounts converted too.
+ */
 add_action('wp_enqueue_scripts', function () {
-    if (function_exists('is_shop') && (is_shop() || is_product_category() || is_product_tag())) {
-        wp_enqueue_script('wc-price-slider');
+    if (!function_exists('is_shop') || !(is_shop() || is_product_category() || is_product_tag())) {
+        return;
     }
-});
+
+    wp_enqueue_script('wc-price-slider');
+
+    if (!function_exists('get_woocommerce_currency_symbol')) {
+        return;
+    }
+
+    $format = str_replace(
+        ['%1$s', '%2$s'],
+        ['%s', '%v'],
+        get_woocommerce_price_format()
+    );
+
+    wp_add_inline_script(
+        'wc-price-slider',
+        sprintf(
+            'if (typeof woocommerce_price_slider_params !== "undefined") {'
+          . 'woocommerce_price_slider_params.currency_format_symbol = %s;'
+          . 'woocommerce_price_slider_params.currency_format = %s;'
+          . 'woocommerce_price_slider_params.currency_format_decimal_sep = %s;'
+          . 'woocommerce_price_slider_params.currency_format_thousand_sep = %s;'
+          . '}',
+            wp_json_encode(get_woocommerce_currency_symbol()),
+            wp_json_encode($format),
+            wp_json_encode(wc_get_price_decimal_separator()),
+            wp_json_encode(wc_get_price_thousand_separator())
+        ),
+        'after'
+    );
+}, 20);
 
 /**
  * Force key storefront strings to English regardless of the WordPress site
