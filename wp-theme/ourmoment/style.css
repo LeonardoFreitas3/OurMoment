@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.41.0
+Version: 1.42.0
 Text Domain: ourmoment
 */
 
@@ -865,12 +865,66 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   padding: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
   background: var(--bg);
 }
-.om-page-banner-logo {
-  width: 52px;
-  height: 52px;
+/* ── Framed logo ──
+   The logo hung in a picture frame: wooden edge, white mat, and a hook above
+   it. Says what the shop sells in one glance, and matches the frame the
+   homepage category card draws. Built in CSS so it inherits the brand tokens
+   and stays sharp at any pixel density. */
+.om-banner-frame {
+  position: relative;
+  width: 92px;
+  margin: 1.1rem auto 1.4rem;
+  padding: 7px;
+  background: var(--frame-wood);
+  /* Two insets fake the bevel a real moulding has: light at the top edge,
+     shadow at the bottom, then a soft drop under the whole thing. */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .35),
+    inset 0 -1px 0 rgba(58, 47, 42, .18),
+    0 6px 18px rgba(58, 47, 42, .13);
+}
+.om-banner-frame-mat {
+  background: var(--bg-card);
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.om-banner-frame-logo {
+  width: 100%;
+  height: auto;
+  max-width: 48px;
   object-fit: contain;
-  margin: 0 auto 1.2rem;
   display: block;
+}
+/* The nail the frame hangs from, and the wire reaching up to it. */
+.om-banner-frame-hook {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: var(--text-soft);
+  opacity: .5;
+}
+.om-banner-frame-hook::before,
+.om-banner-frame-hook::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  width: 14px;
+  height: 9px;
+  border-top: 1px solid var(--text-soft);
+  opacity: .45;
+}
+.om-banner-frame-hook::before { right: 2px; transform: skewX(32deg); }
+.om-banner-frame-hook::after  { left: 2px;  transform: skewX(-32deg); }
+
+@media (max-width: 560px) {
+  .om-banner-frame { width: 78px; padding: 6px; }
+  .om-banner-frame-mat { padding: 9px; }
 }
 .om-page-banner h1 {
   font-family: var(--font-display) !important;
@@ -1094,6 +1148,18 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
 
 /* ── Categories ── */
 .om-categories { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+
+/* One line under the section title, saying what the whole grid has in common
+   so each card does not have to repeat it. */
+.om-section-lead {
+  max-width: 46ch;
+  margin: -.6rem auto 2.4rem;
+  text-align: center;
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+
 .om-categories-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1101,9 +1167,25 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   max-width: 800px;
   margin: 0 auto;
 }
-@media (max-width: 640px) {
-  .om-categories-grid { grid-template-columns: 1fr; max-width: 360px; }
+/* Past two categories the pair layout leaves a lonely card on the last row;
+   auto-fit reflows to three across and fills it. */
+.om-categories-grid--many {
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  max-width: 1080px;
 }
+@media (max-width: 640px) {
+  .om-categories-grid,
+  .om-categories-grid--many { grid-template-columns: 1fr; max-width: 360px; }
+}
+
+/* Product count beside the "Shop" label — a quiet number, not a badge. */
+.om-category-count {
+  margin-left: .35rem;
+  font-size: .78em;
+  color: var(--text-soft);
+}
+.om-category-count::before { content: "("; }
+.om-category-count::after  { content: ")"; }
 .om-category-card {
   background: var(--bg-card);
   border: 1px solid var(--border);

@@ -50,10 +50,10 @@ add_action('wp_enqueue_scripts', function () {
         'ourmoment-fonts',
         get_stylesheet_directory_uri() . '/assets/css/fonts.css',
         [],
-        '1.41.0'
+        '1.42.0'
     );
-    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.41.0');
-    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.41.0', true);
+    wp_enqueue_style('ourmoment-style', get_stylesheet_uri(), ['astra-parent'], '1.42.0');
+    wp_enqueue_script('ourmoment-js', get_stylesheet_directory_uri() . '/assets/js/main.js', [], '1.42.0', true);
 });
 
 /**
@@ -504,6 +504,63 @@ add_filter('woocommerce_structured_data_product', function ($markup, $product) {
 
     return $markup;
 }, 10, 2);
+
+/**
+ * Line art for a homepage category card, picked by a keyword in the category
+ * name. The catalogue is small and the names are ours, so a lookup beats
+ * asking anyone to draw or upload artwork per category.
+ *
+ * Lives here rather than in the template: a function declared inside an
+ * included file fatals the second time that file is included.
+ *
+ * Anything unmatched falls back to a gift box, which reads as "a present"
+ * whatever the category turns out to hold.
+ */
+function ourmoment_category_art($name)
+{
+    $n = strtolower($name);
+    $art = [
+        'mug' => '<path d="M45 60 L45 145 C45 155 55 162 68 162 L112 162 C125 162 135 155 135 145 L135 60 Z" stroke="var(--text-soft)" stroke-width="1.5" stroke-linejoin="round"/>'
+              . '<path d="M135 75 C155 75 165 85 165 100 C165 115 155 125 135 125" stroke="var(--text-soft)" stroke-width="1.5"/>'
+              . '<path d="M90 95 C85 88 76 88 74 95 C71 103 78 110 90 119 C102 110 109 103 106 95 C104 88 95 88 90 95Z" stroke="var(--accent)" stroke-width="1.5"/>',
+
+        'frame' => '<rect x="40" y="20" width="120" height="160" stroke="var(--frame-wood)" stroke-width="5"/>'
+                 . '<rect x="52" y="32" width="96" height="136" stroke="var(--text-soft)" stroke-width=".8" opacity=".3"/>'
+                 . '<path d="M100 70 C92 60 78 58 72 68 C64 82 74 98 88 108 L100 118 L112 108 C126 98 136 82 128 68 C122 58 108 60 100 70Z" stroke="var(--text-soft)" stroke-width="1.2"/>',
+
+        'pillow' => '<path d="M42 62 C38 58 38 52 44 50 L156 50 C162 52 162 58 158 62 L158 138 C162 142 162 148 156 150 L44 150 C38 148 38 142 42 138 Z" stroke="var(--text-soft)" stroke-width="1.5" stroke-linejoin="round"/>'
+                  . '<path d="M100 82 C94 74 82 73 78 82 C73 92 82 104 100 116 C118 104 127 92 122 82 C118 73 106 74 100 82Z" stroke="var(--accent)" stroke-width="1.4"/>',
+
+        'puzzle' => '<path d="M50 55 L95 55 L95 70 C95 76 105 76 105 70 L105 55 L150 55 L150 100 L135 100 C129 100 129 110 135 110 L150 110 L150 145 L50 145 Z" stroke="var(--text-soft)" stroke-width="1.5" stroke-linejoin="round"/>'
+                  . '<path d="M100 105 C96 100 88 99 85 105 C82 111 88 119 100 127 C112 119 118 111 115 105 C112 99 104 100 100 105Z" stroke="var(--accent)" stroke-width="1.3"/>',
+
+        'candle' => '<rect x="70" y="85" width="60" height="75" rx="4" stroke="var(--text-soft)" stroke-width="1.5"/>'
+                  . '<path d="M100 78 C94 68 100 58 100 48 C108 58 112 68 108 78 C106 82 102 82 100 78Z" stroke="var(--accent)" stroke-width="1.5"/>'
+                  . '<path d="M78 108 L122 108" stroke="var(--text-soft)" stroke-width=".8" opacity=".4"/>',
+
+        'ornament' => '<circle cx="100" cy="112" r="42" stroke="var(--text-soft)" stroke-width="1.5"/>'
+                    . '<path d="M92 70 L92 60 C92 54 108 54 108 60 L108 70" stroke="var(--text-soft)" stroke-width="1.5"/>'
+                    . '<path d="M100 98 C96 92 88 91 85 97 C82 104 89 112 100 122 C111 112 118 104 115 97 C112 91 104 92 100 98Z" stroke="var(--accent)" stroke-width="1.3"/>',
+
+        'blanket' => '<path d="M40 60 C60 52 80 68 100 60 C120 52 140 68 160 60 L160 145 C140 153 120 137 100 145 C80 153 60 137 40 145 Z" stroke="var(--text-soft)" stroke-width="1.5" stroke-linejoin="round"/>'
+                   . '<path d="M100 88 C95 81 85 80 82 88 C78 96 86 106 100 116 C114 106 122 96 118 88 C115 80 105 81 100 88Z" stroke="var(--accent)" stroke-width="1.3"/>',
+    ];
+
+    foreach ($art as $key => $svg) {
+        if (strpos($n, $key) !== false) {
+            return $svg;
+        }
+    }
+    // Wall art rarely carries the word "frame"; catch the rest of that family.
+    foreach (['poster', 'canvas', 'print', 'wall'] as $key) {
+        if (strpos($n, $key) !== false) {
+            return $art['frame'];
+        }
+    }
+    return '<rect x="52" y="88" width="96" height="70" stroke="var(--text-soft)" stroke-width="1.5"/>'
+         . '<path d="M52 108 L148 108 M100 88 L100 158" stroke="var(--text-soft)" stroke-width="1.5"/>'
+         . '<path d="M100 88 C88 88 78 80 82 71 C86 63 98 68 100 88 C102 68 114 63 118 71 C122 80 112 88 100 88Z" stroke="var(--accent)" stroke-width="1.4"/>';
+}
 
 /**
  * Print the brand logo. Decorative by default — pass an $alt only where the
