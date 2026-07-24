@@ -163,274 +163,285 @@ def phase(when, title, goal, items):
     ]
 
 
+
+
 def build():
     story = []
 
-    # ── Masthead ──
+    # ── Capa ──
     story.append(Spacer(1, 6 * mm))
     story.append(P("Plano de Marketing", "h1"))
-    story.append(P("OURMOMENT · ESTADOS UNIDOS · 12 MESES · USD", "kicker"))
+    story.append(P("OURMOMENT · ESTADOS UNIDOS E EUROPA · 12 MESES", "kicker"))
     story.append(Spacer(1, 3 * mm))
     story.append(HRFlowable(width="100%", thickness=0.6, color=RULE, spaceAfter=6))
 
-    # ── 1. O número ──
-    story.append(P("O número que decide tudo o resto", "h2"))
-    story.append(P("Antes de escolher canais, é preciso saber quanto podes pagar por cliente. "
-                   "Tudo o que vem depois neste plano decorre daqui.", "dek"))
-    story.append(headline("$14.59", "MARGEM DE CONTRIBUIÇÃO POR ENCOMENDA"))
-    story.append(Spacer(1, 8))
-    story.append(P("Numa encomenda média de <b>$38.73</b> — 1,3 artigos, mix de canecas e quadros — "
-                   "sobram <b>$14.59</b> depois do custo de produção do Printify US, os portes domésticos "
-                   "e a comissão do Stripe. <b>Nos EUA não há IVA na origem</b>: o sales tax é somado por "
-                   "cima e cobrado à parte, por isso ficas com uma fatia maior da venda do que na Europa.", "body"))
-    story.append(P("Esse é o teto absoluto do que podes gastar para conquistar um cliente. Se gastares mais "
-                   "de $14.59 a angariar uma venda, estás a pagar para vender.", "body"))
-    story.append(note("<b>Percentagens não pagam anúncios — dólares pagam.</b> A caneca tem a melhor "
-                      "<i>percentagem</i> de margem, mas o canvas e o cobertor dão-te três a quatro vezes "
-                      "mais dólares. Quando desenhares bundles, otimiza para dólares por encomenda. "
-                      "A margem já desconta o Stripe US a 2,9% + $0.30 por venda."))
+    # ── 0. Resumo ──
+    story.append(P("O plano em cinco frases", "h2"))
+    story.append(P("Se só leres esta página, já sabes o essencial.", "dek"))
+    story.append(bullets([
+        "<b>Vendemos presentes personalizados para casais</b> — quadros, canecas, almofadas — com as fotos, os nomes e a data de cada casal.",
+        "<b>Não temos stock.</b> O Printful imprime e envia quando alguém compra. Só pagamos depois de vender.",
+        "<b>Cada venda tem de deixar lucro suficiente para pagar o cliente seguinte.</b> É a regra que decide tudo o resto.",
+        "<b>Nos primeiros meses não pagamos publicidade.</b> Vídeos, Pinterest e boca-a-boca. Publicidade só quando a loja já converte.",
+        "<b>O quadro com moldura é o nosso produto principal</b> — é o que deixa mais lucro e onde somos mais baratos que a concorrência.",
+    ]))
 
-    # ── 2. O catálogo ──
-    story.append(P("O catálogo completo que a loja deve ter", "h2"))
-    story.append(P("Nove produtos, agrupados pelo papel que cada um cumpre. Sem artigos de Natal — "
-                   "esses entram à parte, em setembro, como linha sazonal.", "dek"))
+    # ── 1. Precos ──
+    story.append(P("Os nossos preços, e porquê", "h2"))
+    story.append(P("Um preço não se escolhe a olho. Tem de cumprir duas coisas ao mesmo "
+                   "tempo: cobrir os custos com lucro que chegue, e caber no que o cliente "
+                   "já viu noutro sítio.", "dek"))
 
-    story.append(titled("HERÓIS — SÃO ESTES QUE SUSTENTAM O TRÁFEGO PAGO", table(
-        ["Produto", "Papel na loja", "Retail", "Margem"],
-        [
-            ["Hooded Sherpa Fleece Blanket", "O de maior margem em dólares. Já está na loja.", "$89.00", "$38.12"],
-            ["Stretched Canvas 16x20", "Presente de parede de valor alto", "$59.99", "$17.95"],
-            ["Framed Vertical Poster (matte)", "Produto-assinatura: combina com o design do site", "$39.99", "$14.53"],
-        ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
-
-    story.append(titled("VOLUME — PORTA DE ENTRADA E COMPLEMENTO DE BUNDLE", table(
-        ["Produto", "Papel na loja", "Retail", "Margem"],
-        [
-            ["Ceramic Mug 11oz", "Entrada barata. Complemento, nunca herói.", "$22.99", "$9.02"],
-            ["Matte Poster (sem moldura)", "Versão acessível do quadro", "$24.99", "$9.97"],
-        ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
-
-    story.append(titled("PARES E UPSELL — SOBEM O AOV SEM TRÁFEGO NOVO", table(
-        ["Produto", "Papel na loja", "Retail", "Margem"],
-        [
-            ["Throw Pillow 18x18", "Clássico de aniversário de namoro", "$44.99", "$16.89"],
-            ["Acrylic Photo Block", "Valor percebido alto, custo de portes baixo", "$39.99", "$16.03"],
-            ["Stainless Tumbler 20oz", "Vende-se aos pares por natureza", "$34.99", "$14.18"],
-        ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
-
-    story.append(titled("OCASIÃO — ÂNGULO DE EXPERIÊNCIA, NÃO DE DECORAÇÃO", table(
-        ["Produto", "Papel na loja", "Retail", "Margem"],
-        [
-            ["Photo Puzzle 500pc", "Ângulo 'date night'. Conteúdo de vídeo fácil.", "$34.99", "$12.68"],
-        ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [42, 62, 20, 22])))
-
-    story.append(note("<b>Custos a confirmar no Printify US.</b> As margens acima assumem custos de produção "
-                      "e portes domésticos típicos. Antes de fixares preços, abre cada produto no Printify, "
-                      "filtra os <i>print providers</i> por <b>United States</b>, e mete os custos reais na conta. "
-                      "A disponibilidade de fornecedor varia de produto para produto."))
-    story.append(Spacer(1, 4))
-    story.append(note("<b>Porque o cobertor é o produto mais importante da lista.</b> Com $38 de margem, "
-                      "aguenta sozinho um custo de aquisição que a caneca nunca aguentaria. "
-                      "É ele que torna o tráfego pago viável nos EUA — lidera com ele, não com a caneca."))
-    story.append(Spacer(1, 4))
-    story.append(note("<b>O Customily não é o filtro.</b> Suporta o catálogo Printify inteiro, por isso "
-                      "qualquer destes produtos é personalizável. Os filtros reais são ter fornecedor nos "
-                      "EUA e encaixar na marca."))
-
-    # ── 3. Porque não anúncios frios ──
-    story.append(P("Porque os anúncios frios quase não funcionam ao início", "h2"))
-    story.append(P("O instinto é abrir o Meta Ads Manager e pôr $10/dia. Nos EUA, com este AOV e o CPC "
-                   "americano, isso é matemática perdedora — ainda mais dura do que na Europa.", "dek"))
-    story.append(P("O CPC de retail nos EUA anda entre <b>$0.50 e $1.20+</b>. Com a margem de $14.59, "
-                   "eis o lucro ou prejuízo por venda:", "body"))
-    def loss(v):
-        return f'<font color="#{BAD.hexval()[2:]}">-${v} prejuízo</font>'
-
-    def gain(v):
-        return f'<font color="#{GOOD.hexval()[2:]}">+${v} lucro</font>'
-
+    story.append(P("O QUE O PREÇO TEM DE PAGAR", "h3"))
+    story.append(P("Exemplo com a caneca branca, que nos custa $5.95 no Printful:", "body"))
     story.append(table(
-        ["CPC", "Conversão 2%", "Conversão 3%", "Conversão 5%"],
+        ["", "Valor", "Para quem vai"],
         [
-            ["$0.50", loss("10.41"), loss("2.08"), gain("4.59")],
-            ["$0.80", loss("25.41"), loss("12.08"), loss("1.41")],
-            ["$1.20", loss("45.41"), loss("25.41"), loss("9.41")],
+            ["Preço na loja", "$16.99", "—"],
+            ["IVA (23%)", "-$3.18", "Estado. Só na Europa."],
+            ["Custo de produção", "-$5.95", "Printful"],
+            ["Taxa de pagamento", "-$0.79", "Stripe (2,9% + $0.30)"],
+            ["<b>Fica para nós</b>", "<b>$7.07</b>", "<b>É deste dinheiro que vivemos</b>"],
         ],
-        ["LEFT", "RIGHT", "RIGHT", "RIGHT"], [24, 40, 40, 42]))
-    story.append(P("Uma loja nova, sem provas sociais e sem tráfego para o algoritmo otimizar, converte perto "
-                   "de <b>1–2%</b> em tráfego frio. Quase toda a tabela é vermelha. Não é falta de habilidade "
-                   "a fazer anúncios — é o AOV baixo contra o CPC alto.", "body"))
-    story.append(note("<b>O tráfego quente muda tudo.</b> Retargeting a quem já te visitou converte perto de "
-                      "8–12%, não 1–2%. A 10% de conversão e $0.60 de CPC, o custo por venda é <b>$6</b> "
-                      "— lucro de $8.59. Por isso, nos EUA, o retargeting é o <i>único</i> canal pago que faz "
-                      "sentido antes de teres tudo provado."))
+        ["LEFT", "RIGHT", "LEFT"], [40, 22, 60]))
+    story.append(note("<b>Atenção ao IVA.</b> Está dentro do preço que mostramos, mas não é nosso — "
+                      "é entregue ao Estado. Nas vendas para os Estados Unidos não há IVA, por isso "
+                      "o mesmo preço deixa-nos mais lucro lá do que na Europa."))
+
+    story.append(P("A REGRA SIMPLES: PREÇO = CUSTO x 2,3", "h3"))
+    story.append(P("É o múltiplo normal neste tipo de negócio. Abaixo de 2 vezes o custo não "
+                   "sobra dinheiro para atrair clientes. Acima de 3 vezes ficamos caros e as "
+                   "pessoas compram noutro lado.", "body"))
+
+    story.append(titled("PREÇOS A APLICAR", table(
+        ["Produto", "Custo", "Preço", "Lucro UE", "Lucro EUA"],
+        [
+            ["Caneca branca 11oz", "5.95", "16.99", "7.07", "10.25"],
+            ["Caneca preta", "7.95", "19.99", "7.42", "11.16"],
+            ["Caneca latte", "8.29", "19.99", "7.08", "10.82"],
+            ["Enfeites acrílicos", "7.65", "19.99", "7.72", "11.46"],
+            ["Vela em frasco", "13.21", "29.99", "10.00", "15.61"],
+            ["Puzzle pequeno", "14.95", "32.99", "10.61", "16.78"],
+            ["Almofada básica", "15.25", "34.99", "11.88", "18.43"],
+            ["Almofada premium", "17.29", "39.99", "13.76", "21.24"],
+            ["Puzzle grande", "24.43", "49.99", "14.46", "23.81"],
+            ["<b>Quadro com moldura</b>", "<b>20.35</b>", "<b>49.99</b>", "<b>18.54</b>", "<b>27.89</b>"],
+        ],
+        ["LEFT", "RIGHT", "RIGHT", "RIGHT", "RIGHT"], [46, 16, 16, 18, 18])))
+
+    story.append(note("<b>Porque é que o quadro é o produto mais importante.</b> Deixa-nos $18.54 "
+                      "de lucro na Europa — o dobro de uma caneca — e mesmo assim custa $49.99 "
+                      "quando a Shutterfly, o maior concorrente, cobra $84.99 pelo equivalente. "
+                      "É o único produto onde somos ao mesmo tempo mais baratos e mais rentáveis."))
     story.append(Spacer(1, 4))
-    story.append(note("<b>A armadilha do desespero.</b> Quando as vendas não aparecem no mês 2, a tentação é "
-                      "abrir anúncios frios. É o pior momento: pagas o preço máximo por cliente na altura em "
-                      "que tens menos dinheiro. Resiste até teres 30 avaliações, AOV acima de $50 e conversão "
-                      "acima de 1,5%.", "warn"))
+    story.append(note("<b>A caneca serve para outra coisa.</b> Com $7.07 de lucro não sustenta o "
+                      "negócio, mas é barata o suficiente para alguém comprar pela primeira vez. "
+                      "Primeiro conquista-se o cliente com a caneca; depois vende-se-lhe o quadro."))
+
+    story.append(P("COMPARAÇÃO COM A CONCORRÊNCIA", "h3"))
+    story.append(table(
+        ["Produto", "Nós", "Concorrência", "Situação"],
+        [
+            ["Quadro com moldura", "$49.99", "Shutterfly $84.99", "Muito mais baratos"],
+            ["Caneca", "$16.99", "Shutterfly $10.99", "Um pouco mais caros"],
+            ["Almofada", "$34.99", "PersonalizationMall $19.99", "Mais caros"],
+            ["Puzzle", "$32.99", "Shutterfly $24.99", "Mais caros"],
+        ],
+        ["LEFT", "RIGHT", "LEFT", "LEFT"], [34, 16, 40, 30]))
+    story.append(P("Onde estamos mais caros, só se justifica se as nossas fotos e o nosso design "
+                   "forem visivelmente melhores. Se não forem, mais vale baixar o preço.", "body"))
+
+    # ── 2. A regra ──
+    story.append(P("A regra que decide tudo", "h2"))
+    story.append(P("Existe uma só conta que determina se o negócio funciona.", "dek"))
+    story.append(headline("Lucro por venda &gt; Custo de trazer o cliente",
+                          "SE ISTO FOR AO CONTRÁRIO, VENDEMOS E PERDEMOS DINHEIRO"))
+    story.append(Spacer(1, 8))
+    story.append(P("Se uma venda nos deixa $10 de lucro, podemos gastar até $10 em publicidade "
+                   "para a conseguir. Gastar $12 significa perder $2 — mesmo tendo vendido.", "body"))
+    story.append(P("Com os preços da tabela acima, ficamos com cerca de <b>$11 de lucro médio na "
+                   "Europa</b> e <b>$17 nos Estados Unidos</b>. Isso permite pagar $6 a $8 por "
+                   "cliente e ainda sobrar. É esse espaço que torna a publicidade possível.", "body"))
+    story.append(note("<b>Porque é que os preços de agora não servem.</b> Os produtos estão na loja "
+                      "com o preço de custo do Printful. Uma caneca a $5.95 deixa-nos <b>menos "
+                      "$1.59</b> — perdemos dinheiro em cada venda. Nenhuma campanha resolve isso; "
+                      "só piora, porque quanto mais vendemos mais perdemos.", "warn"))
+
+    # ── 3. Porque nao anunciar ja ──
+    story.append(P("Porque não vamos pagar publicidade já", "h2"))
+    story.append(P("É a pergunta que toda a gente faz primeiro. A resposta é aritmética, "
+                   "não opinião.", "dek"))
+    story.append(P("Nos Estados Unidos, cada clique num anúncio custa entre $0.50 e $1.20. "
+                   "Se de cada 100 pessoas que clicam só 2 comprarem, cada venda custou-nos "
+                   "50 cliques — ou seja, $25 a $60 em publicidade para um produto que nos "
+                   "deixa $17.", "body"))
+    story.append(table(
+        ["Custo por clique", "Se 2 em 100 comprarem", "Se 5 em 100 comprarem"],
+        [
+            ["$0.50", "custa $25 por venda", "custa $10 por venda"],
+            ["$0.80", "custa $40 por venda", "custa $16 por venda"],
+            ["$1.20", "custa $60 por venda", "custa $24 por venda"],
+        ],
+        ["LEFT", "LEFT", "LEFT"], [30, 38, 38]))
+    story.append(P("Uma loja nova, sem avaliações e sem fotos reais, costuma ficar nos "
+                   "<b>1 a 2 em cada 100</b>. Quase toda a tabela dá prejuízo. Não é falta de "
+                   "jeito para fazer anúncios — é o preço do clique contra o nosso lucro.", "body"))
+    story.append(note("<b>Há uma exceção, e é importante.</b> Mostrar anúncios a quem <i>já visitou "
+                      "a loja</i> e não comprou funciona muito melhor: dessas pessoas compram 8 a "
+                      "12 em cada 100, porque já nos conhecem. Aí o custo por venda cai para uns "
+                      "$6 e passa a dar lucro. É por isso que começamos por aí, e não por "
+                      "anúncios a estranhos."))
 
     # ── 4. Fases ──
-    story.append(P("O plano, em quatro fases", "h2"))
-    story.append(P("Cada fase tem um objetivo único e um critério de saída. Não avances sem cumprir o "
-                   "critério — é assim que se evita queimar dinheiro.", "dek"))
+    story.append(P("O que fazer, mês a mês", "h2"))
+    story.append(P("Quatro fases. Cada uma tem um objetivo e uma condição para avançar. "
+                   "Não se passa à seguinte sem cumprir a condição.", "dek"))
 
-    story += phase("MÊS 1–2", "Fundações e prova de produto",
-                   "OBJETIVO: AS PRIMEIRAS 10 VENDAS · ANÚNCIOS: $0 · AMOSTRAS: ~$100", [
-        "<b>Encomenda amostras</b> ao fornecedor Printify US que vais usar. Fotografa-as com luz natural. Os mockups do Printify não vendem emoção.",
-        "<b>Vende aos círculos próximos.</b> São as tuas primeiras 10 avaliações e as primeiras fotos reais.",
-        "<b>Abre TikTok e Instagram</b> em inglês, para público americano. Publica 1x/dia. Não vendas — mostra o processo.",
-        "<b>Pinterest como conta de empresa</b>, com Rich Pins ativos.",
-        "<b>Instala o Google Analytics e o Meta Pixel.</b> Ainda não anuncias, mas o pixel precisa de meses a aprender.",
-        "<b>Configura o sales tax</b> no WooCommerce. Ao início só recolhes no teu estado de nexus.",
+    story += phase("MESES 1 E 2", "Provar que o produto é bom",
+                   "OBJETIVO: AS PRIMEIRAS 10 VENDAS · PUBLICIDADE: ZERO", [
+        "<b>Encomendar amostras</b> de cada produto para nós próprios e fotografá-las em casa, com luz de janela. As fotos do Printful são genéricas e não emocionam ninguém.",
+        "<b>Vender a família e amigos.</b> Não é batota — são as primeiras 10 avaliações e as primeiras fotos de clientes reais.",
+        "<b>Abrir TikTok e Instagram</b> e publicar todos os dias. Não é para vender: é para mostrar como se faz.",
+        "<b>Abrir Pinterest</b> como conta de empresa.",
+        "<b>Instalar o Google Analytics</b> para sabermos quantas pessoas visitam e o que fazem.",
     ])
 
-    story += phase("MÊS 3–5", "Motor de conteúdo orgânico",
-                   "OBJETIVO: 50 VENDAS · CONVERSÃO >1,5% · ANÚNCIOS: ~$40/MÊS", [
-        "<b>TikTok e Reels, 5x/semana.</b> Um formato acima de todos: a reação de quem recebe o presente.",
-        "<b>Pinterest, 3 pins/dia.</b> Os americanos pesquisam presentes lá com meses de antecedência.",
-        "<b>Semeia com micro-influencers.</b> Contas de casais com 5–30 mil seguidores. Pagas em produto, sem cachê.",
-        "<b>Começa a lista de email</b> com 10% de desconto na primeira compra.",
-        "<b>Carrinho abandonado:</b> três emails automáticos. A única automação que se paga sozinha.",
-        "<b>Pede avaliação</b> por email 10 dias após a entrega, com foto.",
+    story += phase("MESES 3 A 5", "Fazer conteúdo que traga visitas sozinho",
+                   "OBJETIVO: 50 VENDAS · PUBLICIDADE: ~$40/MÊS", [
+        "<b>Vídeos 5 vezes por semana</b> no TikTok e Instagram. O formato que funciona acima de todos: a cara de quem recebe o presente.",
+        "<b>Pinterest, 3 publicações por dia.</b> As pessoas procuram presentes lá com meses de antecedência, e uma boa imagem traz visitas durante anos.",
+        "<b>Oferecer produtos a criadores pequenos</b> (5 a 30 mil seguidores) em troca de um vídeo. Pagamos em produto, não em dinheiro.",
+        "<b>Começar a lista de emails</b> com 10% de desconto na primeira compra.",
+        "<b>Email automático de carrinho abandonado</b> — quem põe no carrinho e não compra recebe um lembrete. É a única automação que se paga sozinha.",
+        "<b>Pedir avaliação</b> por email 10 dias depois da entrega.",
     ])
 
-    story += phase("MÊS 6–8", "Subir o valor por encomenda",
-                   "OBJETIVO: AOV DE $39 PARA $55 · ANÚNCIOS: ~$180/MÊS", [
-        "<b>Bundles.</b> 'Cobertor + caneca a condizer' com 10% de desconto. É a alavanca nº1 nos EUA.",
-        "<b>Embrulho de oferta a $5.90.</b> Custa cêntimos, é margem quase pura, reforça a promessa da marca.",
-        "<b>Retargeting</b> a quem visitou e não comprou. O teu primeiro e melhor dólar de publicidade.",
-        "<b>Só agora testa anúncios frios</b>, e só se a conversão passou 1,5% <i>e</i> o AOV passou $50. $5/dia, lookalike dos compradores. Mata o que passe $9 de CAC.",
+    story += phase("MESES 6 A 8", "Fazer cada cliente gastar mais",
+                   "OBJETIVO: SUBIR A COMPRA MÉDIA · PUBLICIDADE: ~$180/MÊS", [
+        "<b>Conjuntos.</b> 'Quadro + caneca a condizer' com 10% de desconto. Vender dois artigos à mesma pessoa custa-nos muito menos do que arranjar outro cliente.",
+        "<b>Embrulho de oferta por $5.90.</b> Custa-nos cêntimos e reforça exatamente o que a marca promete.",
+        "<b>Primeira publicidade a sério:</b> anúncios só a quem já visitou a loja.",
+        "<b>Só agora</b> testar anúncios a pessoas novas, e apenas se a loja já converter bem.",
     ])
 
-    story += phase("MÊS 9–12", "Escalar o que já funciona",
-                   "OBJETIVO: RENTABILIDADE SUSTENTADA · ANÚNCIOS: 30% DA MARGEM", [
-        "<b>Sobe os anúncios 20% por semana</b>, nunca mais. Saltos maiores reiniciam a aprendizagem do algoritmo.",
-        "<b>SEO começa a pagar.</b> Os artigos do mês 3 posicionam-se agora. Tráfego orgânico tem CAC zero.",
-        "<b>Programa de afiliados</b> com fotógrafos de casamento e wedding planners americanos.",
-        "<b>Expande para o Canadá</b> — os mesmos fornecedores US enviam para lá, sem tradução de criativos.",
+    story += phase("MESES 9 A 12", "Aumentar o que já está a resultar",
+                   "OBJETIVO: LUCRO CONSTANTE · PUBLICIDADE: 30% DO LUCRO", [
+        "<b>Subir o investimento em publicidade 20% por semana</b>, nunca mais do que isso.",
+        "<b>O Google começa a trazer visitas</b> sem pagarmos nada, fruto do trabalho dos meses anteriores.",
+        "<b>Parcerias com fotógrafos de casamento</b> — falam exatamente com o nosso cliente, e só pagamos quando há venda.",
     ])
 
-    # ── 5. Canais ──
-    story.append(P("Canais, por ordem de retorno", "h2"))
-    story.append(P("Com orçamento inicial baixo, a ordem importa mais do que a execução.", "dek"))
+    # ── 5. Dinheiro ──
+    story.append(P("Quanto vamos gastar", "h2"))
+    story.append(P("Quase tudo o que se gasta sai do lucro das vendas anteriores, não do bolso.", "dek"))
+
+    story.append(titled("CUSTOS FIXOS DA LOJA", table(
+        ["O quê", "Quanto"],
+        [
+            ["Alojamento do site", "$4/mês"],
+            ["Domínio ourmoment.shop", "$1/mês"],
+            ["Email da marca", "$1/mês"],
+            ["Printful, WooCommerce, Complianz", "grátis"],
+            ["<b>Total</b>", "<b>$6/mês</b>"],
+        ],
+        ["LEFT", "RIGHT"], [70, 30])))
+    story.append(P("Com $6 por mês, basta <b>uma venda</b> para cobrir os custos da loja. "
+                   "Todo o resto do lucro fica disponível para crescer.", "body"))
+
+    story.append(titled("PUBLICIDADE, MÊS A MÊS", table(
+        ["Meses", "Em quê", "Por mês", "Acumulado"],
+        [
+            ["1-2", "Nada. Só conteúdo e amostras.", "$0", "$0"],
+            ["3-5", "Produtos oferecidos a criadores", "$40", "$120"],
+            ["6-8", "Anúncios a quem já nos visitou", "$180", "$660"],
+            ["9-12", "Aumentar o que resulta", "$250-400", "$1.660-2.260"],
+        ],
+        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [12, 52, 18, 22])))
+    story.append(note("<b>A regra dos 30%.</b> A partir do momento em que há vendas, gastamos 30% "
+                      "do lucro em marketing e guardamos os outros 70%. Nunca se gasta dinheiro "
+                      "que a loja ainda não ganhou."))
+
+    # ── 6. Calendario ──
+    story.append(P("As datas que decidem o ano", "h2"))
+    story.append(P("Presentes para casais vende-se por picos. Metade do ano joga-se em "
+                   "seis semanas.", "dek"))
     story.append(table(
-        ["Canal", "Custo", "Retorno", "Porquê para ti"],
+        ["Quando", "O quê", "Quando começar a preparar"],
         [
-            ["TikTok / Reels", "Grátis", "Alto, lento", "O produto tem um momento de reação filmável"],
-            ["Pinterest", "Grátis", "Alto, composto", "É um motor de busca. Planeiam presentes lá."],
-            ["Email", "Grátis até 250", "Muito alto", "Carrinho abandonado. Tu és dono da lista."],
-            ["Retargeting", "$3–5/dia", "Alto", "Conversão 8–12%. O único pago que dá lucro cedo."],
-            ["Seeding a influencers", "$8–18/peça", "Médio, variável", "Pagas em produto. Gera conteúdo reutilizável."],
-            ["SEO", "Grátis", "Alto, muito lento", "6 meses até dar fruto. Planta agora."],
-            ["Anúncios frios", "$10+/dia", "Negativo, ao início", "Só com conversão >1,5% e AOV >$50"],
+            ["14 de fevereiro", "Dia dos Namorados", "5 de janeiro"],
+            ["Maio e junho", "Dia da Mãe e do Pai", "abril"],
+            ["Maio a outubro", "Época de casamentos", "março"],
+            ["Fim de novembro", "Black Friday", "outubro"],
+            ["<b>Dezembro</b>", "<b>Natal</b>", "<b>outubro</b>"],
         ],
-        ["LEFT", "LEFT", "LEFT", "LEFT"], [32, 24, 28, 62]))
+        ["LEFT", "LEFT", "LEFT"], [26, 40, 34]))
+    story.append(note("<b>A data-limite de encomenda é sagrada.</b> Entre produzir e entregar vão "
+                      "6 a 13 dias úteis. Um presente de Natal que chega a 27 de dezembro não é "
+                      "um atraso — é uma devolução, uma avaliação de uma estrela, e um cliente "
+                      "que nunca mais volta. A partir de 1 de dezembro, a data-limite tem de "
+                      "estar no topo do site."))
 
-    # ── 6. Calendário ──
-    story.append(P("O calendário manda mais do que tu", "h2"))
-    story.append(P("Presentes para casais é um negócio de picos. Metade do ano decide-se em seis semanas.", "dek"))
+    # ── 7. KPIs ──
+    story.append(P("Como saber se está a resultar", "h2"))
+    story.append(P("Cinco números. Se estes forem bem, está tudo bem.", "dek"))
     story.append(table(
-        ["Quando", "Ocasião", "Preparar"],
+        ["O quê", "Onde queremos chegar", "Porque importa"],
         [
-            ["1 Jan", "Resoluções, 'new year together'", "Conteúdo de retrospetiva do ano"],
-            ["14 Fev", "Valentine's Day", "Começa a 5 Jan. Fecha encomendas ~2 Fev."],
-            ["Mai / Jun", "Mother's &amp; Father's Day", "Ângulo de família, não só de casal"],
-            ["Mai–Out", "Wedding season (EUA)", "Afiliados com fotógrafos e wedding planners"],
-            ["Fim Nov", "Black Friday / Cyber Monday", "Desconta bundles, nunca produtos isolados"],
-            ["Dez", "Natal", "Até 40% do ano. Prazo de encomenda ~12 Dez."],
+            ["Quantos visitantes compram", "mais de 1,5 em 100", "Abaixo disto, publicidade dá prejuízo"],
+            ["Quanto gasta cada cliente", "$55 por compra", "Quanto mais alto, mais podemos investir"],
+            ["Custo de trazer um cliente", "menos de $9", "Tem de ficar abaixo do lucro por venda"],
+            ["Avaliações", "mais de 30", "Com avaliações, vende-se para o dobro"],
+            ["Lista de emails", "500 pessoas", "Vender a quem já comprou é quase de graça"],
         ],
-        ["LEFT", "LEFT", "LEFT"], [24, 52, 70]))
-    story.append(note("<b>O prazo de encomenda é sagrado.</b> Produção mais entrega doméstica nos EUA são "
-                      "4 a 8 dias úteis. Um presente que chega a 27 de dezembro não é um atraso — é uma "
-                      "devolução, uma avaliação de uma estrela, e um cliente que nunca mais volta."))
+        ["LEFT", "LEFT", "LEFT"], [32, 26, 42]))
+    story.append(note("<b>A coisa mais barata que podemos fazer não é publicidade.</b> Se de cada "
+                      "100 visitantes passarem a comprar 2 em vez de 1, vendemos o dobro sem "
+                      "gastar um cêntimo. Antes de pagar mais visitas, vale sempre mais a pena "
+                      "melhorar a loja: fotos reais, avaliações à vista, prazo de entrega claro."))
 
-    # ── 7. Custos ──
-    story.append(P("Quanto vais pagar", "h2"))
-    story.append(P("Tudo em dólares por mês, salvo indicação.", "dek"))
-    story.append(titled("CUSTOS FIXOS, A PARTIR DO PRIMEIRO DIA", table(
-        ["Item", "Plano", "$/mês"],
-        [
-            ["Alojamento", "EasyWP", "4.00"],
-            ["Domínio", "~$12/ano", "1.00"],
-            ["Email profissional", "Zoho Mail, 1 utilizador", "1.00"],
-            ["Printify", "Free — paga-se por venda", "0.00"],
-            ["WooCommerce, Yoast, Complianz", "Gratuitos", "0.00"],
-            ["Stripe", "2,9% + $0.30 por venda", "0.00"],
-            ["<b>Total fixo</b>", "", "<b>$6.00</b>"],
-        ],
-        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30])))
-
-    story.append(titled("INVESTIMENTO INICIAL, UMA SÓ VEZ", table(
-        ["Item", "Notas", "$"],
-        [
-            ["Amostras dos produtos", "Uma de cada, do fornecedor US. Inegociável.", "80–120"],
-            ["Registo + sales tax permit", "LLC opcional; permit no teu estado", "50–300"],
-            ["Fotografia", "Telemóvel e luz de janela", "0"],
-            ["<b>Total de arranque</b>", "", "<b>$130–420</b>"],
-        ],
-        ["LEFT", "LEFT", "RIGHT"], [50, 66, 30])))
-
-    # ── 8. Orçamento ──
-    story.append(P("O orçamento de marketing, mês a mês", "h2"))
-    story.append(P("Cada dólar sai da margem que a venda anterior gerou.", "dek"))
-    story.append(table(
-        ["Mês", "Onde vai o dinheiro", "$/mês", "Acumulado"],
-        [
-            ["1–2", "Nada em ads. Orgânico e amostras.", "0", "0"],
-            ["3–5", "Seeding: 2 produtos/mês a influencers", "40", "120"],
-            ["6–8", "Retargeting a $5/dia + seeding", "180", "660"],
-            ["9–12", "Escala retargeting + lookalike, se CAC < $9", "250–400", "1,660–2,260"],
-            ["<b>Ano 1</b>", "", "", "<b>$1,650–2,250</b>"],
-        ],
-        ["LEFT", "LEFT", "RIGHT", "RIGHT"], [18, 76, 26, 26]))
-    story.append(note("<b>A regra dos 30%.</b> A partir do momento em que vendes, reinveste 30% da margem em "
-                      "marketing e guarda o resto. Nunca gastes dinheiro que a loja ainda não ganhou. "
-                      "Um negócio POD não tem stock parado — a única forma de ires à falência é comprares "
-                      "tráfego mais caro do que o que ele te devolve."))
-
-    # ── 9. KPIs ──
-    story.append(P("Quando é seguro acelerar", "h2"))
-    story.append(P("Não avances por sentires que está na altura. Avança quando estes números o disserem.", "dek"))
-    story.append(table(
-        ["Métrica", "Agora", "Meta", "Porquê importa"],
-        [
-            ["Taxa de conversão", "—", ">1,5%", "Abaixo disto, os anúncios frios dão prejuízo"],
-            ["Encomenda média", "$39", "$55", "A alavanca nº1 nos EUA"],
-            ["CAC", "$0", "<$9", "Teto absoluto: $14.59"],
-            ["Avaliações", "0", "30+", "A conversão duplica entre 0 e 30"],
-            ["Lista de email", "0", "500", "Deve valer 25% da receita"],
-            ["Compras repetidas", "—", ">15%", "Aniversários repetem-se todos os anos"],
-        ],
-        ["LEFT", "RIGHT", "RIGHT", "LEFT"], [34, 18, 18, 76]))
-    story.append(note("<b>A alavanca mais barata não é o marketing.</b> Subir a conversão de 1% para 2% duplica "
-                      "as vendas sem gastares um cêntimo. Antes de pagares por mais tráfego, arranca mais valor "
-                      "do que já tens: fotos reais, avaliações visíveis, prazo claro, checkout curto e um "
-                      "bundle que sobe o AOV."))
-
-    # ── 10. Amanhã ──
-    story.append(P("O que fazer amanhã de manhã", "h2"))
+    # ── 8. Amanha ──
+    story.append(P("O que fazer a seguir", "h2"))
+    story.append(P("Por esta ordem, e nada mais até estarem feitas.", "dek"))
     story.append(bullets([
-        "<b>Encomenda as amostras</b> ao fornecedor Printify US — começa pelo cobertor e pelo quadro. Não podes vender o que nunca tiveste na mão.",
-        "<b>Abre TikTok e Pinterest em inglês</b> e publica o primeiro vídeo do desembrulhar. Ninguém vai ver. Publica na mesma.",
-        "<b>Vende à primeira pessoa que conheces</b> e pede uma avaliação com foto. Vale mais que os primeiros $100 de anúncios.",
+        "<b>Corrigir os preços</b> na loja, com a tabela deste plano. Neste momento perdemos dinheiro em cada venda.",
+        "<b>Apagar os produtos repetidos</b> e os que não são para casais. Ficar com dez, um de cada.",
+        "<b>Encomendar as amostras</b> e fotografá-las. Não se vende o que nunca se teve na mão.",
+        "<b>Abrir TikTok e Pinterest</b> e publicar o primeiro vídeo. Ninguém vai ver. Publicar na mesma.",
+        "<b>Vender à primeira pessoa que conhecemos</b> e pedir uma avaliação com foto.",
     ]))
+
+    # ── 9. Dicionario ──
+    story.append(P("Dicionário", "h2"))
+    story.append(P("Os termos que aparecem neste plano e em qualquer conversa sobre "
+                   "marketing, em português simples.", "dek"))
+    story.append(table(
+        ["Termo", "O que quer dizer"],
+        [
+            ["Margem", "O que sobra de uma venda depois de pagar tudo. É o dinheiro real."],
+            ["CAC", "Quanto custa trazer um cliente. Se for maior que a margem, perdemos dinheiro."],
+            ["Taxa de conversão", "De cada 100 visitantes, quantos compram. Uma loja normal fica nos 1 a 3."],
+            ["AOV", "Quanto gasta em média cada cliente numa compra."],
+            ["Print-on-demand", "Só se imprime depois de alguém comprar. Não temos stock nem dinheiro parado."],
+            ["Retargeting", "Mostrar anúncios a quem já visitou a loja. Muito mais barato que anunciar a estranhos."],
+            ["SEO", "Aparecer no Google sem pagar. Demora meses, mas depois é de graça."],
+            ["Carrinho abandonado", "Quem põe no carrinho e não compra. Um email costuma recuperar parte."],
+            ["Seeding", "Oferecer produto a criadores em troca de um vídeo. Paga-se em produto, não em dinheiro."],
+            ["CPC", "Quanto custa cada clique num anúncio."],
+        ],
+        ["LEFT", "LEFT"], [24, 76]))
 
     story.append(Spacer(1, 10))
     story.append(HRFlowable(width="100%", thickness=0.5, color=RULE, spaceAfter=6))
-    story.append(P("Números com Stripe US a 2,9% + $0.30, sem IVA (sales tax cobrado à parte), fornecedores "
-                   "Printify US e portes domésticos. Custos de produção e portes são estimativas — confirma-os "
-                   "no Printify antes de fixar preços. Não é aconselhamento financeiro nem fiscal.", "foot"))
+    story.append(P("Custos de produção reais do Printful. Stripe a 2,9% + $0.30. IVA a 23% "
+                   "incluído nos preços em euros; vendas para fora da União Europeia são "
+                   "isentas. Prazos de entrega por confirmar com a primeira encomenda de "
+                   "amostra. Não é aconselhamento financeiro nem fiscal.", "foot"))
 
     # ── Render ──
     doc = BaseDocTemplate(
         "marketing-plan-us.pdf", pagesize=A4,
         leftMargin=22 * mm, rightMargin=22 * mm, topMargin=18 * mm, bottomMargin=16 * mm,
-        title="Plano de Marketing EUA — OurMoment", author="OurMoment",
+        title="Plano de Marketing — OurMoment", author="OurMoment",
     )
     frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id="main")
 
@@ -439,7 +450,7 @@ def build():
         canvas.setFont(SANS, 7)
         canvas.setFillColor(FAINT)
         canvas.drawCentredString(A4[0] / 2, 9 * mm,
-                                 f"OurMoment · Plano de Marketing EUA · {d.page}")
+                                 f"OurMoment · Plano de Marketing · {d.page}")
         canvas.restoreState()
 
     doc.addPageTemplates([PageTemplate(id="main", frames=[frame], onPage=footer)])
