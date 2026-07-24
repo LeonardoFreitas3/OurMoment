@@ -67,6 +67,22 @@ no assistente.
 
 O CSS do tema já estiliza o banner com as cores da marca.
 
+## IVA — regime normal
+
+A entidade está no **regime normal de IVA**, o que tem três consequências
+para a loja:
+
+- **Portugal:** IVA a 23% incluído no preço.
+- **Resto da UE:** enquanto o total de vendas transfronteiriças B2C na UE
+  ficar abaixo de **10 000 €/ano**, cobra-se IVA português. Acima disso, passa
+  a ser o IVA do país de destino e é preciso registo no **OSS**.
+- **Estados Unidos:** são exportações, **isentas de IVA**. O preço mostrado a
+  um cliente americano não deve conter IVA.
+
+Isto tem de estar refletido em **WooCommerce → Settings → Tax**, com uma taxa
+zero para os EUA. Sem isso, ou cobras IVA a quem não o deve pagar, ou entregas
+IVA que não cobraste.
+
 ## Antes de lançar
 
 1. Abrir atividade / registar entidade

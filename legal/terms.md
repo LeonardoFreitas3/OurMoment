@@ -47,10 +47,12 @@ your delivery region, shown at checkout before you pay. If a price is listed
 incorrectly through an obvious error, we may cancel the order and refund you
 rather than honour it.
 
-> **Europe.** Prices include VAT where applicable.
+> **Europe.** Prices include VAT at the rate of your country of delivery. Your
+> invoice shows the VAT amount separately.
 >
-> **United States.** Prices exclude sales tax, which is added at checkout where
-> we are required to collect it.
+> **United States.** Orders shipped outside the European Union are exports and
+> carry no EU VAT. Prices exclude any US sales tax, which is added at checkout
+> in states where we are required to collect it.
 
 Where your order ships from outside your own customs territory, import duties
 or taxes may apply on arrival and are your responsibility. We ship from
