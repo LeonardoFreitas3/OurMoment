@@ -11,18 +11,16 @@ $om_show_cta   = $args['show_cta']   ?? true;
 
     <?php
     /**
-     * A framed piece with a sample couple's names under it — the product as a
-     * customer would receive it.
-     *
-     * The brand mark stands in for the photo. The drawing it replaces was a
-     * heart on a long stem that read as a balloon, which sold nothing.
+     * The same framed mark the Contact page shows, so the two story pages
+     * open on the same image.
      */
     ?>
-    <div class="om-frame om-about-frame om-fade">
-      <?php ourmoment_logo('om-about-frame-logo'); ?>
-      <div class="om-frame-label">
-        <span>Emily &amp; Jack</span>
-        <small>07.08.2024</small>
+    <div class="om-contact-frame om-fade">
+      <div class="om-banner-frame om-banner-frame--lg" aria-hidden="true">
+        <div class="om-banner-frame-mat">
+          <?php ourmoment_logo('om-banner-frame-logo'); ?>
+        </div>
+        <span class="om-banner-frame-hook"></span>
       </div>
     </div>
 

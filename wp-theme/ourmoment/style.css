@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.43.0
+Version: 1.44.0
 Text Domain: ourmoment
 */
 
@@ -326,37 +326,6 @@ button[type="submit"]:hover,
   }
 }
 
-/* ── Framed artwork (About section) ── */
-.om-frame {
-  background: var(--bg-card);
-  box-shadow: var(--shadow-lg);
-  border: 6px solid var(--frame-wood);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 1rem;
-}
-.om-frame svg { flex-shrink: 0; }
-.om-frame-label {
-  margin-top: auto;
-  text-align: center;
-  padding-bottom: .5rem;
-}
-.om-frame-label span {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(.65rem, 1.1vw, .85rem);
-  letter-spacing: .1em;
-}
-.om-frame-label small {
-  font-size: .55rem;
-  letter-spacing: .18em;
-  color: var(--text-soft);
-  display: block;
-  margin-top: .15rem;
-}
-
 /* ── Section title ── */
 .om-section-title {
   font-family: var(--font-display) !important;
@@ -371,22 +340,6 @@ button[type="submit"]:hover,
 /* ── About ── single centred column */
 .om-about { padding: clamp(3.5rem, 7vw, 6rem) 0; }
 .om-about .om-container { text-align: center; }
-.om-about-frame {
-  width: min(300px, 78vw);
-  aspect-ratio: 3/4;
-  margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
-}
-.om-about-frame svg { width: 60%; height: auto; }
-/* Mark sits where the customer's photo would, with room left under it for
-   the names — the proportions of an actual framed print. */
-.om-about-frame-logo {
-  width: 46%;
-  max-width: 130px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: clamp(1rem, 4vw, 2rem) auto clamp(.8rem, 3vw, 1.4rem);
-}
 .om-about-text p {
   color: var(--text-soft);
   font-size: .85rem;
@@ -870,6 +823,14 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
   padding: clamp(3rem, 6vw, 5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
   background: var(--bg);
 }
+.om-page-banner-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  margin: 0 auto 1.2rem;
+  display: block;
+}
+
 /* ── Framed logo ──
    The logo hung in a picture frame: wooden edge, white mat, and a hook above
    it. Says what the shop sells in one glance, and matches the frame the
