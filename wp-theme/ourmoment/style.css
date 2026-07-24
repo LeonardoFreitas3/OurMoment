@@ -5,7 +5,7 @@ Description: Custom child theme for OurMoment — Meaningful Gifts for Couples
 Author: OurMoment
 Author URI: https://ourmoment.com
 Template: astra
-Version: 1.42.0
+Version: 1.43.0
 Text Domain: ourmoment
 */
 
@@ -377,6 +377,16 @@ button[type="submit"]:hover,
   margin: 0 auto clamp(1.8rem, 4vw, 2.6rem);
 }
 .om-about-frame svg { width: 60%; height: auto; }
+/* Mark sits where the customer's photo would, with room left under it for
+   the names — the proportions of an actual framed print. */
+.om-about-frame-logo {
+  width: 46%;
+  max-width: 130px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: clamp(1rem, 4vw, 2rem) auto clamp(.8rem, 3vw, 1.4rem);
+}
 .om-about-text p {
   color: var(--text-soft);
   font-size: .85rem;
@@ -389,19 +399,14 @@ button[type="submit"]:hover,
 /* ── Contact ── single centred column */
 .om-contact { padding: clamp(3.5rem, 7vw, 6rem) 0; }
 .om-contact .om-container { text-align: center; }
+/* Just a centring wrapper now — the frame itself is .om-banner-frame--lg
+   inside it, so the contact page and the page banners draw the same object
+   at two sizes rather than two frames built two different ways. */
 .om-contact-frame {
-  width: min(340px, 80vw);
-  aspect-ratio: 4/3;
-  border: 5px solid var(--frame-wood);
-  background: var(--bg-card);
-  box-shadow: var(--shadow);
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 1rem;
   margin: 0 auto clamp(1.8rem, 4vw, 2.4rem);
 }
-.om-contact-frame svg { width: 45%; height: auto; }
 .om-contact-intro {
   color: var(--text-soft);
   font-size: .84rem;
@@ -922,9 +927,24 @@ body.om-fullwidth .om-page > section:last-child { padding-bottom: clamp(3.5rem, 
 .om-banner-frame-hook::before { right: 2px; transform: skewX(32deg); }
 .om-banner-frame-hook::after  { left: 2px;  transform: skewX(-32deg); }
 
+/* Large variant, for the contact page where the frame is the page's only
+   image and can carry more weight. */
+.om-banner-frame--lg {
+  width: min(240px, 70vw);
+  padding: 11px;
+  margin: 0;
+}
+.om-banner-frame--lg .om-banner-frame-mat { padding: clamp(1.6rem, 5vw, 2.4rem); }
+.om-banner-frame--lg .om-banner-frame-logo { max-width: 96px; }
+.om-banner-frame--lg .om-banner-frame-hook { top: -13px; width: 6px; height: 6px; margin-left: -3px; }
+.om-banner-frame--lg .om-banner-frame-hook::before,
+.om-banner-frame--lg .om-banner-frame-hook::after { top: 5px; width: 20px; height: 13px; }
+
 @media (max-width: 560px) {
   .om-banner-frame { width: 78px; padding: 6px; }
   .om-banner-frame-mat { padding: 9px; }
+  .om-banner-frame--lg { width: min(200px, 68vw); padding: 9px; }
+  .om-banner-frame--lg .om-banner-frame-logo { max-width: 76px; }
 }
 .om-page-banner h1 {
   font-family: var(--font-display) !important;

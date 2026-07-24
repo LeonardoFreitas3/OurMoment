@@ -12,11 +12,21 @@ $om_show_title = $args['show_title'] ?? true;
       <h2 class="om-section-title om-fade">Contact</h2>
     <?php endif; ?>
 
+    <?php
+    /**
+     * The brand mark in a frame, matching the one in the page banner.
+     *
+     * Replaces a heart-and-stem line drawing that read as a balloon rather
+     * than a keepsake — and said nothing about what the shop makes.
+     */
+    ?>
     <div class="om-contact-frame om-fade">
-      <svg viewBox="0 0 200 240" fill="none">
-        <path d="M100 40 C85 25 62 22 52 38 C38 62 52 90 75 108 L100 130 L125 108 C148 90 162 62 148 38 C138 22 115 25 100 40Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
-        <path d="M80 115 C74 148 72 185 88 215 C94 226 100 230 100 230 C100 230 106 226 112 215 C128 185 126 148 120 115" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
-      </svg>
+      <div class="om-banner-frame om-banner-frame--lg" aria-hidden="true">
+        <div class="om-banner-frame-mat">
+          <?php ourmoment_logo('om-banner-frame-logo'); ?>
+        </div>
+        <span class="om-banner-frame-hook"></span>
+      </div>
     </div>
 
     <p class="om-contact-intro om-fade">

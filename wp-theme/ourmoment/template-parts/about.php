@@ -9,11 +9,17 @@ $om_show_cta   = $args['show_cta']   ?? true;
       <h2 class="om-section-title om-fade">Our Story</h2>
     <?php endif; ?>
 
+    <?php
+    /**
+     * A framed piece with a sample couple's names under it — the product as a
+     * customer would receive it.
+     *
+     * The brand mark stands in for the photo. The drawing it replaces was a
+     * heart on a long stem that read as a balloon, which sold nothing.
+     */
+    ?>
     <div class="om-frame om-about-frame om-fade">
-      <svg viewBox="0 0 200 240" fill="none">
-        <path d="M100 40 C85 25 62 22 52 38 C38 62 52 90 75 108 L100 130 L125 108 C148 90 162 62 148 38 C138 22 115 25 100 40Z" stroke="var(--text-soft)" stroke-width="1" fill="none"/>
-        <path d="M80 115 C74 148 72 185 88 215 C94 226 100 230 100 230 C100 230 106 226 112 215 C128 185 126 148 120 115" stroke="var(--text-soft)" stroke-width="1" fill="none" stroke-linecap="round"/>
-      </svg>
+      <?php ourmoment_logo('om-about-frame-logo'); ?>
       <div class="om-frame-label">
         <span>Emily &amp; Jack</span>
         <small>07.08.2024</small>
